@@ -2,9 +2,12 @@
 
 Portable, self-contained coding-agent skills. Install once, run on Claude Code, Codex, or Cursor.
 
-Ships one skill today: **`aif-code-review`** — an adversarial, axis-separated code review that
-runs Standards, Spec, and Adversarial passes in isolation and never merges or re-ranks their
-findings.
+Skills:
+- **`aif-code-review`** — adversarial, axis-separated code review that runs Standards, Spec, and
+  Adversarial passes in isolation and never merges or re-ranks their findings.
+- **`aif-recon`** — fast codebase reconnaissance: turn a task, diff, or question into a concise map
+  of relevant files, dependents, tests, and the governing spec. `aif-code-review` uses it for its
+  codebase + spec exploration when both are installed, and falls back to built-in scouting otherwise.
 
 ## Install (skills.sh)
 
@@ -44,6 +47,9 @@ Then run **`/aif:code-review`**. The plugin also registers the `@aif:code-review
 /aif:code-review --pending       # staged + unstaged
 /aif:code-review <ref>           # fixed-point diff <ref>...HEAD
 /aif:code-review codebase        # single-pass whole-codebase scan
+
+/aif:recon <task | files | question>   # map relevant files, dependents, tests
+/aif:recon <question> --spec           # also find the governing spec / PRD / issue
 ```
 
 Every review reports three separate axes — **Standards** (Fowler code smells + structure, logic,

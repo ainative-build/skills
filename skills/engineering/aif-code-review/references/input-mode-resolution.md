@@ -61,8 +61,12 @@ shows the scope (path or "whole tree") instead of a SHA range.
 
 ## Context pack
 
-After pinning, the orchestrator builds one shared context pack (using `git`, Glob, Grep, Read) and
-injects it into all three axes:
+After pinning, the orchestrator builds one shared context pack and injects it into all three axes.
+
+**Prefer the `aif-recon` skill if it is installed** — hand it the changed files (and `--spec` for
+spec-source discovery) and use its context report as the pack. If `aif-recon` is not present, build
+the pack inline with the built-in tools below (this keeps `aif-code-review` fully functional
+standalone). Either way the pack contains:
 
 - changed files: from the mode's review target — `git diff --name-only $BASE_SHA $HEAD_SHA` (committed modes), `git apply --stat "$PATCH_FILE"` (pending), or `git ls-files <scope>` (codebase)
 - likely dependents / callers of changed symbols (Grep for the changed function/type names)

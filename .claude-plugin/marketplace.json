@@ -9,7 +9,7 @@
     {
       "name": "aif",
       "source": "./",
-      "description": "aif-code-review: three-axis adversarial code review (Standards / Spec / Adversarial) with a plugin-registered code-reviewer agent."
+      "description": "aif-code-review (three-axis adversarial review) + aif-recon (codebase reconnaissance), with a plugin-registered code-reviewer agent."
     }
   ]
 }

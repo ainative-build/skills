@@ -50,6 +50,11 @@ Follow `references/input-mode-resolution.md`:
   the user in plain text),
 - build one shared context pack (changed files, dependents, tests, spec, standards docs).
 
+**Explorer:** if the `aif-recon` skill is installed, use it to do the codebase exploration AND the
+spec-source discovery — pass it the changed files plus `--spec`, and use its report as the context
+pack. Fall back to the inline built-in scouting when `aif-recon` isn't present, so this skill works
+standalone.
+
 Each axis re-runs the **pinned review-target command for the mode** itself — `git diff
 $BASE_SHA $HEAD_SHA` for committed modes, the snapshot patch for `--pending`, the tracked-file
 scope for `codebase`. **Never inline the diff/file text into the axis prompts** (it triples token

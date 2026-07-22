@@ -9,7 +9,8 @@ heading; never merge with or re-rank against the other axes.
 
 ## Spec-source discovery (done by the orchestrator, handed to this pass)
 
-The orchestrator resolves the spec source before dispatch, in this order, and passes the result in:
+The orchestrator resolves the spec source before dispatch (delegating to the `aif-recon` skill with
+`--spec` when it is installed, otherwise doing it inline), in this order, and passes the result in:
 
 1. Commit messages / PR description on the reviewed range — look for an issue reference (`#123`,
    `JIRA-45`, "closes …").
