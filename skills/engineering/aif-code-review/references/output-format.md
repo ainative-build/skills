@@ -18,6 +18,32 @@ without ever pooling or re-ranking findings across axes.
    finding. A wrong-feature change still gets its quality and security findings recorded.
 5. **Most-significant per axis.** Each axis names its single most-significant issue.
 
+## Every finding carries evidence + a verification tag
+
+Each finding, in every axis, is written as:
+
+```
+- [Critical|High|Medium|Low] file:line — <problem>
+  Evidence: <concrete trigger → observed/derivable wrong behavior>
+  Verify: [Verified] <command + result>   |   [Reasoned] <why, from the code>
+  Fix: <approach>
+```
+
+No finding without an `Evidence:` line. Prefer `[Verified]` (the reviewer ran a repro/test/grep and
+read the output) over `[Reasoned]`. Findings that are pure speculation — no runnable evidence and no
+sound file:line reasoning — are dropped, not softened.
+
+## Verdict & risk (overall roll-up — does NOT merge axes)
+
+After the three sections, add an overall verdict. It is a roll-up of severities, not a re-ranking of
+findings across axes (the axis sections stay intact and separate):
+
+- **Verdict:** `Request changes` if any axis has an accepted Critical or a blocking (Pass-1 /
+  spec-MISSING / accepted-adversarial) finding · `Comment` if only non-blocking findings ·
+  `Approve` if no findings survive.
+- **Risk:** Low / Medium / High — from blast radius × severity × how much is `[Reasoned]` vs
+  `[Verified]` (more unverified High/Critical ⇒ higher residual risk).
+
 ## Skeleton
 
 ```markdown
@@ -27,23 +53,28 @@ without ever pooling or re-ranking findings across axes.
 
 ## Scope
 Files: <n> · Lines: +<a>/-<b> (n/a in codebase mode) · Spec source: <path|none> · Dispatch: <parallel|sequential>
+PR (when #PR mode): title, stated scope vs actual diff (flag mismatch), CI status
 
 ## Standards
-<severity-bucketed findings, each: file:line — problem — fix approach>
+<severity-bucketed findings; each with Evidence + [Verified|Reasoned] + Fix. Includes anti-slop + edge cases.>
 Most significant: <one line>
 
 ## Spec
 <requirement checklist table>
-<MISSING/PARTIAL/EXTRA findings>
+<MISSING/PARTIAL/EXTRA findings, each with Evidence + [Verified|Reasoned]>
 Most significant: <one line>
 
 ## Adversarial
 <tally: N findings — A accepted / R rejected / D deferred>   (or: skipped (below threshold))
-<Accepted first, then Rejected, then Deferred>
+<Accepted first, then Rejected, then Deferred; each with Evidence + [Verified|Reasoned]>
 Most significant: <one line>
 
 ## Verification
-<commands the reviewer could run and their result — or an explicit "no verification command known">
+<every command actually run this review + its result. Count: X findings Verified / Y Reasoned.>
+
+## Verdict & risk
+Verdict: Approve | Comment | Request changes
+Risk: Low | Medium | High — <one-line rationale>
 ```
 
 ## Verification gate (applies to the aggregator, and to any follow-up "fixed" claim)

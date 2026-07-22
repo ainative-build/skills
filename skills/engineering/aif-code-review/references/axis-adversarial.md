@@ -44,6 +44,13 @@ reachable or exploitable.
   lockfile drift, transitive known-vulnerable packages.
 - **Observability blind spots** — swallowed errors, missing structured context, PII in logs.
 
+## Checklists to apply
+- `checklists/base.md` — the Pass-1 (blocking) security items are yours: injection, race
+  conditions, security boundaries, auth/IDOR. Apply `api.md` (rate-limit, mass-assignment, data
+  exposure) and `web-app.md` (XSS, CSRF, N+1) overlays when their detection triggers.
+- `edge-cases.md` — the failure-mode / partial-failure / concurrency edge cases are squarely
+  adversarial; enumerate and, where cheap, reproduce them.
+
 ## Verdicts
 
 Every finding gets exactly one verdict — no silent dismissals:

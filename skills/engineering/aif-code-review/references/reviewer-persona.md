@@ -50,3 +50,36 @@ Rank findings WITHIN an axis (never across axes):
 - **High** — wrong result on a realistic input, missing error handling, unsafe concurrency.
 - **Medium** — code smell, maintainability trap, missing validation with low blast radius.
 - **Low** — style, naming, minor optimization.
+
+## Evidence on EVERY finding (non-negotiable)
+
+No finding ships without evidence. Each finding carries:
+
+- **Evidence:** a concrete trigger → observed/derivable wrong behavior, at `file:line`. Not "this
+  looks unsafe" — instead "`id="0 OR 1=1"` returns all rows via the concatenated query at db.js:2".
+- A **verification tag**:
+  - `[Verified]` — you actually ran something (a repro, the covering test, a grep proving the
+    duplicate exists) and read the output. Include the command and its result.
+  - `[Reasoned]` — argued from reading the code, not executed (execution not feasible here).
+- **Prefer `[Verified]`.** You have `Bash` — for a crash/edge case, run the repro; for a "duplicate
+  already exists" claim, grep and cite it; for "test fails", run the test and paste the result.
+- A finding with neither runnable evidence nor sound file:line reasoning is **dropped**. No vibes,
+  no speculation presented as fact.
+
+## Edge cases
+
+Probe the edge cases of every changed function before signing off — see `edge-cases.md`. Verify the
+material ones.
+
+## Suppressions — do NOT flag
+
+Signal over volume. Never raise:
+
+- Style/formatting (that's a linter's job).
+- Redundancy that aids readability (e.g. a `present?` next to a length check).
+- "Consider using X instead of Y" when Y works fine.
+- Consistency-only churn (rewrapping a value to match another constant's style).
+- "Add a comment explaining this threshold" — thresholds change, comments rot.
+- Harmless no-ops; an assertion that's already adequate; anything ALREADY handled in the diff.
+
+Read the FULL diff before flagging — half the noise is commenting on something fixed two hunks down.

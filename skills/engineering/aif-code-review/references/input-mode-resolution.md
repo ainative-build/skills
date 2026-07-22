@@ -75,3 +75,38 @@ standalone). Either way the pack contains:
 - discovered standards docs (see `axis-standards.md`)
 
 Each axis may still do its own targeted Grep/Read — the pack is a shared starting point, not a cap.
+
+## PR-mode enrichment (`#PR`)
+
+For a PR, the orchestrator also gathers (read-only) and puts in the context pack:
+
+```
+gh pr view <ref> --json title,body,author,baseRefName,additions,deletions,changedFiles
+gh pr diff <ref> --name-only        # scope
+gh pr checks <ref>                   # CI status
+```
+
+- **Scope-vs-claim check** — compare the PR's stated intent (title/body) against the actual diff
+  size and files touched. A wide gap ("fix typo" with +800/−60, or files unrelated to the stated
+  purpose) is itself an anti-slop signal — surface it under Standards.
+- **CI status** goes in the `## Scope` line; failing checks raise the Risk level.
+
+## Overlay detection
+
+Before dispatch, detect which checklist overlays apply and tell the axes:
+
+- `api.md` — route dirs (`src/routes|api|controllers/`), an OpenAPI/GraphQL schema, or a web
+  framework with routes in the diff.
+- `web-app.md` — `package.json` has react/vue/svelte/next/etc., or `src/pages|app|components/` /
+  JSX·TSX·Vue files in the diff.
+
+`base.md` always applies.
+
+## Scaling: large diffs → parallel review
+
+The three axes always run (in parallel where subagents exist). For a **large or multi-area diff**
+(rough trigger: > ~10 changed files, or clearly independent areas like backend + frontend), also
+split the diff into disjoint file-groups and run the 3-axis review per group, then aggregate — so no
+single reviewer drowns in a 40-file diff. Use `aif-recon` (if present) to propose the group split.
+Keep groups disjoint; merge each group's three sections into the final three sections (still never
+cross-ranked). For a small diff, skip the split — one 3-axis pass is enough.

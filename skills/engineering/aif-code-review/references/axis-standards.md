@@ -42,6 +42,14 @@ Scan the added/modified code for these; name the smell and the `file:line`:
 11. Message Chains — `a.b().c().d()` coupling to a deep structure.
 12. Middle Man / Refused Bequest — needless delegation, or a subclass rejecting its inheritance.
 
+### Checklists to apply
+- `checklists/base.md` — the Pass-2 (non-blocking) quality/perf/test-gap/dead-code items are yours
+  (the Pass-1 security items belong to the Adversarial axis). Apply the `api.md` / `web-app.md`
+  overlays when their detection triggers.
+- `anti-ai-slop.md` — the anti-slop lens (structural = High, micro = Low/Medium). This is a
+  Standards concern; apply it, especially on AI-assisted diffs.
+- `edge-cases.md` — probe and verify edge cases of changed functions.
+
 ## Output
 
 Per the shared output format: a `## Standards` section with severity-bucketed findings

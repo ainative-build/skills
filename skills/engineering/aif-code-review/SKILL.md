@@ -4,7 +4,7 @@ description: "Adversarial, axis-separated code review. Runs three isolated passe
 license: MIT
 metadata:
   author: ainative-build
-  version: "1.0.0"
+  version: "1.2.0"
 argument-hint: "[#PR | <commit> | <ref> | --pending | codebase]"
 ---
 
@@ -17,9 +17,14 @@ are reported side by side and never blended together.
 claim.
 
 The three axes:
-- **Standards** — engineering conventions + Fowler code smells + structure/logic/types/performance.
+- **Standards** — conventions + Fowler smells + structure/logic/types/perf + anti-AI-slop + the
+  quality/perf checklist items + edge cases.
 - **Spec** — does the change implement what was actually requested, no less and no unrequested more.
-- **Adversarial** — assuming requirements are met, how can it still break or be exploited.
+- **Adversarial** — assuming requirements are met, how can it still break or be exploited (injection,
+  auth/IDOR, races, XSS/CSRF, failure modes) — driven by the security checklists.
+
+Every finding carries **evidence** and a **`[Verified]`/`[Reasoned]`** tag; the review ends with an
+overall **Verdict** (Approve / Comment / Request changes) and **Risk** level.
 
 A change can pass one axis and fail another (right feature, poor code; or clean code, wrong
 feature). Keeping the axes separate is what stops one from masking the other.
@@ -82,20 +87,38 @@ registers a named `aif:code-reviewer` agent for convenience.
 
 Cap each axis at ~500 words of findings so aggregation stays within budget.
 
+Each axis applies concrete depth, not just judgement:
+- **Checklists** — `references/checklists/base.md` always, plus `api.md` / `web-app.md` when the
+  orchestrator's overlay detection fires (Standards takes the quality/perf items, Adversarial takes
+  the security items).
+- **Anti-slop** — the Standards axis applies `references/anti-ai-slop.md` (structural = High, micro
+  = Low/Medium) — high-value on AI-assisted diffs.
+- **Edge cases** — every axis probes and, where cheap, reproduces the edge cases in
+  `references/edge-cases.md`.
+
 The Adversarial axis honors its scope gate (skip on trivial, non-sensitive diffs — see
 `axis-adversarial.md`).
+
+**Large or multi-area diffs** also fan out across disjoint file-groups (each group gets the 3-axis
+pass) so no reviewer drowns in a 40-file diff — see `input-mode-resolution.md` → Scaling.
 
 ### 5. Aggregate
 
 Follow `references/output-format.md` exactly. Three headings always; severity ranks within an axis
 only; overlaps annotated not merged; a Spec hard-fail marks the other axes "provisional" but keeps
-their findings; each axis names its single most-significant issue.
+their findings; each axis names its single most-significant issue. Finish with an overall **Verdict**
+(Approve / Comment / Request changes) and **Risk** level — a roll-up that does NOT re-rank findings
+across axes.
 
-### 6. Verification gate
+### 6. Evidence & verification gate
 
-Do not report that anything "passes", "is fixed", or "is safe to merge" without running the proving
-command in this turn and reading its output. If no verification command is known for the project,
-say so explicitly instead of implying success. See `references/output-format.md` → Verification gate.
+**Every finding carries evidence** — a concrete `file:line` trigger → wrong behavior — and a tag:
+`[Verified]` (a repro/test/grep was actually run, with command + output) or `[Reasoned]` (argued
+from the code). Prefer `[Verified]`; the reviewer has `Bash`. Speculation with neither is dropped.
+
+Beyond per-finding evidence, never write that anything "passes", "is fixed", or "is safe to merge"
+without running the proving command in this turn and reading its output. If no verification command
+is known, say so explicitly. See `references/output-format.md`.
 
 ## Input modes (v1)
 
@@ -118,9 +141,12 @@ edits code; it reviews and reports.
 
 ## References
 
-- `references/reviewer-persona.md` — the shared reviewer identity + behavioral checklist.
-- `references/axis-standards.md` — Standards axis brief (Fowler smells + quality).
-- `references/axis-spec.md` — Spec axis brief (spec discovery + compliance).
-- `references/axis-adversarial.md` — Adversarial axis brief (red-team + verdicts).
-- `references/input-mode-resolution.md` — mode detection, SHA pinning, context pack.
-- `references/output-format.md` — aggregation rules + verification gate.
+- `references/reviewer-persona.md` — shared reviewer identity, evidence rule, suppressions.
+- `references/axis-standards.md` — Standards axis (Fowler smells + quality + anti-slop + edge cases).
+- `references/axis-spec.md` — Spec axis (spec discovery + compliance).
+- `references/axis-adversarial.md` — Adversarial axis (red-team + verdicts + security checklists).
+- `references/anti-ai-slop.md` — anti-AI-slop taxonomy (Standards lens).
+- `references/edge-cases.md` — edge-case probing + verification, all axes.
+- `references/checklists/base.md` `api.md` `web-app.md` — detection-based concrete checklists.
+- `references/input-mode-resolution.md` — mode detection, SHA pinning, context pack, PR enrichment, overlay detection, large-diff scaling.
+- `references/output-format.md` — aggregation, per-finding evidence, verdict/risk, verification gate.
