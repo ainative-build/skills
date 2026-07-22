@@ -1,0 +1,15 @@
+{
+  "name": "ainative-build",
+  "owner": { "name": "ainative-build" },
+  "metadata": {
+    "description": "Portable, self-contained coding-agent skills from ainative-build.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "aif",
+      "source": "./",
+      "description": "aif-code-review: three-axis adversarial code review (Standards / Spec / Adversarial) with a plugin-registered code-reviewer agent."
+    }
+  ]
+}
