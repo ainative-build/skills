@@ -171,7 +171,8 @@ touched, hand it off instead of scope-creeping into it:
    this review — never from fresh analysis of your own. Inventing a depth verdict here would be an
    unisolated fourth axis in disguise, which is worse than none.
 2. **Emission threshold.** Emit a pointer only when ≥2 structural Standards findings cluster in one
-   module, OR one diff-added module failed a `[Verified]` deletion test. No pointer from a hunch.
+   module, OR one diff-added module failed the deletion test with a `[Verified]` caller count behind
+   it. No pointer from a hunch.
 3. **Cap at 3 one-liners.** Each references the `file:line`-bearing findings that motivated it. No
    severity, no recommendation-strength badge, no cards — that is `aif-improve`'s output, not review's.
 4. **Zero coupling to Verdict/Risk.** The roll-up does not read this section; a pointer never gates.

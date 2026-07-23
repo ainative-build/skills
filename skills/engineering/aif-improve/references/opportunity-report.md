@@ -7,8 +7,8 @@ markdown.
 
 Rank each candidate by how confident the evidence makes you — not by how big the refactor is:
 
-- **Backed** — the deletion test is `[Verified]` (you counted the callers / ran the test) and the
-  payoff is concrete. Do this.
+- **Backed** — the caller count behind the deletion test is `[Verified]` (you ran the count/test),
+  the depth verdict it supports is soundly `[Reasoned]`, and the payoff is concrete. Do this.
 - **Worth a look** — the friction is real but the best shape is genuinely open, or the payoff
   depends on a judgment call. Bring it to the design conversation.
 - **Speculative** — a hunch worth naming, not yet backed. Say so plainly; don't dress it up.
@@ -26,8 +26,8 @@ Modules: `path/a.ts`, `path/b.ts`
 
 **Deletion test** — <inline it mentally: nothing got harder → shallow decoration, candidate stands |
 each caller inherits the hard part → deep, drop the candidate>.
-[Verified] caller count `grep -rc "callSite(" src | …` → 14 callers each re-deriving the guard; depth
-verdict [Reasoned] from what each would rebuild.
+[Verified] `grep -rc "callSite(" src | …` → 14 call sites. [Reasoned] each re-derives the guard, so
+one deep module would remove 14 copies.
 (or [Reasoned] <why, from the code> + <why a count wasn't feasible>)
 
 **Deepening** — <plain English: the deeper module, the narrow interface, the seam it creates>.
