@@ -47,9 +47,10 @@ Middle Man (pass-through wrapper), Duplicated Code, or a helper extracted only f
 don't just assert it — run the deletion test. Paste the wrapper/helper into its call sites in your
 head and `grep -c` the callers: if nothing gets harder (the callers barely change), it's genuine
 decoration and the smell stands; if each of the N callers inherits a copy of the hard part, the module
-is doing real work — leave it. A caller count turns a `[Reasoned]` smell into a `[Verified]` one. Keep
-this scoped to code the diff touches; a whole-repo depth audit belongs to `aif-improve`, not a diff
-review.
+is doing real work — leave it. The `grep -c` gives you a `[Verified]` caller count; the
+shallow-vs-doing-real-work call is still `[Reasoned]` from what each caller would have to rebuild — cite
+the count as evidence, don't mistake it for the conclusion. Keep this scoped to code the diff touches; a
+whole-repo depth audit belongs to `aif-improve`, not a diff review.
 
 ### Checklists to apply
 - `checklists/base.md` — the Pass-2 (non-blocking) quality/perf/test-gap/dead-code items are yours

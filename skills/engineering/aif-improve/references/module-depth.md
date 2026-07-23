@@ -38,8 +38,9 @@ every place that calls it:
   one place, which is the whole point. Leave it alone.
 
 Do it for real when you can: list the call sites, count them, and ask what each one would have to
-rebuild. A counted `grep -c` is `[Verified]`; an argument from reading the code is `[Reasoned]`;
-prefer the count.
+rebuild. The `grep -c` count is `[Verified]` evidence; the shallow-vs-deep verdict it feeds is
+`[Reasoned]` until you actually show the duplicated work — report the count as support, not as the
+conclusion.
 
 ## Principles that rank candidates
 

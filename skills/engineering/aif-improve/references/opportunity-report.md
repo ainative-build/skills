@@ -24,8 +24,10 @@ Modules: `path/a.ts`, `path/b.ts`
 
 **Friction** — <what's shallow / leaky / scattered now, with concrete `file:line` evidence>.
 
-**Deletion test** — <inline it mentally: does complexity concentrate or scatter?>.
-[Verified] `grep -rc "callSite(" src | …` → 14 callers each re-deriving the guard
+**Deletion test** — <inline it mentally: nothing got harder → shallow decoration, candidate stands |
+each caller inherits the hard part → deep, drop the candidate>.
+[Verified] caller count `grep -rc "callSite(" src | …` → 14 callers each re-deriving the guard; depth
+verdict [Reasoned] from what each would rebuild.
 (or [Reasoned] <why, from the code> + <why a count wasn't feasible>)
 
 **Deepening** — <plain English: the deeper module, the narrow interface, the seam it creates>.

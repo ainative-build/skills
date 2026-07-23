@@ -8,8 +8,9 @@ design the fix with the user).
 Recognize these; each is a candidate shape, not a mandate.
 
 1. **Pass-through wrapper → inline or deepen.** A module that only forwards to another, adding a
-   rename or a trivial default. Deletion test says complexity vanishes. Either delete it, or give it
-   a real job (validation, defaulting, error translation) so the interface earns its keep.
+   rename or a trivial default. Inlining it leaves the callers barely changed — the wrapper is
+   shallow. Either delete it, or give it a real job (validation, defaulting, error translation) so the
+   interface earns its keep.
 
 2. **Scattered policy → one deep module.** The same guard / null-check / formatting / retry logic
    copy-pasted across N call sites. Concentrate it behind one narrow interface; the callers shrink to
