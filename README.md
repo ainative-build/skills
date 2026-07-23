@@ -44,21 +44,25 @@ Then run **`/aif:code-review`**. The plugin also registers the `@aif:code-review
 ## Usage
 
 ```
-/aif:code-review                 # recent changes
-/aif:code-review #123            # a GitHub PR
-/aif:code-review abc1234         # a specific commit
-/aif:code-review --pending       # staged + unstaged
-/aif:code-review <ref>           # fixed-point diff <ref>...HEAD
-/aif:code-review codebase        # single-pass whole-codebase scan
+/aif-code-review                 # recent changes
+/aif-code-review #123            # a GitHub PR
+/aif-code-review abc1234         # a specific commit
+/aif-code-review --pending       # staged + unstaged
+/aif-code-review <ref>           # fixed-point diff <ref>...HEAD
+/aif-code-review codebase        # single-pass whole-codebase scan
 
-/aif:recon <task | files | question>   # map relevant files, dependents, tests
-/aif:recon <question> --spec           # also find the governing spec / PRD / issue
+/aif-recon <task | files | question>   # map relevant files, dependents, tests
+/aif-recon <question> --spec           # also find the governing spec / PRD / issue
 
-/aif:improve                     # scan the whole repo for deepening opportunities
-/aif:improve src/payments/       # a scoped path or area
-/aif:improve "the auth flow"     # an area named in prose
-/aif:improve … --html            # also emit the before/after visual report
+/aif-improve                     # scan the whole repo for deepening opportunities
+/aif-improve src/payments/       # a scoped path or area
+/aif-improve "the auth flow"     # an area named in prose
+/aif-improve … --html            # also emit the before/after visual report
 ```
+
+These are the skills.sh trigger names (skill invoked directly, e.g. `/aif-code-review`). Installed as
+the Claude Code **plugin** instead, the same commands are namespaced with a colon —
+`/aif:code-review`, `/aif:recon`, `/aif:improve`.
 
 Every review reports three separate axes — **Standards** (Fowler code smells + structure, logic,
 types, performance), **Spec** (does it match the originating issue/PRD), and **Adversarial**
