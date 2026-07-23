@@ -169,7 +169,7 @@ touched, hand it off instead of scope-creeping into it:
 
 1. **Derived, never discovered.** A pointer may come *only* from Standards findings already emitted
    this review — never from fresh analysis of your own. Inventing a depth verdict here would be an
-   unisolated fourth axis in disguise, which is worse than none.
+   unisolated fourth axis in disguise.
 2. **Emission threshold.** Emit a pointer only when ≥2 structural Standards findings cluster in one
    module, OR one diff-added module failed the deletion test with a `[Verified]` caller count behind
    it. No pointer from a hunch.

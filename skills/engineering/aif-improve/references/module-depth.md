@@ -1,7 +1,7 @@
 # Module depth — the working vocabulary
 
-Precision matters here: a candidate described in drifting words is a candidate that gets misread.
-Don't reach for "component", "service", "layer", or "boundary" when one of the terms below is meant.
+Use the terms below consistently — a candidate described in drifting words gets misread. Don't reach
+for "component", "service", "layer", or "boundary" when one of the terms below is meant.
 The underlying idea — that the strongest modules hide a lot of behavior behind a little interface — is
 John Ousterhout's *deep module* from *A Philosophy of Software Design*. The definitions, tests, and
 ranking rules below are this skill's working restatement of that idea for review purposes.

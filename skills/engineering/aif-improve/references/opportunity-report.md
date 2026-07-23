@@ -28,7 +28,8 @@ Modules: `path/a.ts`, `path/b.ts`
 each caller inherits the hard part → deep, drop the candidate>.
 [Verified] `grep -rc "callSite(" src | …` → 14 call sites. [Reasoned] each re-derives the guard, so
 one deep module would remove 14 copies.
-(or [Reasoned] <why, from the code> + <why a count wasn't feasible>)
+(or [Reasoned] <why, from the code> + <why a count wasn't feasible> — Reasoned-only evidence caps the
+badge at Worth a look)
 
 **Deepening** — <plain English: the deeper module, the narrow interface, the seam it creates>.
 
