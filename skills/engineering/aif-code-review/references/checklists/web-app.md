@@ -12,7 +12,8 @@
 - Server-rendered user content without HTML-entity encoding.
 
 ### CSRF
-- State-changing endpoint (POST/PUT/DELETE) without CSRF-token verification.
+- State-changing endpoint (POST/PUT/DELETE) using **cookie/session auth** without CSRF-token
+  verification. (Bearer/`Authorization`-header-only APIs are not CSRF-exposed — do not flag them.)
 - Cookie-based auth without `SameSite`.
 
 ### N+1 (server-rendered views)

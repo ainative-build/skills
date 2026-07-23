@@ -55,13 +55,20 @@ reachable or exploitable.
 
 Every finding gets exactly one verdict — no silent dismissals:
 
-- **Accept** — valid, reproducible or clearly reasoned. Must be fixed before merge.
+- **Accept** — valid AND carries blocking-grade evidence (below). Must be fixed before merge.
 - **Reject** — false positive / already handled / impossible path. State why.
-- **Defer** — valid but low risk; track it (e.g. an issue) rather than block.
+- **Defer** — valid but either low risk OR not yet proven to blocking grade; track it (e.g. an
+  issue) rather than block. This is where an *unverified hunch* goes.
 
-Benefit of the doubt goes to the attacker: when unsure, prefer Accept over Reject. If more than half
-your findings end up Rejected, you were too aggressive — still report them all, but lead with the
-Accepted ones.
+**Blocking-grade evidence (required for Accept, since Accept forces "Request changes").** A finding
+may Accept only if it is `[Verified]` (you ran a repro/PoC and read the output), or `[Reasoned]`
+with BOTH (a) a concrete, reachable trigger named at `file:line` and (b) one line on why execution
+wasn't feasible. A plausible narrative with neither is **Defer**, not Accept — do not let an
+unproven story block a merge.
+
+Benefit of the doubt still goes to the attacker on *whether to investigate*: chase every lead hard,
+try to reproduce. But the bar to **block** is proof, not suspicion. If more than half your findings
+end up Rejected, you were too aggressive — still report them all, but lead with the Accepted ones.
 
 ## Output
 

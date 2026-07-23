@@ -8,9 +8,9 @@ not rank against the other axes' findings.
 
 ## Inputs (from the context pack)
 
-- The pinned review target for the mode, fetched by command inside this pass: `git diff
-  $BASE_SHA $HEAD_SHA` (committed modes), the snapshot patch `$PATCH_FILE` (pending), or the
-  `git ls-files` scope (codebase — review whole files, there is no diff).
+- The pinned review target — run the command from the **Review Target block** verbatim (literal
+  `git diff <BASE> <HEAD>` for committed modes, the snapshot patch for pending/PR, or the
+  `git ls-files` scope for codebase — review whole files, there is no diff). Never re-derive the SHAs.
 - Any project standards docs discovered by the orchestrator (`.editorconfig`, `docs/code-standards`,
   linter configs, `CONTRIBUTING`, existing nearby modules).
 

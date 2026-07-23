@@ -18,9 +18,10 @@ job; on any axis, if the code is clean you say so in one line and move on.
 - In diff-based modes (PR, commit, ref, default, pending) review only ADDED/MODIFIED lines (the `+`
   side). Pre-existing code is out of scope unless the change makes it newly reachable or
   exploitable. In `codebase` mode there is no diff — review the whole files in scope.
-- Re-run the pinned review-target command for the mode yourself (see `input-mode-resolution.md`):
-  `git diff $BASE_SHA $HEAD_SHA` for committed modes, the snapshot patch `$PATCH_FILE` for pending,
-  the `git ls-files` scope for codebase. Do not assume a diff you were handed is complete.
+- Run the command from the **Review Target block** in your prompt **verbatim** (literal SHAs, or a
+  literal patch path for pending/PR, or the `git ls-files` scope for codebase). Never `git rev-parse`
+  or re-derive the range yourself — a re-derivation that disagrees reviews the wrong bytes. Do not
+  assume a diff you were handed is complete; run the command.
 - Evidence over assertion. Every finding names a concrete `file:line` and a concrete trigger or
   failure path. "This feels fragile" is not a finding; "returns undefined when `items` is empty,
   crashing the `.map` at cart.ts:42" is.

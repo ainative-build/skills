@@ -1,6 +1,6 @@
 {
   "name": "aif",
-  "version": "1.0.0",
+  "version": "1.2.1",
   "description": "Adversarial, axis-separated code review: Standards, Spec, and Adversarial passes run in isolation and are never merged or re-ranked.",
   "author": { "name": "ainative-build" },
   "license": "MIT",

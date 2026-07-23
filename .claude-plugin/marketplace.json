@@ -3,7 +3,7 @@
   "owner": { "name": "ainative-build" },
   "metadata": {
     "description": "Portable, self-contained coding-agent skills from ainative-build.",
-    "version": "1.0.0"
+    "version": "1.2.1"
   },
   "plugins": [
     {

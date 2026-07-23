@@ -4,7 +4,7 @@ description: "Adversarial, axis-separated code review. Runs three isolated passe
 license: MIT
 metadata:
   author: ainative-build
-  version: "1.2.0"
+  version: "1.2.1"
 argument-hint: "[#PR | <commit> | <ref> | --pending | codebase]"
 ---
 
@@ -60,9 +60,10 @@ spec-source discovery — pass it the changed files plus `--spec`, and use its r
 pack. Fall back to the inline built-in scouting when `aif-recon` isn't present, so this skill works
 standalone.
 
-Each axis re-runs the **pinned review-target command for the mode** itself — `git diff
-$BASE_SHA $HEAD_SHA` for committed modes, the snapshot patch for `--pending`, the tracked-file
-scope for `codebase`. **Never inline the diff/file text into the axis prompts** (it triples token
+Record the pinned target in the **Review Target block** (see `input-mode-resolution.md`) with
+**literal** SHAs / patch path — never a `$VAR`, which does not survive into a fresh subagent shell.
+Paste that block verbatim into every axis prompt; each axis runs its command itself and **never
+re-derives the range**. **Never inline the diff/file text into the axis prompts** (it triples token
 cost and can desync).
 
 ### 4. Dispatch the three axes
@@ -85,7 +86,9 @@ registers a named `aif:code-reviewer` agent for convenience.
   starting the next; do not let an earlier axis's findings bleed into a later one. The output is
   identical: three separate sections.
 
-Cap each axis at ~500 words of findings so aggregation stays within budget.
+Cap each axis at ~500 words of findings *prose* so aggregation stays within budget — the cap
+excludes each finding's `Evidence:`/`Verify:` lines and any table. Never drop evidence to hit a word
+count; the evidence is the point.
 
 Each axis applies concrete depth, not just judgement:
 - **Checklists** — `references/checklists/base.md` always, plus `api.md` / `web-app.md` when the
@@ -136,8 +139,13 @@ Full-codebase *parallel* multi-reviewer audit is intentionally out of v1 (planne
 ## Tools used
 
 Built-ins only — the skill is self-contained and assumes no other skill or plugin: `git`, `Glob`,
-`Grep`, `Read`, `Bash`, and (where available) the `Task` tool for parallel axis dispatch. It never
-edits code; it reviews and reports.
+`Grep`, `Read`, `Bash`, and (where available) the parallel-subagent tool for axis dispatch (the
+`Task`/`Agent` tool on Claude Code). It never edits code; it reviews and reports.
+
+**Runtime mapping.** Tool names above are Claude Code's; on Codex/Cursor, map them to that runtime's
+own search / file-read / shell / subagent equivalents — the capability is what matters, not the name.
+The one non-built-in is `gh`, used only by PR mode (with a graceful "ask for a ref" fallback when it
+is absent).
 
 ## References
 

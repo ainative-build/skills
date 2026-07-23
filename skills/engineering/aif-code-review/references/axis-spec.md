@@ -26,7 +26,9 @@ message / PR title) and says so.
 
 - **Every requirement present.** List each acceptance criterion / requirement from the spec, then
   mark it against the actual diff: PASS (implemented), MISSING (required but absent), or PARTIAL
-  (implemented but incomplete / edge cases unhandled).
+  (implemented but incomplete / edge cases unhandled). **Always evaluate against the WHOLE diff** —
+  even when Standards/Adversarial fan out over file-groups, the Spec axis runs a single pass over the
+  full change. A per-group Spec pass would mark another group's requirements MISSING; never do that.
 - **No unrequested scope.** Flag additions that aren't in the spec as EXTRA — they may be
   justified, but they must be surfaced, not waved through. Silent scope creep is a Spec finding.
 - **Behavior matches intent, not just presence.** A requirement can be "present" in code yet wrong:

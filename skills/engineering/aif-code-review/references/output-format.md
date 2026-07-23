@@ -38,11 +38,20 @@ sound file:line reasoning — are dropped, not softened.
 After the three sections, add an overall verdict. It is a roll-up of severities, not a re-ranking of
 findings across axes (the axis sections stay intact and separate):
 
-- **Verdict:** `Request changes` if any axis has an accepted Critical or a blocking (Pass-1 /
-  spec-MISSING / accepted-adversarial) finding · `Comment` if only non-blocking findings ·
-  `Approve` if no findings survive.
+- **Verdict:** `Request changes` if any of: an accepted Critical · a Pass-1 security finding · a
+  spec-MISSING · an accepted Adversarial finding · **a `[Verified]` High wrong-result-on-realistic-
+  input** (any axis — a proven wrong answer blocks regardless of which axis caught it). `Comment` if
+  only non-blocking findings survive. `Approve` if none survive.
+- **Approve qualifier.** If no verification command was available for this project (no test/build/
+  repro could be run), you may not write a bare `Approve` — write `Approve (unverified — no test or
+  build command available)`. A clean review with zero executed checks is not the same as a proven
+  pass.
 - **Risk:** Low / Medium / High — from blast radius × severity × how much is `[Reasoned]` vs
   `[Verified]` (more unverified High/Critical ⇒ higher residual risk).
+
+**Evidence-tag audit (aggregator).** Before finalizing, sanity-check the tags: if a finding is tagged
+`[Verified]` but its worker showed no command + output, downgrade it to `[Reasoned]`. A `[Verified]`
+tag is a claim that something was run; unbacked claims get corrected, not trusted.
 
 ## Skeleton
 

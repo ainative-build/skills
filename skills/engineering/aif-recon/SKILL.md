@@ -91,6 +91,14 @@ Keep it tight — this is fuel for the next step, not an essay.
 ## Spec / governing docs        (when --spec or asked)
 - `path/to/spec` — the requirement it defines   (or: none found)
 
+## Standards docs               (when asked, e.g. by a reviewer)
+- `.editorconfig` / `docs/code-standards*` / linter config / `CONTRIBUTING` — the convention it sets   (or: none found)
+
+## Suggested review groups      (large/multi-area targets only)
+- group A: `src/api/`, `src/db/` — backend
+- group B: `src/components/` — frontend
+  (disjoint file-groups a reviewer can fan out over; omit for a small target)
+
 ## Notes & unresolved questions
 - gaps, ambiguities, things the caller should confirm
 ```
