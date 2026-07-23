@@ -4,7 +4,7 @@ description: "Adversarial, axis-separated code review. Runs three isolated passe
 license: MIT
 metadata:
   author: ainative-build
-  version: "1.2.1"
+  version: "1.2.4"
 argument-hint: "[#PR | <commit> | <ref> | --pending | codebase]"
 ---
 
@@ -86,9 +86,12 @@ registers a named `aif:code-reviewer` agent for convenience.
   starting the next; do not let an earlier axis's findings bleed into a later one. The output is
   identical: three separate sections.
 
-Cap each axis at ~500 words of findings *prose* so aggregation stays within budget — the cap
-excludes each finding's `Evidence:`/`Verify:` lines and any table. Never drop evidence to hit a word
-count; the evidence is the point.
+Write findings for a human, per `references/output-format.md` → Finding format: Critical/High get a
+full titled block (headline → `file:line` → plain-language description → **Evidence** table/line →
+**Root cause** → **Why it matters** → **Fix**); Medium/Low are batched one-liners. Cap each axis at
+~500 words of findings *prose* so aggregation stays within budget — the cap excludes evidence tables
+and the Root-cause/Verify command lines. Never drop evidence to hit a word count; the evidence is the
+point.
 
 Each axis applies concrete depth, not just judgement:
 - **Checklists** — `references/checklists/base.md` always, plus `api.md` / `web-app.md` when the
@@ -112,6 +115,16 @@ only; overlaps annotated not merged; a Spec hard-fail marks the other axes "prov
 their findings; each axis names its single most-significant issue. Finish with an overall **Verdict**
 (Approve / Comment / Request changes) and **Risk** level — a roll-up that does NOT re-rank findings
 across axes.
+
+Then build **Open questions** from every `> Conditional:` line the axes raised: close the ones a
+command can settle (grep the caller, read the config) and fold the answer back into the finding;
+surface only the residue that needs product intent or production knowledge, each tied to the finding
+it moves and how each answer moves it. A review must name the context it lacked, not assert past it.
+
+Optionally close with **Deepening pointers** — a non-blocking footer that hands repo-scope refactoring
+off to `aif-improve`. Derive it *only* from Standards findings already emitted (never fresh analysis),
+cap it at 3 one-liners, and keep it out of the Verdict/Risk roll-up. See `output-format.md` → Building
+Deepening pointers.
 
 ### 6. Evidence & verification gate
 

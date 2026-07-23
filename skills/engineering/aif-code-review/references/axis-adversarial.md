@@ -72,7 +72,9 @@ end up Rejected, you were too aggressive — still report them all, but lead wit
 
 ## Output
 
-Per the shared output format: an `## Adversarial` section with a one-line tally (N findings: A
-accepted / R rejected / D deferred), the Accepted findings first (severity, category, `file:line`,
-attack, impact, fix approach, verdict-reason), then Rejected and Deferred, then the single
-most-significant Adversarial issue. If skipped by the scope gate, say so in one line.
+Per the shared output format (`output-format.md` → Finding format): an `## Adversarial` section with
+a one-line tally (N findings: A accepted / R rejected / D deferred). Write each **Accepted** finding
+as a full titled block — headline, `file:line`, the attack in plain language, an **Evidence** line
+(the PoC/payload → observed effect), **Root cause**, **Why it matters** (blast radius), and **Fix** —
+because Accepted blocks the merge. Keep **Rejected** and **Deferred** to one line each plus the reason.
+Call out the single most-significant Adversarial issue. If skipped by the scope gate, say so in one line.

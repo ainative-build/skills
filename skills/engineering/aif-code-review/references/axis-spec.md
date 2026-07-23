@@ -36,9 +36,10 @@ message / PR title) and says so.
 
 ## Output
 
-Per the shared output format: a `## Spec` section containing the requirement checklist table
-(`# | Requirement | PASS/MISSING/PARTIAL/EXTRA | evidence`), severity-bucketed findings for the
-MISSING/PARTIAL/EXTRA rows, and the single most-significant Spec issue.
+Per the shared output format (`output-format.md` → Finding format): a `## Spec` section containing
+the requirement checklist table (`# | Requirement | PASS/MISSING/PARTIAL/EXTRA | evidence`). Write
+each MISSING/PARTIAL row that blocks as a full titled block (description → Evidence → Why it matters →
+Fix); keep EXTRA / minor rows to one line. Call out the single most-significant Spec issue.
 
 If the Spec axis finds a hard failure (a required behavior MISSING), the aggregator marks the other
 axes' findings "provisional pending spec fix" — but keeps them; it does not discard or block them.

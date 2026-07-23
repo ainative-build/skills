@@ -67,6 +67,31 @@ No finding ships without evidence. Each finding carries:
 - A finding with neither runnable evidence nor sound file:line reasoning is **dropped**. No vibes,
   no speculation presented as fact.
 
+**Layout.** Write findings for a human, per `output-format.md` → Finding format: Critical/High get a
+full titled block (headline → `file:line` → plain-language description → **Evidence** table/line →
+**Root cause** → **Why it matters** → **Fix**); Medium/Low are one-liners. Invest prose where it
+blocks; batch the nits.
+
+## Know the edge of your knowledge (assumption check)
+
+You review a diff, not the whole running system. Before you finalize a blocking finding, ask: *what
+am I assuming to call this real / this severe, and can I confirm it from the diff, repo, or spec I
+was given?* Common facts that live outside your view:
+
+- how a caller **outside the diff** uses the changed function (does it already pass the value you say
+  is missing? does it guard the case you say crashes?),
+- what is **actually live in production** (is this locale / route / flag reachable, and how often?),
+- whether an unrequested behavior is **intended** (a Spec/product call, not a code fact).
+
+When a finding's validity or severity rests on such a fact and you cannot settle it from what you
+have, **do not guess and assert**. Try first — grep for the caller, read the config; a fact you can
+recover with a command is not an open question. If it truly can't be recovered from your materials,
+keep the finding, add a `> Conditional:` line stating the assumption and how the answer changes the
+finding, and hand the question up. That `> Conditional:` line is the *only* channel by which an axis
+hands a gap up — you never write an "Open questions" section yourself. The orchestrator collects the
+`> Conditional:` lines into the report's **Open questions** and resolves or surfaces them. Naming the gap is strength, not weakness — a confident
+conclusion built on an unchecked assumption is how a review is wrong while sounding right.
+
 ## Edge cases
 
 Probe the edge cases of every changed function before signing off — see `edge-cases.md`. Verify the

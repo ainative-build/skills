@@ -42,6 +42,14 @@ Scan the added/modified code for these; name the smell and the `file:line`:
 11. Message Chains — `a.b().c().d()` coupling to a deep structure.
 12. Middle Man / Refused Bequest — needless delegation, or a subclass rejecting its inheritance.
 
+**Verify a structural smell with the deletion test.** When the diff *introduces or extends* a
+Middle Man (pass-through wrapper), Duplicated Code, or a helper extracted only for testability,
+don't just assert it — run the deletion test. Mentally delete the wrapper/helper and inline it at
+every call site: `grep -c` the callers, then say whether the complexity would **concentrate** (it
+earns its interface — leave it) or **scatter across N callers** (a pass-through — the smell is
+real). A caller count turns a `[Reasoned]` smell into a `[Verified]` one. Keep this scoped to code
+the diff touches; a whole-repo depth audit belongs to `aif-improve`, not to a diff review.
+
 ### Checklists to apply
 - `checklists/base.md` — the Pass-2 (non-blocking) quality/perf/test-gap/dead-code items are yours
   (the Pass-1 security items belong to the Adversarial axis). Apply the `api.md` / `web-app.md`
@@ -52,6 +60,8 @@ Scan the added/modified code for these; name the smell and the `file:line`:
 
 ## Output
 
-Per the shared output format: a `## Standards` section with severity-bucketed findings
-(each `file:line` + one-line problem + fix approach), and the single most-significant Standards
-issue called out. If clean: "No Standards findings." One line, done.
+Per the shared output format (`output-format.md` → Finding format): a `## Standards` section.
+Write each Critical/High as a full titled block — headline, `file:line`, a plain-language
+description, an **Evidence** table or line, **Root cause**, **Why it matters**, and **Fix**. Batch
+Medium/Low as one-liners. Call out the single most-significant Standards issue. If clean: "No
+Standards findings." One line, done.
