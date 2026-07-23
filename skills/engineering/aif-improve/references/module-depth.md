@@ -1,67 +1,69 @@
 # Module depth — the working vocabulary
 
-Use these words precisely — a candidate that drifts vocabulary is a candidate that gets misread. Don't
-substitute "component", "service", "layer", or "boundary" when one of these is meant. The lens comes
-from Ousterhout's *A Philosophy of Software Design* (deep modules); the phrasing here is this skill's
-own.
+Precision matters here: a candidate described in drifting words is a candidate that gets misread.
+Don't reach for "component", "service", "layer", or "boundary" when one of the terms below is meant.
+The underlying idea — that the strongest modules hide a lot of behavior behind a little interface — is
+John Ousterhout's *deep module* from *A Philosophy of Software Design*. The definitions, tests, and
+ranking rules below are this skill's working restatement of that idea for review purposes.
 
 ## Terms
 
-- **Module** — anything with an interface and an implementation: a function, a class, a package, a
-  vertical slice. Size-agnostic.
-- **Interface** — *everything a caller must know to use the module correctly*: the type signature,
-  yes, but also its invariants, error modes, ordering requirements, side effects, and configuration.
-  The signature is the small part; the obligations are the rest.
-- **Implementation** — the code behind the interface.
-- **Depth** — how much behavior sits behind how small an interface.
-  - **Deep** — a lot of behavior, a narrow interface. High leverage; the caller says what it wants
-    and the module carries the weight.
-  - **Shallow** — the interface is nearly as wide as the implementation. It hides almost nothing, so
-    the caller has to understand it all anyway. A pass-through with extra steps.
-- **Seam** — the place an interface lives; where behavior can be swapped without editing callers in
-  place. (Use "seam", not "boundary".)
-- **Adapter** — a concrete thing that satisfies an interface at a seam.
-- **Leverage** — what *callers* get from depth: they express intent in one line and the module does
-  the hard part.
-- **Locality** — what *maintainers* get from depth: the change, the bug, and the knowledge all
-  concentrate in one place instead of smearing across the callers.
+- **Module** — anything with an interface and an implementation behind it: a function, a class, a
+  package, a vertical slice. The idea is scale-free.
+- **Interface** — the full set of things a caller must hold in their head to use the module correctly.
+  The signature is the visible tip; the invariants, ordering rules, error modes, side effects, and
+  configuration are the rest of it, and they count just as much.
+- **Implementation** — whatever runs behind that interface.
+- **Depth** — the ratio of behavior hidden to interface exposed.
+  - **Deep** — much behind little. The caller states intent and the module absorbs the difficulty.
+  - **Shallow** — the interface is about as wide as the code behind it, so it conceals almost nothing
+    and the caller ends up owning the detail anyway.
+- **Seam** — where an interface sits: the point at which you can swap one implementation for another
+  without rewriting the callers. (Say "seam", not "boundary".)
+- **Adapter** — a concrete implementation that plugs into a seam.
+- **Leverage** — the caller's reward for depth: intent goes in, difficulty is handled, in one call.
+- **Locality** — the maintainer's reward for depth: a change, a fix, or a fact to learn stays inside
+  one module instead of being spread thin across every caller.
 
 ## The deletion test
 
-The fastest way to tell deep from shallow. Imagine deleting the module and inlining it at every call
-site:
+The quickest way to separate deep from shallow. Picture removing the module and pasting its body into
+every place that calls it:
 
-- **Complexity vanishes** → it was a **pass-through** (shallow). It added an interface without hiding
-  anything. Candidate to remove or to deepen so it actually earns the interface.
-- **Complexity reappears, duplicated across N callers** → it was **earning its keep** (deep). Leave
-  it; it's concentrating complexity, which is the job.
+- If the callers barely notice — nothing got harder — the module was **decoration** (shallow). It
+  charged an interface and hid nothing. Remove it, or give it real work so the interface pays for
+  itself.
+- If each caller suddenly has to carry its own copy of the hard part — the difficulty comes back,
+  multiplied by the call count — the module was **doing its job** (deep). It was holding complexity in
+  one place, which is the whole point. Leave it alone.
 
-Run it for real where you can: grep the call sites, count them, look at what each would have to
-reconstruct. `[Verified]` beats `[Reasoned]` — a caller count is one `grep -c` away.
+Do it for real when you can: list the call sites, count them, and ask what each one would have to
+rebuild. A counted `grep -c` is `[Verified]`; an argument from reading the code is `[Reasoned]`;
+prefer the count.
 
 ## Principles that rank candidates
 
-- **The interface is the test surface.** Prefer deepening a module so it can be tested *through* its
-  interface over extracting pure helpers just to test them directly. A helper pulled out only for
-  testability often leaves the real bug in *how it's called* — and loses locality.
-- **One adapter is a hypothetical seam; two adapters is a real one.** Don't propose a seam (an
-  interface, an injection point, a strategy) for a single implementation. Add the seam when a second
-  adapter actually exists or is imminent — otherwise it's speculative depth that costs indirection
-  now for flexibility you may never use (YAGNI).
-- **Deep beats many-shallow.** If understanding one concept means bouncing between five tiny modules,
-  the fix is usually to consolidate them into one deep module, not to add a sixth.
-- **Coupling leaks are shallowness in disguise.** Two modules that reach across each other's seam
-  (shared mutable state, order-of-call assumptions, knowledge of each other's internals) don't have a
-  real seam yet. Deepening means giving them one narrow, honest interface.
+- **Reach behavior through the interface; don't carve out helpers to test in isolation.** Deepening a
+  module so its behavior is exercisable from the outside beats prying a pure function loose just to
+  unit-test it — that move usually strands the real defect in the calling code and scatters what used
+  to live in one place.
+- **Hold off on a seam until a second implementation exists.** A seam with one thing plugged into it is
+  a bet on the future; it earns its indirection only once a second adapter is actually present or
+  clearly imminent. Before that, it costs indirection now for flexibility you may never spend (YAGNI).
+- **One deep module beats a scatter of tiny ones.** When grasping a single idea means hopping through
+  five little modules, merge them into one — don't add a sixth.
+- **A coupling leak is shallowness in disguise.** When two modules share mutable state, depend on each
+  other's call order, or reach into each other's internals, the seam between them isn't real yet.
+  Deepening them means giving them one honest, narrow interface.
 
 ## What is NOT a deepening opportunity
 
-Signal over volume — don't propose:
+Signal over volume — leave these alone:
 
-- Renames, formatting, or style (a linter's job).
-- Splitting a module that is already deep just because it's long.
-- Adding a seam "for future flexibility" with a single adapter (speculative).
-- Re-litigating a decision recorded in `docs/adr/` unless the friction genuinely warrants reopening
-  it — and then say so, don't sneak it in.
-- Extraction that trades locality for a testable-in-isolation helper the callers now have to
-  orchestrate themselves.
+- Renames, formatting, style — a linter's job.
+- A long module that is already deep. Length is not the enemy; shallowness is.
+- A seam proposed for a single adapter "in case we need it later" — a bet, not a need.
+- A decision already recorded in `docs/adr/`, unless the friction genuinely justifies reopening it —
+  and if so, say that out loud rather than quietly routing around it.
+- Prying out a testable-in-isolation helper that leaves its callers to choreograph what the module
+  used to handle.

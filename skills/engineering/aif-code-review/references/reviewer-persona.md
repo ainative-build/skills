@@ -89,7 +89,7 @@ recover with a command is not an open question. If it truly can't be recovered f
 keep the finding, add a `> Conditional:` line stating the assumption and how the answer changes the
 finding, and hand the question up. That `> Conditional:` line is the *only* channel by which an axis
 hands a gap up — you never write an "Open questions" section yourself. The orchestrator collects the
-`> Conditional:` lines into the report's **Open questions** and resolves or surfaces them. Naming the gap is strength, not weakness — a confident
+`> Conditional:` lines into the report's **Open questions** and resolves or surfaces them. A confident
 conclusion built on an unchecked assumption is how a review is wrong while sounding right.
 
 ## Edge cases

@@ -44,11 +44,12 @@ Scan the added/modified code for these; name the smell and the `file:line`:
 
 **Verify a structural smell with the deletion test.** When the diff *introduces or extends* a
 Middle Man (pass-through wrapper), Duplicated Code, or a helper extracted only for testability,
-don't just assert it — run the deletion test. Mentally delete the wrapper/helper and inline it at
-every call site: `grep -c` the callers, then say whether the complexity would **concentrate** (it
-earns its interface — leave it) or **scatter across N callers** (a pass-through — the smell is
-real). A caller count turns a `[Reasoned]` smell into a `[Verified]` one. Keep this scoped to code
-the diff touches; a whole-repo depth audit belongs to `aif-improve`, not to a diff review.
+don't just assert it — run the deletion test. Paste the wrapper/helper into its call sites in your
+head and `grep -c` the callers: if nothing gets harder (the callers barely change), it's genuine
+decoration and the smell stands; if each of the N callers inherits a copy of the hard part, the module
+is doing real work — leave it. A caller count turns a `[Reasoned]` smell into a `[Verified]` one. Keep
+this scoped to code the diff touches; a whole-repo depth audit belongs to `aif-improve`, not a diff
+review.
 
 ### Checklists to apply
 - `checklists/base.md` — the Pass-2 (non-blocking) quality/perf/test-gap/dead-code items are yours

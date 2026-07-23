@@ -14,9 +14,11 @@ its workflow against `$ARGUMENTS`:
    `aif-recon` skill if installed, else inline Glob/Grep + read), noting friction and applying the
    deletion test using `${CLAUDE_PLUGIN_ROOT}/skills/engineering/aif-improve/references/module-depth.md`.
 2. Present — evidence-backed candidate cards ranked by recommendation strength, per
-   `references/opportunity-report.md`; emit the `--html` visual report to the temp dir when asked.
-   Ask the user which candidate to pursue. Do NOT design interfaces yet.
+   `${CLAUDE_PLUGIN_ROOT}/skills/engineering/aif-improve/references/opportunity-report.md`; emit the
+   `--html` visual report to the temp dir when asked. Ask the user which candidate to pursue. Do NOT
+   design interfaces yet.
 3. Deepen — only after the user picks one, design the interface with them per
-   `references/deepening-patterns.md`, implement it, and verify through the new interface.
+   `${CLAUDE_PLUGIN_ROOT}/skills/engineering/aif-improve/references/deepening-patterns.md`, implement
+   it, and verify through the new interface.
 
 Read-only in steps 1–2; edits code in step 3 only, after the user chooses.

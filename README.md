@@ -8,6 +8,9 @@ Skills:
 - **`aif-recon`** — fast codebase reconnaissance: turn a task, diff, or question into a concise map
   of relevant files, dependents, tests, and the governing spec. `aif-code-review` uses it for its
   codebase + spec exploration when both are installed, and falls back to built-in scouting otherwise.
+- **`aif-improve`** — architectural deepening finder: scans existing code for shallow modules,
+  coupling, and missing seams, and reports evidence-ranked candidates using the deletion test. It is
+  read-only until you pick a candidate; only then does it design and implement the change with you.
 
 ## Install (skills.sh)
 
@@ -50,6 +53,11 @@ Then run **`/aif:code-review`**. The plugin also registers the `@aif:code-review
 
 /aif:recon <task | files | question>   # map relevant files, dependents, tests
 /aif:recon <question> --spec           # also find the governing spec / PRD / issue
+
+/aif:improve                     # scan the whole repo for deepening opportunities
+/aif:improve src/payments/       # a scoped path or area
+/aif:improve "the auth flow"     # an area named in prose
+/aif:improve … --html            # also emit the before/after visual report
 ```
 
 Every review reports three separate axes — **Standards** (Fowler code smells + structure, logic,
@@ -59,10 +67,13 @@ to claim anything is "fixed" or "passing" without citing the verification comman
 
 ## Credits
 
-The two-axis (Standards vs Spec) separation and fixed-point-diff review model are concepts adapted
-from [mattpocock/skills](https://github.com/mattpocock/skills). Prose and implementation here are
-original. Adversarial always-on review, multi-mode input resolution, and verification gates derive
-from the ainative-build / claudekit code-review lineage.
+`aif-code-review`'s two-axis (Standards vs Spec) separation and fixed-point-diff model, and
+`aif-improve`'s deep-module improvement workflow (the deletion test, seams, recommendation-strength
+ranking, the explore→present→deepen shape), are approaches adapted from
+[mattpocock/skills](https://github.com/mattpocock/skills) (MIT). The deep-module lens itself comes
+from John Ousterhout's *A Philosophy of Software Design*. The wording and implementation in this
+package are our own. Adversarial always-on review, multi-mode input resolution, and verification gates
+derive from the ainative-build / claudekit code-review lineage.
 
 ## License
 

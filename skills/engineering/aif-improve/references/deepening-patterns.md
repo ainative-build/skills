@@ -33,8 +33,8 @@ Recognize these; each is a candidate shape, not a mandate.
 
 ## The interface-design walk (step 3)
 
-After the user picks a candidate, design *with* them before writing code. Walk the tree; let side
-effects happen as decisions crystallize.
+After the user picks a candidate, design *with* them before writing code. Work through the steps below
+in order, and apply the optional doc side-effects (last section) as each decision lands.
 
 1. **Restate the deepening in one sentence** and confirm it's still what they want.
 2. **Name the interface** — everything a caller must know: the operations, the invariants, the error

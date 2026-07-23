@@ -73,6 +73,10 @@ Single-case findings replace the table with one line: `pay(2,3)` → returns `-1
 - [MEDIUM] `path/to/file.ts:88` — <problem in one line>. [Reasoned] <why>. Fix: <approach>.
 ```
 
+A one-liner whose severity actually turns on a fact outside the diff/repo/spec does not belong in this
+tier — promote it to a full block so it can carry the `> Conditional:` line. The one-liner tier is for
+findings whose size is not in question.
+
 Batch the Low items; never give a naming nit a five-part write-up. **Invest prose where it blocks**,
 list the rest. No finding ships without evidence — pure speculation (no runnable evidence and no
 sound `file:line` reasoning) is dropped, not softened.
@@ -144,7 +148,9 @@ strength badge, no before/after — those are aif-improve's artifact, not review
 
 **Building Open questions (aggregator).** The `> Conditional:` lines are the sole input to this
 section — axes emit them, only the aggregator writes Open questions. Collect every `> Conditional:`
-line the axes raised, plus any assumption you relied on that the diff/repo/spec did not confirm. Then:
+line the axes raised. If while aggregating you notice an unconfirmed assumption an axis missed, fold
+it into the affected finding as a `> Conditional:` line first — that keeps the Conditional lines the
+single source, rather than smuggling in a question no finding carries. Then:
 
 1. **Close what's cheap first.** If a gap is answerable with a command the orchestrator can run — grep
    for the caller, read the config, check whether the path is reachable — run it, fold the answer into
@@ -162,9 +168,8 @@ restructure the repo. When the review keeps bumping into pre-existing shallownes
 touched, hand it off instead of scope-creeping into it:
 
 1. **Derived, never discovered.** A pointer may come *only* from Standards findings already emitted
-   this review, or from the context pack's dependents list. The aggregator does zero fresh
-   architecture analysis — inventing depth verdicts here would be an unisolated fourth axis in
-   disguise, which is worse than none.
+   this review — never from fresh analysis of your own. Inventing a depth verdict here would be an
+   unisolated fourth axis in disguise, which is worse than none.
 2. **Emission threshold.** Emit a pointer only when ≥2 structural Standards findings cluster in one
    module, OR one diff-added module failed a `[Verified]` deletion test. No pointer from a hunch.
 3. **Cap at 3 one-liners.** Each references the `file:line`-bearing findings that motivated it. No

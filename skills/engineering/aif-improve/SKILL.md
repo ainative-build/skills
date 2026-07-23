@@ -10,10 +10,9 @@ argument-hint: "[<path|area> | whole repo] [--html]"
 
 # aif-improve
 
-Find where the structure of working code fights you, and propose **deepenings** — changes that trade a
-pile of shallow modules for a smaller number of deep ones. The payoff is code that's easier to test
-and easier for an agent to navigate. None of this is churn for its own sake: every candidate earns its
-place with evidence, and no code changes until you pick one.
+Find where the structure of working code makes it harder to test and change than it needs to be, and
+propose **deepenings** — changes that trade a pile of shallow modules for a smaller number of deep
+ones. Every candidate carries evidence; no code changes until you pick one.
 
 **Principles:** depth over extraction · evidence over taste · propose, don't touch.
 
@@ -52,23 +51,24 @@ area, no `--spec` needed). Otherwise scout inline: `Glob`/`Grep` to size the spa
 owners. On runtimes with the `Task` tool, fan out read-only `Explore` subagents over disjoint
 directories; otherwise sweep sequentially.
 
-Walk the code organically and note where you feel friction — don't grind a checklist:
+Read through the target area the way you would to make a change, and note friction as you hit it —
+don't grind a checklist:
 - understanding one concept requires bouncing between many small modules (no **locality**);
 - a module is **shallow** — its interface is nearly as wide as its implementation;
 - pure functions were extracted only for testability, but the real bugs live in how they're *called*;
 - tightly-coupled modules leak state or assumptions across their **seam**;
 - a part of the codebase is untested, or can't be tested through its current interface.
 
-Apply the **deletion test** (`references/module-depth.md`) to anything you suspect is shallow: if
-deleting it would concentrate complexity, it earns its keep; if it would just move complexity to N
-callers, it's a pass-through. "Concentrates" is the signal you want.
+Apply the **deletion test** (`references/module-depth.md`) to anything that smells shallow: paste it
+into its callers in your head. If nothing gets harder, it was decoration — the deepening candidate you
+want. If each caller inherits a copy of the hard part, it was already doing its job — leave it.
 
 ### 2. Present candidates
 
 Do NOT design interfaces yet. Report per `references/opportunity-report.md`: each candidate as a card
 with the modules involved, the friction (concrete `file:line` evidence), the deletion-test result,
 the proposed deepening in plain English, the payoff in **leverage** + **locality** + test surface, a
-before→after sketch, and a **recommendation-strength** badge (`Strong` / `Worth exploring` /
+before→after sketch, and a **recommendation-strength** badge (`Backed` / `Worth a look` /
 `Speculative`). Carry over the evidence discipline from the review skill: every claim gets a
 `[Verified]` (a grep/count/test you ran, with output) or `[Reasoned]` tag, and any candidate whose
 value hinges on a fact you couldn't confirm gets a `> Conditional:` line.
@@ -83,8 +83,9 @@ HTML) to the temp dir and open it; markdown in chat stays the default.
 
 Once the user picks one, design the deeper module *with* them before writing code — see
 `references/deepening-patterns.md`. Walk the interface: the constraints, what sits behind the seam,
-which tests survive, what the caller no longer needs to know. Only add a seam that has (or will
-immediately have) two adapters — one adapter is a hypothetical seam, not a real one.
+which tests survive, what the caller no longer needs to know. Only cut a seam once a second
+implementation is present or clearly imminent — a seam with one thing plugged into it is a bet, not a
+need.
 
 Side effects happen inline as the design settles, and only when the relevant doc already exists or
 the user opts in:
