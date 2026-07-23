@@ -1,9 +1,9 @@
 {
   "name": "aif",
-  "version": "1.2.1",
-  "description": "Adversarial, axis-separated code review: Standards, Spec, and Adversarial passes run in isolation and are never merged or re-ranked.",
+  "version": "1.3.1",
+  "description": "Portable coding-agent skills: aif-code-review (three-axis adversarial review), aif-recon (codebase reconnaissance), and aif-improve (architectural deepening opportunities).",
   "author": { "name": "ainative-build" },
   "license": "MIT",
   "homepage": "https://github.com/ainative-build/skills",
-  "keywords": ["code-review", "adversarial", "security", "quality", "review"]
+  "keywords": ["code-review", "adversarial", "security", "quality", "review", "refactoring", "architecture", "recon"]
 }
