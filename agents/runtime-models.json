@@ -1,0 +1,143 @@
+{
+  "source": "AgentKit 3.0.0-beta.35 installs on 2026-10-22 (~/.claude/agents, ~/.codex/agents, ~/.omp/agent/agents, ~/.cursor/agents)",
+  "agents": {
+    "kongming": {
+      "claude": "fable",
+      "codex": {
+        "model": "gpt-5.6-luna",
+        "reasoningEffort": "max"
+      },
+      "omp": "@advisor",
+      "cursor": "claude-fable-5-high"
+    },
+    "code-reviewer": {
+      "claude": "opus",
+      "codex": {
+        "model": "gpt-5.6-luna",
+        "reasoningEffort": "max"
+      },
+      "omp": "@plan",
+      "cursor": "claude-opus-4-8-thinking-high"
+    },
+    "planner": {
+      "claude": "opus",
+      "codex": {
+        "model": "gpt-5.6-luna",
+        "reasoningEffort": "max"
+      },
+      "omp": "@plan",
+      "cursor": "claude-opus-4-8-thinking-high"
+    },
+    "docs-manager": {
+      "claude": "opus",
+      "codex": {
+        "model": "gpt-5.6-luna",
+        "reasoningEffort": "max"
+      },
+      "omp": "@plan",
+      "cursor": "claude-opus-4-8-thinking-high"
+    },
+    "git-manager": {
+      "claude": "haiku",
+      "codex": {
+        "model": "gpt-5.6-luna",
+        "reasoningEffort": "max"
+      },
+      "omp": "@smol",
+      "cursor": "composer-2.5-fast"
+    },
+    "researcher": {
+      "claude": "opus",
+      "codex": {
+        "model": "gpt-5.6-luna",
+        "reasoningEffort": "max"
+      },
+      "omp": "@plan",
+      "cursor": "claude-opus-4-8-thinking-high"
+    },
+    "tester": {
+      "claude": "haiku",
+      "codex": {
+        "model": "gpt-5.6-luna",
+        "reasoningEffort": "max"
+      },
+      "omp": "@smol",
+      "cursor": "composer-2.5-fast"
+    },
+    "advisor": {
+      "claude": "fable",
+      "codex": {
+        "model": "gpt-6-astra",
+        "reasoningEffort": "low"
+      },
+      "omp": "@advisor",
+      "cursor": "claude-fable-5-high"
+    },
+    "debugger": {
+      "claude": "opus",
+      "codex": {
+        "model": "gpt-5.6-luna",
+        "reasoningEffort": "max"
+      },
+      "omp": "@plan",
+      "cursor": "claude-opus-4-8-thinking-high"
+    },
+    "journal-writer": {
+      "claude": "opus",
+      "codex": {
+        "model": "gpt-5.6-luna",
+        "reasoningEffort": "max"
+      },
+      "omp": "@plan",
+      "cursor": "claude-opus-4-8-thinking-high"
+    },
+    "scout": {
+      "claude": "haiku",
+      "codex": {
+        "model": "gpt-5.6-luna",
+        "reasoningEffort": "max"
+      },
+      "omp": "@smol",
+      "cursor": "composer-2.5-fast"
+    },
+    "ui-ux-designer": {
+      "claude": "opus",
+      "codex": {
+        "model": "gpt-5.6-luna",
+        "reasoningEffort": "max"
+      },
+      "omp": "@plan",
+      "cursor": "claude-opus-4-8-thinking-high"
+    },
+    "explore": {
+      "claude": "haiku",
+      "codex": {
+        "model": "gpt-5.6-luna",
+        "reasoningEffort": "max"
+      },
+      "omp": "@smol",
+      "cursor": "composer-2.5-fast"
+    },
+    "code-simplifier": {
+      "claude": "opus",
+      "codex": {
+        "model": "gpt-5.6-sol",
+        "reasoningEffort": "medium"
+      },
+      "omp": "@plan",
+      "cursor": "claude-opus-4-8-thinking-high"
+    },
+    "fullstack-developer": {
+      "claude": "opus",
+      "codex": {
+        "model": "gpt-5.6-luna",
+        "reasoningEffort": "max"
+      },
+      "omp": "@plan",
+      "cursor": "claude-opus-4-8-thinking-high"
+    }
+  },
+  "derived": {
+    "scout": "omp and cursor copied from haiku-tier peers (git-manager, tester, explore); AgentKit installed no scout agent for those runtimes"
+  }
+}
