@@ -22,8 +22,8 @@ map only; load the owning `SKILL.md` before executing details.
   Reuse them from an accepted plan instead of asking again.
 - Use `/aif-serve` for known feature scope after requirements are clear.
 - Use `/aif-fix` for concrete bugs, errors, test failures, and CI failures.
-- Use `/aif-plan` when work needs architecture, phases, file ownership, or TDD
-  structure.
+- Use `/aif-plan` when work needs architecture, phases, file ownership, or a
+  test matrix.
 - Use `/aif-test` for verification-only work.
 - Use `/aif-ship` only after implementation, tests, and review are done.
 - Read-only scout, debug, review, and explanation work may stop without an

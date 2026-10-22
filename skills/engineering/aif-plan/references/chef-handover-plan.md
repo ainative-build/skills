@@ -32,7 +32,7 @@ fields are authoritative and additive — do not drop a handover field because a
 similarly named section already exists.
 
 Precedence when `--chef` combines with other modes:
-- `--tdd`: the test-first commands become the `Verify` field's mechanical pass
+- Test-first (always on): the Tests First commands become the `Verify` field's mechanical pass
   condition. When a task requires a failing test first (red phase), state that
   explicitly as the pass condition (e.g. `Verify: test command exits non-zero with
   assertion failure; passing test is a failure`) so the expected red state is

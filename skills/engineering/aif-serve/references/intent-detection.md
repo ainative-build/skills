@@ -12,7 +12,6 @@ FUNCTION detectMode(input):
   IF input contains "--parallel": RETURN "parallel"
   IF input contains "--auto": RETURN "auto"
   IF input contains "--no-test": RETURN "no-test"
-  # "--tdd" is composable and does not change mode selection
 
   # Priority 2: Plan path detection
   IF input matches path pattern (./plans/*, plan.md, phase-*.md):
@@ -86,9 +85,6 @@ Detect multiple features from natural language:
 
 "/aif-serve implement dashboard --fast"
 → Mode: fast (explicit flag, continues within authorized scope)
-
-"/aif-serve refactor auth middleware --tdd"
-→ Mode: auto (default mode, with tests-first implementation behavior)
 
 "/aif-serve implement everything --auto"
 → Mode: auto (NO STOPS, implements all phases continuously)

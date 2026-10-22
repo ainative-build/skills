@@ -4,11 +4,11 @@ description: "Create, validate or review implementation plans with acceptance cr
 when_to_use: "Invoke when work needs phases, architecture or a roadmap."
 category: workflow
 keywords: [planning, architecture, phases, roadmap, github]
-argument-hint: "[task] [--fast|--hard|--deep|--parallel|--two|--debate|--pro-max] [--tdd|--no-tasks] [--github] [--chef] [--yagni] [--skip-journal] OR [archive|red-team|validate]"
+argument-hint: "[task] [--fast|--hard|--deep|--parallel|--two|--debate|--pro-max] [--no-tasks] [--github] [--chef] [--yagni] [--skip-journal] OR [archive|red-team|validate]"
 license: MIT
 metadata:
   author: ainative-build
-  version: "2.3.0"
+  version: "2.4.0"
 ---
 
 # Plan (`aif-plan`)
@@ -42,7 +42,6 @@ Create structured, verifiable implementation plans with phased execution roadmap
 
 - **`--github`**: Creates/updates a GitHub issue with plan summary and links. See `references/github-publish.md`.
 - **`--chef`**: Runs under `aif-chef` advisory supervision and formats the output plan for handover to lower-capability executor models (Sonnet, Gemini Flash). Decomposes every phase into step-by-step tasks with explicit success criteria, marks verification steps with mechanical pass conditions, and embeds a Failure Protocol that stops and escalates to `aif-chef` on verification failure. See `references/chef-handover-plan.md` for the artifact contract and `../aif-brainstorm/references/advisory-supervision.md` for supervisor identity and model routing.
-- **`--tdd`**: Enforces test-first design, test matrix, and verification commands in every phase.
 - **`--no-tasks`**: Skips hydrating phases into task management.
 - **`--yagni`**: Actively challenges and eliminates any scope not strictly necessary for the stated outcome (see `references/scope-challenge.md`).
 - **`--skip-journal`**: Skips session journal entry generation during plan archive.
@@ -50,6 +49,22 @@ Create structured, verifiable implementation plans with phased execution roadmap
 ### Mode Exclusivity
 
 The mode flags — `--fast`, `--hard`, `--deep`, `--parallel`, `--two`, `--debate`, `--pro-max`, and this skill's own `--auto` (mode-detection, distinct from `/aif-serve`'s auto-approve `--auto`) — are mutually exclusive; Mode Detection is a single-choice step. Passing two is a hard stop naming both flags and the reason, never a silent override. `--auto` conflicts with every other mode flag since it is itself a mode-selection flag; `--debate` is explicit opt-in only and is never auto-selected.
+
+## Test-first by default
+
+Every plan is test-first, in every mode including `--fast`. Each phase file carries a
+**Tests First** section (see the phase template in `references/cli-integration.md`) that
+`/aif-serve` hands to `aif-test` before any implementation:
+
+- **Characterization tests** pin existing behavior the phase changes or refactors; they must pass
+  before the change and keep passing after it.
+- **New-behavior tests** come from the phase's acceptance criteria. Each names the layer
+  (unit, integration or e2e) and the failure it must show before the code exists, which has to be
+  an assertion about the missing behavior, not an import, setup or syntax error.
+- **Commands** to run the tests red first and green after.
+
+A phase with no testable behavior, such as docs-only or a config change with no observable effect,
+writes `Tests First: not applicable — <reason>` instead. Never drop the section silently.
 
 ## Planning pipeline
 

@@ -187,15 +187,17 @@ Each phase file should contain:
 - Dependencies
 - Follow-up tasks
 
-### Deep / TDD Extensions
+### Deep and Test-First Sections
 
 When `--deep` is used, add:
 - a file inventory table with action, rough size, and test impact
 - a test scenario matrix for critical, high, and medium paths
 - a dependency map that calls out links to other phases
 
-When `--tdd` is used, add:
-- a **Tests Before** section for regression coverage written first
-- a **Refactor** section describing the protected code changes
-- a **Tests After** section for new behavior introduced in that phase
-- a regression gate listing the compile/test command that must pass
+Every phase, in every mode, includes a **Tests First** section (see the phase template in
+`cli-integration.md`):
+- characterization tests for existing behavior the phase changes, written and passing first
+- new-behavior tests from the acceptance criteria, each with the failure expected before the code exists
+- the red and green commands, which double as the phase's regression gate
+
+A phase with no testable behavior states `Tests First: not applicable — <reason>`.

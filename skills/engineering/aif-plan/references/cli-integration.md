@@ -44,10 +44,19 @@ dependencies: []      # phase IDs this blocks on
 - Create: `path/to/file.ts`
 - Modify: `path/to/existing.ts`
 
+## Tests First
+<!-- Or: Tests First: not applicable — <reason> -->
+- Characterization: [existing behavior this phase must not change] — `[test file]`
+- New behavior: [acceptance criterion] — [unit|integration|e2e] — fails before implementation with: [expected assertion failure] — `[test file]`
+- Red: `[command that must fail for the reasons above]`
+- Green: `[command that must pass after implementation]`
+
 ## Tasks & Steps
-1. [Concrete actionable step]
+1. Write the Tests First tests and confirm the red run fails for the stated reasons
 2. [Concrete actionable step]
+3. [Concrete actionable step]
 
 ## Verification
-- [Command to verify]
+- Green command passes, including every characterization test
+- [Other command to verify]
 ```
