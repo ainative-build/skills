@@ -29,10 +29,11 @@ chrome-profile list
 If real user Chrome state is not needed, use `agent-browser` state commands after manual login when available.
 
 ### Step 3: Run Tests
-After auth is available, run tests normally. If real user Chrome state is not needed:
+Load the `aif-agent-browser` skill before driving the `agent-browser` CLI; it carries the command
+reference. After auth is available, run tests normally. If real user Chrome state is not needed:
 ```bash
 agent-browser open https://example.com/dashboard
-agent-browser screenshot -o profile.png
+mkdir -p "$REPORTS_DIR" && agent-browser screenshot "$REPORTS_DIR/profile.png"   # REPORTS_DIR: the configured reports directory; the path is positional, there is no -o flag
 ```
 
 If real user Chrome state is needed:

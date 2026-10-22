@@ -1,13 +1,18 @@
 #!/usr/bin/env node
 'use strict';
-// Reference gate: fails on any aif-* name that does not resolve to a skill or agent shipped
-// in this repo.
+// Reference gate: fails on any aif-* name, or "the installed/engineer <name> skill" phrase,
+// that does not resolve to a skill or agent shipped in this repo.
 //
-// Usage: node tools/check-refs.cjs [--json]
+// Usage: node tools/check-refs.cjs [--json] [--root <dir>]
 const fs = require('fs');
 const path = require('path');
 
-const repoRoot = path.resolve(__dirname, '..');
+const rootArg = process.argv.indexOf('--root');
+if (rootArg > -1 && !process.argv[rootArg + 1]) {
+  console.error('check-refs: --root needs a directory');
+  process.exit(2);
+}
+const repoRoot = rootArg > -1 ? path.resolve(process.argv[rootArg + 1]) : path.resolve(__dirname, '..');
 const SCAN_DIRS = ['skills', 'agents', 'rules', 'hooks', 'commands'];
 // aif-* words that are not skill or agent names.
 const ALLOWED = new Set(['install', 'bak']);
@@ -39,16 +44,23 @@ function main() {
   const shipped = shippedNames();
   // A preceding '-' or '#' means a slug or anchor (e.g. #running-via-the-aif-advisor-…), not a name.
   const re = /(?:^|[^\w#-])aif-([a-z0-9]+(?:-[a-z0-9]+)*)/g;
+  // Generic phrasing such as "the installed project-organization skill" must also name a shipped skill.
+  const phrase = /\bthe (?:installed|engineer) (?:aif-)?([a-z0-9]+(?:-[a-z0-9]+)*) skill\b/gi;
   const findings = [];
   for (const dir of SCAN_DIRS) {
     for (const f of walk(path.join(repoRoot, dir))) {
       const buf = fs.readFileSync(f);
       if (buf.subarray(0, 8000).includes(0)) continue;
       const text = buf.toString('utf8');
-      for (const m of text.matchAll(re)) {
-        if (shipped.has(m[1])) continue;
+      const add = (m, name) => {
         const line = text.slice(0, m.index + 1).split('\n').length;
-        findings.push({ file: path.relative(repoRoot, f), line, name: `aif-${m[1]}`, text: text.split('\n')[line - 1].trim().slice(0, 160) });
+        findings.push({ file: path.relative(repoRoot, f), line, name, text: text.split('\n')[line - 1].trim().slice(0, 160) });
+      };
+      for (const m of text.matchAll(re)) {
+        if (!shipped.has(m[1])) add(m, `aif-${m[1]}`);
+      }
+      for (const m of text.matchAll(phrase)) {
+        if (!shipped.has(m[1].toLowerCase())) add(m, m[1]);
       }
     }
   }

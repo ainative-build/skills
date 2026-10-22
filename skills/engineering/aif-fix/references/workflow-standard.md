@@ -61,6 +61,11 @@ escalate to Deep workflow for a plan.
 ### Step 3: Implement Fix
 Record the implementation phase as active once scout and diagnosis are complete.
 
+Write the regression test first: invoke the `aif-test` skill (`/aif-test create <issue>`) to
+write a test that fails on the original symptom, and confirm it is red. Call the skill rather than
+writing the test inline, once for each issue you fix. Type and lint errors use
+their checker instead.
+
 Fix the ROOT CAUSE per diagnosis findings. Not symptoms.
 
 - Apply `aif-problem-solving` skill if stuck
@@ -76,7 +81,7 @@ Record the verify phase as active.
 
 **Mandatory skill chain:**
 1. **Iron-law verify:** Re-run the EXACT commands from pre-fix state capture. Compare before/after.
-2. **Regression test:** Add/update test(s) covering the fixed issue. Test MUST fail without fix, pass with fix.
+2. **Regression test:** The Step 3 test (written red before the fix) now passes. Add any missing case; each MUST fail without the fix and pass with it.
 3. **Side-effect sweep (HARD-GATE-NO-SIDE-EFFECTS):** Walk each dependent caller of changed functions from Step 1 blast-radius. Run tests in modules that share files/contracts. Confirm public contracts (signatures, schemas, APIs, env vars) unchanged. See SKILL.md HARD-GATE-NO-SIDE-EFFECTS.
 4. **Defense-in-depth:** Apply the relevant prevention layers from the parent skill.
 5. **Verification commands:** Run typecheck, lint, build, and tests through the

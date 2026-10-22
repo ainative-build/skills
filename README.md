@@ -71,21 +71,22 @@ flowchart LR
 /plugin install aif@ainative-build
 ```
 
-Then cook something:
+Then cook something (on the plugin, type `:` for `-`, as in `/aif:brainstorm`):
 
 ```
-/aif:brainstorm add rate limiting to the public API
-/aif:plan add rate limiting to the public API
-/aif:serve .aif/plans/261022-1320-rate-limit
-/aif:code-review --pending
-/aif:ship
+/aif-brainstorm add rate limiting to the public API
+/aif-plan add rate limiting to the public API
+/aif-serve .aif/plans/261022-1320-rate-limit
+/aif-code-review --pending
+/aif-ship
 ```
 
 Other runtimes and the skills-only install are under [Install](#install).
 
 ## The menu: skills by station
 
-Every skill has a command: `/aif:<name>` on the Claude Code plugin and `/aif-<name>` elsewhere.
+Every skill has a command, written `/aif-<name>` throughout these docs. On the Claude Code plugin,
+plugin commands take a colon, so type `/aif:<name>` there (for example `/aif:plan`).
 
 | Station | Skill | What it does |
 |---|---|---|
@@ -115,7 +116,7 @@ Every plan phase has a **Tests First** section:
 - new-behavior tests, each naming the failure it should show before the code exists;
 - the commands that run the tests red first and green after.
 
-`/aif:serve` hands that section to `aif-test` before it writes any production code.
+`/aif-serve` hands that section to `aif-test` before it writes any production code.
 
 ```mermaid
 %%{init: {'theme': 'base', 'themeVariables': {'primaryColor': '#fff1e8', 'primaryTextColor': '#2b1510', 'primaryBorderColor': '#ff5a1f', 'lineColor': '#d9481f', 'secondaryColor': '#ffe2d1', 'tertiaryColor': '#fff8f3', 'clusterBkg': '#fff8f3', 'clusterBorder': '#ff9a3c', 'edgeLabelBackground': '#fff1e8', 'actorBkg': '#fff1e8', 'actorBorder': '#ff5a1f', 'signalColor': '#d9481f', 'noteBkgColor': '#ffe2d1', 'noteBorderColor': '#ff9a3c', 'sequenceNumberColor': '#ffffff'}}}%%
@@ -152,7 +153,15 @@ your-project/
 ```
 
 User-wide settings live in `~/.aif/config.json`, or in `$AIF_HOME/config.json` when `AIF_HOME`
-is set.
+is set. Local plan state (`plans-state.json`) sits beside them.
+
+Skills write reports as they run, and `/aif-ship` commits the reports the shipped work produced.
+Add `.aif/reports/` to `.gitignore` if you would rather keep them out of git.
+
+One thing lands outside `.aif/`. The aif agents use Claude Code's project memory (`memory:
+project`), so Claude Code keeps their notes in `.claude/agent-memory/<agent>/`, for example
+`.claude/agent-memory/aif-aif-code-reviewer/`. Commit it to share what the agents learn, or
+ignore it.
 
 ## Pro-max mode (`--pro-max`)
 
@@ -185,7 +194,7 @@ Use it where checking an answer is easier than producing one, such as a plan aga
 criteria or a review against evidence.
 
 ```
-/aif:plan add rate limiting to the public API --pro-max
+/aif-plan add rate limiting to the public API --pro-max
 ```
 
 ## Chef mode (`--chef`)
@@ -203,7 +212,7 @@ a gate. The main agent stays responsible for every decision.
 
 - `--chef` is passed on to the next skill in the chain. These skills support it: brainstorm,
   plan, serve, fix, test, code-review and ship.
-- `/aif:plan --chef` writes a handover plan that a smaller model can follow, with step-by-step
+- `/aif-plan --chef` writes a handover plan that a smaller model can follow, with step-by-step
   tasks, mechanical pass conditions and a failure protocol that stops and asks chef.
 
 | Runtime | Chef runs on |
@@ -214,7 +223,7 @@ a gate. The main agent stays responsible for every decision.
 | Codex | `gpt-6-astra`. When an account refuses it, chef falls back through `gpt-6-sol` → `gpt-5.6-sol` → `gpt-6-terra` → `gpt-5.6-terra` → `gpt-6-luna` → `gpt-5.6-luna` and says which model answered. |
 
 ```
-/aif:serve .aif/plans/261022-1320-rate-limit --chef
+/aif-serve .aif/plans/261022-1320-rate-limit --chef
 ```
 
 ## The crew: agents
@@ -294,10 +303,29 @@ Plans, reports, language and per-hook switches live in an optional `.aif/config.
 ## Upgrading
 
 <details>
+<summary><b>From v2.1 to v2.2</b></summary>
+
+No breaking changes. Rerun `aif-install` (or update the plugin) to pick up:
+
+- **Test-first stubs:** `/aif-test create` writes signature-only stubs so red tests fail on
+  assertions. `/aif-serve` and `/aif-fix` call it rather than writing tests themselves.
+- **Local ship:** in a repo with no remote, `/aif-ship` skips issues, fetch, push and the PR,
+  never calls `gh`, and stops with the branch ready. It merges locally only with `--merge`.
+- **Branch review:** `/aif-code-review --base [ref]` reviews a local branch against its target.
+  Pending mode includes untracked files, and neither mode asks questions in a headless run.
+- **Plan state** follows `AIF_HOME`: it lives at `$AIF_HOME/plans-state.json`, else
+  `~/.aif/plans-state.json`.
+- **Scout-block** keeps blocking, and its message now tells the agent not to work around it.
+- **Ship commits reports:** the `.aif/reports/` files from the branch's aif steps are committed
+  at ship time.
+
+</details>
+
+<details>
 <summary><b>From v2.0 to v2.1</b> (breaking)</summary>
 
 - **Journal removed:**
-  - The `aif-journal` skill, the `aif-journal-writer` agent and `/aif:journal` are gone.
+  - The `aif-journal` skill, the `aif-journal-writer` agent and `/aif-journal` are gone.
   - Rerunning `aif-install` removes the old agent.
   - A skills.sh install leaves the old skill in place; remove it with
     `npx skills remove -g aif-journal`.

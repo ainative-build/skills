@@ -99,7 +99,7 @@ Load appropriate reference based on decision tree:
 - If runtime policy blocks subagents because the user did not explicitly request delegation, continue with main-agent scouting instead of forcing a spawn.
 
 ### 5. Collect Results
-Invoke "the engineer project-organization skill" skill to organize the outputs.
+Write the combined report to the configured reports directory (`.aif/reports/` by default), named with the injected `## Naming` pattern.
 
 - Timeout: 3 minutes per agent (skip non-responders)
 - Record completed scopes and log timed-out agents in the report

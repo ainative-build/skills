@@ -93,6 +93,9 @@ User explicitly says "breaking" or "major feature" → ask_user capability for m
 
 ## Main Branch Detection
 
+In a local ship (`LOCAL=1`, no remote), detect from local branches: `main` if it
+exists, else `master`. Otherwise:
+
 ```bash
 git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's@^refs/remotes/origin/@@'
 ```

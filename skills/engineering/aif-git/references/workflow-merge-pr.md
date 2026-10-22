@@ -174,7 +174,7 @@ Before declaring done:
   (`node <aif-plan>/scripts/plan.cjs list --json` — post-merge you are on the
   target branch, so `resolve`, scoped to the current branch, will not find the
   head-branch plan). On a unique match, `node <aif-plan>/scripts/plan.cjs close
-  <plan-dir>` — a state-only transition in `~/.aif/plans-state.json`; the plan
+  <plan-dir>` — a state-only transition in `$AIF_HOME/plans-state.json` (default `~/.aif`); the plan
   files already carry `status: completed` from the ship commit. A match miss means the plan is already closed or there is no
   plan — skip silently; on ambiguity, skip and report. Optionally append (never
   edit) a completion comment to a linked issue per the "Delivery finalization"

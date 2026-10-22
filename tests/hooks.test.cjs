@@ -123,6 +123,9 @@ test('scout-block', async (t) => {
     assert.equal(r.code, 2);
     assert.match(r.stderr, /BLOCKED/);
     assert.match(r.stderr, /\.scoutignore/);
+    assert.match(r.stderr, /!node_modules/);
+    assert.match(r.stderr, /do not work around/i);
+    assert.match(r.stderr, /ask the user/i);
   });
 
   await t.test('allows a normal file read and build commands', () => {

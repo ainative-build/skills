@@ -22,7 +22,7 @@ path, direct callers and relevant tests; record the failing command or observed 
 ## Modes
 
 - `--auto`: default; continue within authorized scope through repair and verification.
-- `--review`: explicit human review at each major step.
+- `--review`: explicit human review at each major step; only this mode asks which mode to use (`references/mode-selection.md`).
 - `--quick`: a bounded cause-aligned repair using `references/workflow-quick.md`.
 - `--parallel`: independent issues with disjoint ownership and available delegation.
 - `--chef`: supervisor checkpoints described below.
@@ -45,9 +45,11 @@ or competing fixes. Read only that route. `references/diagnosis-gates.md` owns r
 and verification evidence. Use a discriminating test for uncertainty; reasoning helpers are
 optional, never an automatic activation chain. Preserve the opening scope and contracts.
 
-Rerun the failing path after repair, then checks covering affected callers/contracts. Add a
-regression test when it detects meaningful behavior; type/lint fixes can use their existing
-checker. Reuse checks for unchanged source, inputs and environment. Review the actual diff;
+Write the regression test first: invoke the `aif-test` skill as `/aif-test create <issue>` to
+write a test that fails on the original symptom, and confirm it is red before editing. Call the
+skill rather than writing the test inline, once for each issue you fix. Type and
+lint fixes use their existing checker instead. Rerun the failing path after repair, then checks
+covering affected callers/contracts. Reuse checks for unchanged source, inputs and environment. Review the actual diff;
 independent review scales with risk and repository requirements, not every trivial fix.
 
 Repair your regressions within the authorized scope. Ask only for a material missing decision,
@@ -73,7 +75,7 @@ rubric, finalizer, and conflict handling.
 ## References
 
 Load as needed:
-- `references/mode-selection.md` - ask_user capability format for mode
+- `references/mode-selection.md` - ask_user capability format for mode, used only under `--review`
 - `references/complexity-assessment.md` - Classification criteria
 - `references/workflow-quick.md` - Quick: scout → diagnose → fix → verify+prevent → review
 - `references/workflow-standard.md` - Standard: full pipeline with Tasks

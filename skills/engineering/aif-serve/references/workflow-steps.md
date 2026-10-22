@@ -24,11 +24,14 @@ Step 3.V: Verify green: new tests and all characterization tests pass, plus comp
 Step 3.F: Refactor with the tests kept green
 ```
 
-- **3.T** invokes the `aif-test` skill rather than writing tests inline. It uses the phase's
+- **3.T** invokes the `aif-test` skill rather than writing tests inline, once for every phase,
+  even when the skill was already loaded for an earlier phase. It uses the phase's
   Tests First section when a plan exists; otherwise it derives the tests
-  from the task's acceptance criteria. Write no production code in this step.
+  from the task's acceptance criteria. aif-test also writes signature-only stubs for modules
+  that do not exist yet; serve writes no tests, stubs or production code in this step.
 - **3.R** records the failing output. A test that fails on an import, setup or syntax error, or
-  that already passes, is not red for the right reason: fix the test before implementing.
+  that already passes, is not red for the right reason: send it back to aif-test to fix the
+  test or add the missing stub before implementing.
 - **3.I–3.V** never weaken, skip or rewrite a red test to get green. If a test encodes the wrong
   contract, change it only with the reason stated in the report.
 - A characterization test that breaks after 3.I means the change broke existing behavior; fix the

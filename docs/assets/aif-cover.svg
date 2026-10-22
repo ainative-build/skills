@@ -236,6 +236,6 @@
 
   <!-- floor caption -->
   <g font-family="'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace" text-anchor="middle">
-    <text x="640" y="574" fill="#fff4e0" font-size="22" font-weight="700">/aif:plan → /aif:serve → /aif:test → /aif:code-review → /aif:ship</text>
+    <text x="640" y="574" fill="#fff4e0" font-size="22" font-weight="700">/aif-plan → /aif-serve → /aif-test → /aif-code-review → /aif-ship</text>
   </g>
 </svg>

@@ -92,8 +92,9 @@ function setFrontmatterField(text, key, value) {
 
 // ---- local state (lifecycle, current-plan pointers, GitHub provenance); never inside the repo
 
+// Same home as prefs.cjs: AIF_HOME, else ~/.aif.
 function statePath() {
-  return path.join(os.homedir(), '.aif', 'plans-state.json');
+  return path.join(path.resolve(process.env.AIF_HOME || path.join(os.homedir(), '.aif')), 'plans-state.json');
 }
 
 function loadState() {

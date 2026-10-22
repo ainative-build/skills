@@ -4,9 +4,11 @@ Reuse the opening contract. Locate the failing file and direct dependencies, rec
 pre-fix error/command, and identify the concrete cause. If multiple meaningful repairs or
 architecture decisions remain, route to standard/deep before editing.
 
-Implement the direct repair. Rerun the failing command and the smallest related check.
-For a type/lint error its checker is regression evidence; for behavior add a test that fails
-without the fix when useful. Inspect the diff and affected caller contracts. Independent
+For behavior, invoke the `aif-test` skill (`/aif-test create <issue>`) to write a regression
+test that fails on the original symptom, and confirm it is red. Call the skill rather than
+writing the test inline. For a type/lint error its
+checker is the regression evidence. Implement the direct repair, then rerun the failing command,
+the new test and the smallest related check. Inspect the diff and affected caller contracts. Independent
 review is risk-based; direct execution is sufficient for low-risk one-file repairs.
 
 Repair failures caused by this change within scope. Under `--chef`, a failed verification

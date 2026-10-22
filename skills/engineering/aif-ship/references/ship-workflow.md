@@ -19,7 +19,21 @@
    - Aliases select the canonical mode only. `main` does not force a branch
      literally named `main`; `dev` does not force a branch literally named
      `dev`.
-3. Auto-detect target branch:
+3. Detect what the repository can reach. Shell state does not persist between commands, so
+   record both values in your notes. Run this snippet as written; check `gh` only through it:
+   ```bash
+   L=0; [ -z "$(git remote)" ] && L=1
+   G=1; [ "$L" = 0 ] && gh auth status >/dev/null 2>&1 && G=0   # gh is never called without a remote
+   echo "LOCAL=$L NOGH=$G"
+   ```
+   - `LOCAL=1` (no remote): a **local ship**. Print once:
+     `Local ship: no remote; skipping issues, fetch, push and PR`. It never adds a remote,
+     pushes, creates a repository, or calls `gh`.
+   - `NOGH=1` with a remote: fetch and push as usual, but skip issues and the PR (Steps 2, 11
+     and 11b), print `– Issues/PR: skipped (gh unavailable)`, and never call `gh`.
+4. Auto-detect target branch. With `LOCAL=1`, use local branches instead of `origin/*`:
+   `main`, else `master` for official; the first of `dev`, `beta`, `develop` that exists for beta.
+   With `LOCAL=0`:
    ```bash
    # For official: detect default branch
    git symbolic-ref refs/remotes/origin/HEAD 2>/dev/null | sed 's@^refs/remotes/origin/@@'
@@ -31,18 +45,20 @@
      git rev-parse --verify origin/$b 2>/dev/null && echo "$b" && break
    done
    ```
-4. Run `git status` (never use `-uall`). Record task ownership and intended ship scope; preserve unrelated uncommitted changes.
-5. Run `git diff <target>...HEAD --stat` and `git log <target>..HEAD --oneline` to understand what's being shipped.
-6. If `--dry-run`: output what would happen at each step and stop here. Do not
+5. Run `git status` (never use `-uall`). Record task ownership and intended ship scope; preserve unrelated uncommitted changes.
+6. Run `git diff <target>...HEAD --stat` and `git log <target>..HEAD --oneline` to understand what's being shipped.
+7. If `--dry-run`: output what would happen at each step and stop here. Do not
    spawn `aif-chef`, merge, or perform any mutation.
 
-7. If `--chef`, run the mandatory post-preflight Chef checkpoint from
+8. If `--chef`, run the mandatory post-preflight Chef checkpoint from
    `SKILL.md` before Step 2 or any mutation. Pass the canonical mode, detected
    target, branch/diff summary, constraints, and the exact go/no-go question.
 
 ## Step 2: Link Issues
 
 Find or create related GitHub issues for traceability.
+
+**Skip if:** `LOCAL=1` or `NOGH=1`. Print `– Issues: skipped (local ship)` or `(gh unavailable)` and continue to Step 3.
 
 1. Search for related open issues by keywords from branch name and commit messages:
    ```bash
@@ -102,7 +118,8 @@ Find or create related GitHub issues for traceability.
 Fetch and merge so tests run against the merged state:
 
 ```bash
-git fetch origin <target> && git merge origin/<target> --no-edit
+git fetch origin <target> && git merge origin/<target> --no-edit   # LOCAL=0
+git merge <target> --no-edit                                         # LOCAL=1: no fetch
 ```
 
 - **If merge conflicts:** Try auto-resolve simple ones (lockfiles, version files). For complex conflicts, **STOP** and show them.
@@ -124,7 +141,7 @@ git fetch origin <target> && git merge origin/<target> --no-edit
 
 **Skip if:** `--skip-review` flag.
 
-1. Run `git diff origin/<target>` to get the full diff
+1. Get the full diff: `git diff origin/<target>` (`LOCAL=0`) or `git diff <target>...HEAD` (`LOCAL=1`)
 2. Delegate to `aif-code-reviewer` subagent with the diff
 3. Two-pass model:
    - **Pass 1 (CRITICAL):** Security, injection, race conditions, auth bypass
@@ -188,7 +205,7 @@ or delete plan files.
 
 ## Step 9: Commit
 
-1. Stage only reviewed task-owned paths, including intended plan/version/docs artifacts: `git add -- <owned-paths>`. Inspect the staged diff against ship scope; do not absorb unrelated dirty files or existing staged work.
+1. Stage only reviewed task-owned paths, including intended plan/version/docs artifacts and the reports for this branch's work under the configured reports directory (`.aif/reports/` by default), both the ones ship wrote and untracked ones earlier aif steps wrote for this branch (review, test, fix): `git add -- <owned-paths>`. Ship is where reports get committed; never stage reports that belong to other tasks. Inspect the staged diff against ship scope; do not absorb unrelated dirty files or existing staged work.
 2. Security check: scan staged diff for secrets (API keys, tokens, passwords)
    - If secrets found: **STOP**, warn user, suggest `.gitignore`
 3. Compose commit message:
@@ -208,6 +225,8 @@ EOF
 
 ## Step 10: Push
 
+**Skip if:** `LOCAL=1`. Print `– Push: skipped (local ship)`.
+
 ```bash
 git push -u origin $(git branch --show-current)
 ```
@@ -217,12 +236,16 @@ git push -u origin $(git branch --show-current)
 
 ## Step 11: Create PR
 
+**Skip if:** `LOCAL=1` or `NOGH=1`. Print `– PR: skipped (local ship)` or `(gh unavailable)`
+and finish with `✓ Ready: <branch> can merge into <target>`. A local ship merges only when
+`--merge` was passed (see Step 12).
+
 Check if `gh` CLI is available:
 ```bash
 which gh 2>/dev/null || echo "MISSING"
 ```
 
-If missing: output "Install GitHub CLI (gh) to auto-create PRs" and stop after push.
+If missing (`NOGH=1`): output "Install GitHub CLI (gh) to auto-create PRs" and stop after push.
 
 **Resolve writing language** before rendering the body:
 ```bash
@@ -266,12 +289,14 @@ EOF
 
 ## Step 11b: Record plan↔PR linkage (plan-backed ships only)
 
+**Skip if:** Step 11 was skipped (there is no PR).
+
 If Step 8b finalized a plan, record the PR number on it so the merge flow can
 match plan to PR and close it unambiguously:
 ```bash
 node <aif-plan>/scripts/plan.cjs update <plan-dir> --linked-pr <pr-number>
 ```
-`--linked-pr` is stored in `~/.aif/plans-state.json` (it does not touch files).
+`--linked-pr` is stored in `$AIF_HOME/plans-state.json` (default `~/.aif`) (it does not touch files).
 Skip silently when no plan was finalized. Do not close the plan here — `close` happens only
 after the PR merges (see the shared reference's "Delivery finalization" section).
 

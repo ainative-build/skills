@@ -2,7 +2,7 @@
 'use strict';
 // File-based plan tool. Plans are <plans.dir>/<name>/plan.md + phase-NN-*.md; the files are canonical.
 // Lifecycle state (active/closed/archived), current-plan pointers and GitHub ids live in
-// ~/.aif/plans-state.json, so closing or archiving never edits or moves plan files.
+// $AIF_HOME/plans-state.json (default ~/.aif), so closing or archiving never edits or moves plan files.
 //
 //   create <slug> [--title t] [--phases n]     list [--all]            search <text> [--all]
 //   show [<plan>]    status [<plan>]           validate <plan>         (exit 3 when invalid)

@@ -22,7 +22,7 @@ resolve. `prefs.cjs validate` reports the problem and exits 3.
 | `plans.dir` | string | `.aif/plans` | Where plan directories live, relative to the project root |
 | `plans.naming` | string | `{date}-{slug}` | Plan directory name; `{date}` and `{slug}` are substituted |
 | `plans.dateFormat` | string | `YYMMDD-HHmm` | Format of `{date}`; tokens `YYYY`, `YY`, `MM`, `DD`, `HH`, `mm` |
-| `reports.dir` | string | `.aif/reports` | Where skills and agents write reports |
+| `reports.dir` | string | `.aif/reports` | Where skills and agents write reports; `/aif-ship` commits the reports its work produced |
 | `language` | string | unset | Preferred response language |
 | `hooks.<name>` | boolean | `true` | Set `false` to turn one hook off. `<name>` is `session-init`, `subagent-init`, `dev-rules-reminder`, `privacy-block`, `scout-block` or `secret-output-guardrail` |
 
@@ -53,7 +53,7 @@ node aif-plan/scripts/prefs.cjs validate            # exit 3 when a file is inva
 ## Local plan state
 
 Plan files are canonical: `plan.md` and `phase-NN-*.md` carry titles, status and checkboxes.
-Information that is per machine rather than part of the plan lives in `~/.aif/plans-state.json`,
+Information that is per machine rather than part of the plan lives in `$AIF_HOME/plans-state.json` (default `~/.aif`),
 outside the repository:
 
 - lifecycle state (`active`, `closed`, `archived`), set by `plan.cjs close`, `archive` and `cleanup`;
