@@ -97,7 +97,7 @@ Detect multiple features from natural language:
 → Mode: auto ("trust me" keyword, NO STOPS)
 ```
 
-**Note:** No flag and accepted plan execution continue within authorized scope. Explicit interactive/advice contracts remain active.
+**Note:** No flag and accepted plan execution continue within authorized scope. Explicit `--interactive`/`--chef` contracts remain active.
 
 ## Conflict Resolution
 

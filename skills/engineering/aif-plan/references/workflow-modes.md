@@ -49,7 +49,7 @@ Per-phase scouting for large architectural overhauls.
 
 1. Research + Scout Phase 1.
 2. Plan Phase 1 in detail, outline Phases 2+.
-3. During serve, each subsequent phase gets a dedicated scout pass before execution.
+3. During `/aif-serve`, each subsequent phase gets a dedicated scout pass before execution.
 4. Post-plan red team review & validation.
 
 ## Parallel Mode (`--parallel`)

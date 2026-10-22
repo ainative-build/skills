@@ -4,8 +4,8 @@
     "chef": {
       "claude": "fable",
       "codex": {
-        "model": "gpt-5.6-luna",
-        "reasoningEffort": "max"
+        "model": "gpt-6-astra",
+        "reasoningEffort": "low"
       },
       "omp": "@advisor",
       "cursor": "claude-fable-5-high"
@@ -138,6 +138,6 @@
     }
   },
   "derived": {
-    "scout": "omp and cursor copied from haiku-tier peers (git-manager, tester, explore); AgentKit installed no scout agent for those runtimes"
+    "recon": "omp and cursor copied from haiku-tier peers (git-manager, tester, explore); AgentKit installed no scout agent for those runtimes"
   }
 }

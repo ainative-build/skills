@@ -96,7 +96,7 @@ Present user-choice next steps with the absolute path:
 > ```
 > /aif-serve {ABSOLUTE_PATH_TO_PLAN_DIR}/plan.md
 > ```
-> **Flag selection:** If Verification Results show `Failed: 0`, the plan is eligible for implementation. Ask the user before proceeding. Add `--auto` only when the user explicitly asks for autonomous implementation. If `Failed: N > 0`, revise the plan before serving.
+> **Flag selection:** If Verification Results show `Failed: 0`, the plan is eligible for implementation. Ask the user before proceeding. Add `--auto` only when the user explicitly asks for autonomous implementation. If `Failed: N > 0`, revise the plan before running `/aif-serve`.
 > **Why absolute path?** After `/clear`, the new session loses previous context.
 > Fresh context helps Claude focus solely on implementation without planning context pollution.
 
@@ -104,4 +104,4 @@ Present user-choice next steps with the absolute path:
 - Only ask about genuine decision points
 - If plan is simple, fewer than min questions is okay
 - Prioritize questions that could change implementation significantly
-- Never recommend serving until the whole-plan consistency sweep has no unresolved contradictions
+- Never recommend `/aif-serve` until the whole-plan consistency sweep has no unresolved contradictions

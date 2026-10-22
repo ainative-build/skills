@@ -3,7 +3,7 @@
 When `--chef` is present, run this skill under `aif-chef` supervision.
 Load `../aif-brainstorm/references/advisory-supervision.md` for supervisor
 identity, host detection, and model routing (Claude subscription → Fable 5;
-Codex → `gpt-6-astra` + low effort; Cursor → `claude-fable-5-high`).
+Codex → `gpt-6-astra` + low effort, falling back to sol, terra, then luna; Cursor → `claude-fable-5-high`).
 
 Spawn `aif-chef` at these checkpoints:
 

@@ -1,6 +1,6 @@
 ---
 name: aif-plan
-description: "Create, validate or review implementation plans with acceptance criteria and executable phases; serve implements them."
+description: "Create, validate or review implementation plans with acceptance criteria and executable phases; aif-serve implements them."
 when_to_use: "Invoke when work needs phases, architecture or a roadmap."
 category: workflow
 keywords: [planning, architecture, phases, roadmap, github]

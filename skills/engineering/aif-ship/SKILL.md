@@ -73,7 +73,7 @@ When `--chef` is present, the workflow MUST spawn `aif-chef` to supervise
 the local ship-to-PR path, because the flag's entire contract is that a
 supervisor saw the change. Load `../aif-brainstorm/references/advisory-supervision.md`
 for supervisor identity, host detection, and model routing (Claude
-subscription → Fable 5; Codex → `gpt-6-astra` + low effort; Cursor →
+subscription → Fable 5; Codex → `gpt-6-astra` + low effort, falling back to sol, terra, then luna; Cursor →
 `claude-fable-5-high`). Chef returns counsel, never code; the main agent
 remains responsible for every decision, edit, and gate.
 

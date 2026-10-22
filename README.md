@@ -7,6 +7,10 @@ v2 is a hard fork of the AgentKit 3.0.0-beta.35 development-cycle skills, rename
 and made self-contained: plans, journals and preferences use the scripts in this repo, and
 nothing needs AgentKit or the `ak` CLI.
 
+A few names differ from AgentKit: `cook` is `aif-serve`, `scout` is `aif-recon`, the `kongming`
+agent is `aif-chef`, `fable-thinking` is `aif-deep-thinking`, `--advice` is `--chef` and `--ultra` is
+`--pro-max`.
+
 ## Skills by stage
 
 | Stage | Skill | What it does |
@@ -101,8 +105,8 @@ Plans, reports, journals, language and per-hook switches live in an optional `.a
 v2.0.0 is a breaking change. The v1 skills `aif-code-review`, `aif-recon` and `aif-improve` and
 the v1 `code-reviewer` agent are replaced: `aif-code-review` is now the AgentKit-derived review
 skill, `aif-recon` is now the AgentKit-derived recon skill, and `aif-improve` is gone. A
-skills.sh install of v2 replaces `aif-code-review` and `aif-recon` but leaves the old
-`aif-improve` in place; remove it with `npx skills remove -g aif-improve`. The v1 tree stays available
+skills.sh install of v2 installs `aif-code-review` and `aif-recon` under the same names but
+leaves the old `aif-improve` in place; remove it with `npx skills remove -g aif-improve`. The v1 tree stays available
 at the [`v1.3.1`](https://github.com/ainative-build/skills/tree/v1.3.1) tag.
 
 ## License

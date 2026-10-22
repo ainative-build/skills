@@ -38,7 +38,7 @@ Repair regressions caused by the change and rerun affected checks before finishi
 
 `--tdd` preserves current behavior with tests before each refactoring phase.
 `--chef` loads `references/advisory-supervision-checkpoints.md`; also honor an
-accepted plan's advice handover or Failure Protocol. Its failed-verification counsel
+accepted plan's `--chef` handover or Failure Protocol. Its failed-verification counsel
 checkpoint remains active in every mode. `--yagni` opts into scope cutting; otherwise
 deliver all requested scope and nothing extra. Pass selected flags to delegates.
 

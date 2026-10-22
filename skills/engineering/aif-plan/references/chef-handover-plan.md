@@ -9,7 +9,7 @@ the rails. The goal of this contract is a plan those executors can run
 end to end without inventing anything.
 
 Supervisor identity and model routing stay in
-`../aif-brainstorm/references/advisory-supervision.md`. This file governs only the
+`../../aif-brainstorm/references/advisory-supervision.md`. This file governs only the
 shape of the plan artifact.
 
 ## The plan is the only thing the executor reads

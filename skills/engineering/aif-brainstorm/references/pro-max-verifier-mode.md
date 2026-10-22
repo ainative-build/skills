@@ -37,7 +37,7 @@ path.
   model-tier degrade note below).
 - **Verifier** — one verifier subagent (Chef). Model routing matches
   `--chef`: Claude Code subscription → `fable` (Fable 5); Codex →
-  `gpt-6-astra` at low reasoning; see
+  `gpt-6-astra` at low reasoning, with the sol, terra, luna fallback; see
   `advisory-supervision.md`. It runs on the runtime's strongest available
   model when tier routing exists; otherwise it shares the candidates' tier
   under the degrade note. Advisory: it scores and selects; it does not edit

@@ -94,4 +94,4 @@ Add `--auto` only when the user explicitly asks for autonomous implementation.
 - Deduplicate aggressively
 - Adjudication must be evidence-based
 - Reviewers read plan files directly
-- Never recommend serving until the whole-plan consistency sweep has no unresolved contradictions
+- Never recommend `/aif-serve` until the whole-plan consistency sweep has no unresolved contradictions

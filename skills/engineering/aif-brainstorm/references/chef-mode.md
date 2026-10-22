@@ -3,7 +3,7 @@
 When `--chef` is present, run this skill under `aif-chef` supervision.
 Load `advisory-supervision.md` for supervisor identity, host
 detection, and model routing (Claude subscription → Fable 5; Codex →
-`gpt-6-astra` + low effort; Cursor → `claude-fable-5-high`).
+`gpt-6-astra` + low effort, falling back to sol, terra, then luna; Cursor → `claude-fable-5-high`).
 
 Spawn `aif-chef` at these checkpoints:
 
@@ -15,7 +15,7 @@ Spawn `aif-chef` at these checkpoints:
 - **Before a high-stakes decision** — a design fork, a public-contract or
   security-sensitive change, or an irreversible action; get counsel first.
 
-**When the workflow reaches a PR** (here, via the handed-off plan/serve/fix
+**When the workflow reaches a PR** (here, via the handed-off aif-plan/aif-serve/aif-fix
 workflow): pass `--chef` to the downstream skill so supervision persists
 across the handoff. Watch and fix CI until every required check is green, then
 spawn `aif-chef` to review the whole implementation and post its assessment

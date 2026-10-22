@@ -145,7 +145,7 @@ flowchart TD
     G -->|No| J[Inspect relevant evidence]
     J --> K[Compare approaches when choice is material]
     I --> L[Plan or fix]
-    K --> L2[Plan or serve]
+    K --> L2[aif-plan or aif-serve]
 ```
 
 When `--ask` is present and unsettled material decisions remain after evidence inspection, the clarification round runs before the brainstorm contract is finalized, aligning user intent with discovered repository reality. If an accepted contract already settles requirements, reuse it directly without redundant questioning.

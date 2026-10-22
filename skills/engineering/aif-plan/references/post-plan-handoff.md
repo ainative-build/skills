@@ -8,7 +8,7 @@ Always finish plan authoring with an explicit handoff so the user or orchestrato
 ### Plan Summary
 - **Plan Path**: `{relative-plan-dir}/plan.md`
 - **Handover Contract**: `--chef` — phased tasks with success criteria, mechanical verification, and a per-phase Failure Protocol (when `--chef` is active; see `references/chef-handover-plan.md`)
-- **Status**: Ready for implementation (`ready to serve`)
+- **Status**: Ready for implementation (ready for `/aif-serve`)
 - **Phases**:
   1. Phase 1: [Phase 1 Title] — [Short description]
   2. Phase 2: [Phase 2 Title] — [Short description]
