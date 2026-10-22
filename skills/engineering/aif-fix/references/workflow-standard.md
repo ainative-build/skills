@@ -62,7 +62,8 @@ escalate to Deep workflow for a plan.
 Record the implementation phase as active once scout and diagnosis are complete.
 
 Write the regression test first: invoke the `aif-test` skill (`/aif-test create <issue>`) to
-write a test that fails on the original symptom, and confirm it is red. Type and lint errors use
+write a test that fails on the original symptom, and confirm it is red. Call the skill rather than
+writing the test inline, once for each issue you fix. Type and lint errors use
 their checker instead.
 
 Fix the ROOT CAUSE per diagnosis findings. Not symptoms.

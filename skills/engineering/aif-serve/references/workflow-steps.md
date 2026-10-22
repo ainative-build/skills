@@ -24,7 +24,8 @@ Step 3.V: Verify green: new tests and all characterization tests pass, plus comp
 Step 3.F: Refactor with the tests kept green
 ```
 
-- **3.T** invokes the `aif-test` skill rather than writing tests inline. It uses the phase's
+- **3.T** invokes the `aif-test` skill rather than writing tests inline, once for every phase,
+  even when the skill was already loaded for an earlier phase. It uses the phase's
   Tests First section when a plan exists; otherwise it derives the tests
   from the task's acceptance criteria. aif-test also writes signature-only stubs for modules
   that do not exist yet; serve writes no tests, stubs or production code in this step.

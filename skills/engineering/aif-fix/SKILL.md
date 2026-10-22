@@ -46,7 +46,8 @@ and verification evidence. Use a discriminating test for uncertainty; reasoning 
 optional, never an automatic activation chain. Preserve the opening scope and contracts.
 
 Write the regression test first: invoke the `aif-test` skill as `/aif-test create <issue>` to
-write a test that fails on the original symptom, and confirm it is red before editing. Type and
+write a test that fails on the original symptom, and confirm it is red before editing. Call the
+skill rather than writing the test inline, once for each issue you fix. Type and
 lint fixes use their existing checker instead. Rerun the failing path after repair, then checks
 covering affected callers/contracts. Reuse checks for unchanged source, inputs and environment. Review the actual diff;
 independent review scales with risk and repository requirements, not every trivial fix.
