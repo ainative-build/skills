@@ -1,15 +1,17 @@
 {
   "name": "ainative-build",
-  "owner": { "name": "ainative-build" },
+  "owner": {
+    "name": "ainative-build"
+  },
   "metadata": {
-    "description": "Portable, self-contained coding-agent skills from ainative-build.",
-    "version": "1.3.1"
+    "description": "Development-cycle coding-agent skills, agents and hooks from ainative-build.",
+    "version": "2.0.0"
   },
   "plugins": [
     {
       "name": "aif",
       "source": "./",
-      "description": "aif-code-review (three-axis adversarial review) + aif-recon (codebase reconnaissance) + aif-improve (architectural deepening opportunities), with a plugin-registered code-reviewer agent."
+      "description": "aif dev-cycle skills (advise, brainstorm, research, plan, serve, debug, fix, test, code-review, git, ship, journal, recon and more) with 15 aif agents, rules, guard hooks and the aif-install installer for Claude Code, Codex, OMP and Cursor."
     }
   ]
 }

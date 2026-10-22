@@ -1,0 +1,42 @@
+{
+  "agentkitVersion": "ak 3.0.0-beta.35",
+  "installId": "20260714T064040Z-c7ab9cd8",
+  "installedAt": "2026-07-14T06:40:42.879224Z",
+  "snapshotDate": "2026-10-22",
+  "sources": {
+    "skills": "~/.claude/skills/ak-<name>/",
+    "agents": "~/.claude/agents/<name>.md",
+    "rules": "~/.claude/rules/",
+    "hooks": "~/.claude/hooks/",
+    "codexShapes": "~/.codex/{agents,hooks,hooks.json,AGENTS.md,config.toml}",
+    "ompShapes": "~/.omp/agent/{agents,rules}",
+    "cursorShapes": "~/.cursor/{agents,rules,hooks.json}"
+  },
+  "skillLicenses": {
+    "advise": "MIT",
+    "brainstorm": "MIT",
+    "research": "MIT",
+    "plan": "MIT",
+    "cook": null,
+    "debug": null,
+    "fix": null,
+    "test": null,
+    "code-review": null,
+    "git": null,
+    "ship": "MIT",
+    "journal": null,
+    "scout": null,
+    "problem-solving": null,
+    "fable-thinking": null,
+    "agent-browser": "Apache-2.0",
+    "chrome-profile": "MIT",
+    "web-testing": "Apache-2.0",
+    "ai-multimodal": "MIT"
+  },
+  "notes": [
+    "10 in-scope skills declare no license in SKILL.md frontmatter; phase 10 must resolve before release.",
+    "agent-browser and web-testing are Apache-2.0 and need NOTICE attribution.",
+    "chrome-profile ships its own MIT LICENSE (chrome-profile-cdp contributors); keep it.",
+    "installId is from ~/.claude/.agentkit-managed and predates the 3.0.0-beta.35 upgrade on 2026-10-21."
+  ]
+}

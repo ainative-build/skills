@@ -1,114 +1,156 @@
 ---
 name: aif-recon
-description: "Fast, token-efficient codebase reconnaissance. Given a task, a set of changed files, or a question, it finds the relevant files, their dependents/callers, related tests, and any governing spec/PRD/issue — and returns one concise context report. Divides the tree across parallel subagents when available, falls back to a single sequential sweep otherwise. Use before implementing, debugging, or reviewing, or whenever you need to know where something lives. Triggers on: 'find', 'locate', 'where is', 'scout', 'recon', 'map the codebase', 'gather context', 'what touches'."
+description: "Scout a codebase fast with native search, optional Explore agents and user-permitted OpenCode probes."
+when_to_use: "Invoke for file discovery, task context or scoped searches."
+category: workflow
+keywords: [codebase, scouting, file-discovery, search]
+argument-hint: "[search-target] [ext] [--pro-max]"
 license: MIT
 metadata:
   author: ainative-build
-  version: "1.0.0"
-argument-hint: "<task | changed-files | question> [--spec]"
+  version: "1.1.2"
 ---
 
-# aif-recon
+# Recon
 
-Reconnaissance for the codebase: turn a target into a concise map of what's relevant. Built to feed
-other work (implementation, debugging, review) a tight context report instead of a raw file dump.
+Fast, token-efficient codebase scouting using parallel agents to find files needed for tasks.
 
-**Principles:** wide-then-deep · divide and conquer · report signal, not noise.
+## Arguments
+- Default: Use local search for one owner/path; partition only independent domains when delegation is authorized and useful (`./references/internal-scouting.md`)
+- `ext`: Scout using user-permitted OpenCode probes when native/local search is insufficient (`./references/external-scouting.md`)
+- `--pro-max`: Run the scout as a best-of-5 verifier pass (see Pro-Max Verifier Mode)
 
-Self-contained — built-ins only: `git`, `Glob`, `Grep`, `Read`, `Bash`, and (where available) the
-`Task` tool for parallel subagents. Read-only; never edits.
+## When to Use
 
-## What it answers
+- Beginning work on feature spanning multiple directories
+- User mentions needing to "find", "locate", or "search for" files
+- Starting debugging session requiring file relationships understanding
+- User asks about project structure or where functionality lives
+- Before changes that might affect multiple codebase parts
 
-Given a **target** — a task description, a set of changed files, or a plain question — produce:
+## Fast path
 
-- **Relevant files** — the modules that implement or own the target area.
-- **Dependents / callers** — what refers to the changed/target symbols (blast radius).
-- **Related tests** — test files that cover the target modules.
-- **Spec / governing docs** — with `--spec` (or when asked), the PRD / issue / plan that defines the
-  intended behavior.
+For one pathname/symbol, search locally and return the verified path/role directly. Reuse a
+source map while its revision and relevant files are unchanged. No standalone report is
+required for one lookup. Use the fuller workflow below only for multiple independent domains;
+explicit `--pro-max` retains its separate five-candidate contract.
+
+## Quick Start
+
+1. Analyze user prompt to identify search targets
+2. Use a wide range of `search_files` patterns to find relevant files and estimate scale of the codebase
+3. Spawn parallel agents with divided directories only when the active runtime permits delegate_agent usage
+4. Collect results into concise report
+
+## Runtime Tooling
+
+Use portable capabilities first:
+- `search_files` for local discovery.
+- `read_file` for scoped file reads.
+- `run_shell` for local commands such as `rg`, `wc`, or `sed`.
+- The live task-management surface for progress tracking when useful.
+- `delegate_agent` for Explore subagents only when user request and runtime policy allow delegation.
+
+Delegation follows the runtime's permission model rather than this skill's
+text: some runtimes, including Codex Desktop, allow subagents only when the
+user's own request asked for delegation or parallel agent work. Where that
+authorization is absent, this skill scouts inline in the main agent with
+`search_files` and `read_file`, which produces the same map and only costs
+wall-clock.
+
+Runtime mapping for `delegate_agent`:
+- Claude Code: use the native delegate call with `subagent_type: "aif-explore"`.
+- Codex Desktop: Explore is a deferred multi-agent role. If `multi_agent_v1`
+  is not visible, call `tool_search` for multi-agent spawn tools first, then use
+  `multi_agent_v1.spawn_agent` with `agent_type: "aif-explore"`. Do not set a model
+  override; the agent role owns its runtime model configuration.
 
 ## Workflow
 
-```
-1. Frame the target → search terms, entry dirs, symbols
-2. Wide sweep       → Glob/Grep to size the space + gather candidates
-3. Divide & conquer → parallel subagents over disjoint dirs (or one sequential sweep)
-4. Deep read        → confirm the true owners; trace dependents & tests
-5. Report           → one concise context report
-```
+### 1. Analyze Task
+- Parse user prompt for search targets
+- Identify key directories, patterns, file types, lines of code
+- Determine optimal SCALE value of subagents to spawn
 
-### 1. Frame the target
-Parse the target into concrete search terms: symbol/function/type names, file-type globs, likely
-directories. For a changed-files target, start from `git diff --name-only` and the changed symbol
-names. For a question, extract the nouns that name features/modules.
+### 2. Divide and Conquer
+- Split codebase into logical segments per agent
+- Assign each agent specific directories or patterns
+- Ensure no overlap, maximize coverage
 
-### 2. Wide sweep
-Use a spread of `Glob` and `Grep` patterns to (a) estimate scale (how many files/dirs matter) and
-(b) collect candidate files. Prefer several narrow patterns over one broad one.
+### 3. Register Scout Work
+- **Skip if:** Agent count ≤ 2 (overhead exceeds benefit)
+- Discover the live task-management surface and check for existing scout work
+- If available, register one scoped item per agent; otherwise update the active plan
+- Keep tracking concise: scope, assigned directories, current status, and timeout
+- Treat the active plan as the durable source of truth
 
-### 3. Divide & conquer — capability branch (load-bearing for portability)
-- **If parallel subagents are available** (Task tool): split the candidate directories into disjoint
-  segments with NO overlap, and spawn one read-only subagent per segment. Give each the exact dirs/
-  globs to read and the target it's confirming. Each returns a short segment report. Skip the fan-out
-  when the candidate set is small (≤ ~2 segments) — the overhead isn't worth it; sweep inline.
-- **Otherwise** (Codex, Cursor, or any runtime without subagents): do ONE sequential sweep in this
-  session over the candidate set. Same output, just serial.
+### 4. Spawn Parallel Agents
+Load appropriate reference based on decision tree:
+- **Internal (Default):** `references/internal-scouting.md` (Explore subagents)
+- **External:** `references/external-scouting.md` (OpenCode)
 
-Each subagent (or the sequential sweep) must:
-- read only its assigned scope; stay within it,
-- confirm which candidates truly own the target (open them, don't guess from names),
-- for changed/target symbols, Grep the repo for callers/importers (dependents),
-- note the test files that exercise those modules,
-- return a concise segment summary, not raw file contents.
+**Notes:**
+- Record each scope as in progress before spawning its agent
+- Prompt detailed instructions for each subagent with exact directories or files it should read
+- Size each scope to fit one subagent's context window; a scope that cannot fit is two scopes
+- Amount of subagents to-be-spawned depends on the current system resources available and amount of files to be scanned
+- Each subagent must return a detailed summary report to a main agent
+- In Codex Desktop, first expose deferred multi-agent tools through `tool_search` if they are not already visible.
+- If runtime policy blocks subagents because the user did not explicitly request delegation, continue with main-agent scouting instead of forcing a spawn.
 
-### 4. Deep read
-Merge segment reports. Open the top owners to confirm. Resolve the dependent set (who breaks if this
-changes) and the covering tests. Drop false candidates.
+### 5. Collect Results
+Invoke "the engineer project-organization skill" skill to organize the outputs.
 
-### 5. Spec discovery (`--spec`, or when the caller asks)
-Locate the governing spec in this order and report what you find (or "none found"):
-1. Issue/PR references in the relevant commit messages (`#123`, `JIRA-45`, "closes …").
-2. A path the caller named.
-3. A scan of `docs/`, `specs/`, `.scratch/`, `plans/`, `PRD*`, `RFC*` for a matching document.
+- Timeout: 3 minutes per agent (skip non-responders)
+- Record completed scopes and log timed-out agents in the report
+- Aggregate findings into single report
+- List unresolved questions at end
 
-## Report format
-
-Keep it tight — this is fuel for the next step, not an essay.
+## Report Format
 
 ```markdown
-# Recon — <target>
+# Recon Report
 
-## Relevant files
-- `path/to/file` — what it owns, why it's relevant
+## Relevant Files
+- `path/to/file.ts` - Brief description
+- ...
 
-## Dependents / blast radius
-- `path/to/caller` — how it depends on the target
-
-## Tests
-- `path/to/test` — what it covers
-
-## Spec / governing docs        (when --spec or asked)
-- `path/to/spec` — the requirement it defines   (or: none found)
-
-## Standards docs               (when asked, e.g. by a reviewer)
-- `.editorconfig` / `docs/code-standards*` / linter config / `CONTRIBUTING` — the convention it sets   (or: none found)
-
-## Suggested review groups      (large/multi-area targets only)
-- group A: `src/api/`, `src/db/` — backend
-- group B: `src/components/` — frontend
-  (disjoint file-groups a reviewer can fan out over; omit for a small target)
-
-## Notes & unresolved questions
-- gaps, ambiguities, things the caller should confirm
+## Unresolved Questions
+- Any gaps in findings
 ```
+
+## Pro-Max Verifier Mode (`--pro-max`)
+
+When `--pro-max` is present, run the scout as a best-of-5 verifier pass instead
+of a single pass. The controller builds one immutable evidence packet (the
+search targets, scope boundaries, and any prior findings) plus a rubric, then
+dispatches exactly five independent read-only candidate scout passes in one
+parallel wave; a single strongest-model verifier scores them.
+
+- **Candidate task:** each candidate produces a complete scout report — relevant
+  files with one-line roles, relationships, and unresolved questions — from the
+  same evidence packet.
+- **Rubric:** coverage of the stated targets, evidence quality (paths verified,
+  roles accurate), signal density, and honesty about gaps.
+- **Finalizer:** the verifier returns the
+  evidence-validated, deduplicated union of scouted findings across the five
+  passes — a relevant file may surface in only one candidate. It drops paths it
+  cannot validate; the controller emits the merged report.
+
+Recon's no-delegation degrade path does not apply under `--pro-max`: if the
+runtime cannot dispatch five parallel read-only candidates,
+hard-stop and name the missing capability — never degrade to main-agent
+scouting for an pro-max run. Full mechanics (evidence packet, anonymization, the
+five-usable-candidate gate, reject-all, fail-closed dispatch) are in
+`../aif-brainstorm/references/pro-max-verifier-mode.md`. It is a best-of-5
+verifier mode inspired by LLM-as-a-Verifier, not the full framework.
 
 ## References
 
-- `references/scouting-patterns.md` — Glob/Grep pattern recipes + how to size and split the tree.
+- `references/internal-scouting.md` - Using Explore subagents
+- `references/external-scouting.md` - Using user-permitted OpenCode probes
 
-## Notes
+## Workflow Position
 
-- Timebox parallel subagents (~3 min each); log any non-responder in the report rather than blocking.
-- Each subagent has a bounded context window — hand it a scope it can actually read, not the whole
-  tree.
+**Typically precedes:** `/aif-fix` (fix after locating code)
+**Related:** `the engineer debug skill` (investigate after scouting), `/aif-brainstorm` (explore after scouting), `the installed code-review skill` (scout edge cases before review, engineer tier)
