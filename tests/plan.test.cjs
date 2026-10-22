@@ -28,19 +28,19 @@ test('plan', async (t) => {
 
   await t.test('create refuses to overwrite an existing plan', () => {
     // A date-free name makes the collision independent of the clock.
-    const cfg = path.join(sb.project, '.aif.json');
+    const cfg = sb.configFile();
     fs.writeFileSync(cfg, JSON.stringify({ plans: { naming: '{slug}' } }));
     assert.equal(sb.run('plan', ['create', 'dup']).code, 0);
     const again = sb.run('plan', ['create', 'dup']);
     assert.equal(again.code, 1);
     assert.match(again.stderr, /plan already exists/);
     fs.rmSync(cfg);
-    fs.rmSync(path.join(sb.project, 'plans', 'dup'), { recursive: true });
+    fs.rmSync(path.join(sb.project, '.aif', 'plans', 'dup'), { recursive: true });
   });
 
   await t.test('validate passes a fresh plan and exits 3 on a broken one', () => {
     assert.equal(sb.run('plan', ['validate', plan.dir]).code, 0);
-    const bad = path.join(sb.project, 'plans', 'broken');
+    const bad = path.join(sb.project, '.aif', 'plans', 'broken');
     fs.mkdirSync(bad);
     fs.writeFileSync(path.join(bad, 'plan.md'), '---\ntitle: Broken\nstatus: done\n---\n');
     fs.writeFileSync(path.join(bad, 'phase-1.md'), '---\ntitle: x\nstatus: pending\n---\n');
@@ -160,7 +160,7 @@ test('plan', async (t) => {
   await t.test('search, reindex and the plans.dir preference', () => {
     assert.equal(sb.run('plan', ['search', 'Demo feature', '--all', '--json']).json().hits.length > 0, true);
     assert.equal(sb.run('plan', ['reindex', '--json']).json().plans, 2);
-    fs.writeFileSync(path.join(sb.project, '.aif.json'), JSON.stringify({ plans: { dir: 'docs/plans', naming: '{slug}' } }));
+    fs.writeFileSync(sb.configFile(), JSON.stringify({ plans: { dir: 'docs/plans', naming: '{slug}' } }));
     const r = sb.run('plan', ['create', 'elsewhere', '--json']).json();
     assert.equal(r.dir, fs.realpathSync(path.join(sb.project, 'docs', 'plans')) + path.sep + 'elsewhere');
     assert.equal(sb.run('plan', ['reindex', '--json']).json().plans, 1);

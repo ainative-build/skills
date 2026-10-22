@@ -1,15 +1,16 @@
 # aif configuration
 
 aif skills, scripts and hooks read one optional JSON file. Every key has a default, so no file is
-required.
+required. Everything aif writes in a project, its config, plans and reports, lives under the
+project's `.aif/` folder.
 
 ## Where it lives
 
 Values merge in this order, later winning:
 
 1. Built-in defaults.
-2. `~/.aif.json` (user).
-3. `<project>/.aif.json`, where `<project>` is the git top level, or the current directory outside git.
+2. `~/.aif/config.json` (user), or `$AIF_HOME/config.json` when `AIF_HOME` is set.
+3. `<project>/.aif/config.json`, where `<project>` is the git top level, or the current directory outside git.
 
 A file that fails to parse, or a key with the wrong type, is skipped and the remaining values still
 resolve. `prefs.cjs validate` reports the problem and exits 3.
@@ -18,12 +19,10 @@ resolve. `prefs.cjs validate` reports the problem and exits 3.
 
 | Key | Type | Default | Used for |
 |---|---|---|---|
-| `plans.dir` | string | `plans` | Where plan directories live, relative to the project root |
+| `plans.dir` | string | `.aif/plans` | Where plan directories live, relative to the project root |
 | `plans.naming` | string | `{date}-{slug}` | Plan directory name; `{date}` and `{slug}` are substituted |
 | `plans.dateFormat` | string | `YYMMDD-HHmm` | Format of `{date}`; tokens `YYYY`, `YY`, `MM`, `DD`, `HH`, `mm` |
-| `reports.dir` | string | `plans/reports` | Where skills write reports |
-| `journal.auto` | boolean | `true` | Whether skills write a journal entry automatically when they finish |
-| `journal.dir` | string | `plans/journals` | Where journal entries are written |
+| `reports.dir` | string | `.aif/reports` | Where skills and agents write reports |
 | `language` | string | unset | Preferred response language |
 | `hooks.<name>` | boolean | `true` | Set `false` to turn one hook off. `<name>` is `session-init`, `subagent-init`, `dev-rules-reminder`, `privacy-block`, `scout-block` or `secret-output-guardrail` |
 
@@ -32,7 +31,7 @@ Example:
 ```json
 {
   "plans": { "dir": "docs/plans" },
-  "journal": { "auto": false }
+  "language": "vi"
 }
 ```
 
@@ -42,14 +41,14 @@ Example:
 
 ```bash
 node aif-plan/scripts/prefs.cjs resolve --json      # all merged values and which files supplied them
-node aif-plan/scripts/prefs.cjs get journal.auto    # prints true or false
-node aif-plan/scripts/prefs.cjs set journal.auto false          # writes <project>/.aif.json
-node aif-plan/scripts/prefs.cjs set plans.dir docs/plans --user # writes ~/.aif.json
-node aif-plan/scripts/prefs.cjs unset journal.auto
+node aif-plan/scripts/prefs.cjs get plans.dir       # prints .aif/plans unless overridden
+node aif-plan/scripts/prefs.cjs set language vi                 # writes <project>/.aif/config.json
+node aif-plan/scripts/prefs.cjs set plans.dir docs/plans --user # writes ~/.aif/config.json
+node aif-plan/scripts/prefs.cjs unset language
 node aif-plan/scripts/prefs.cjs validate            # exit 3 when a file is invalid
 ```
 
-`set` accepts only the keys in the table above.
+`set` accepts only the keys in the table above, and creates the `.aif/` folder when it is missing.
 
 ## Local plan state
 
@@ -84,7 +83,7 @@ Environment variables, all optional:
 
 | Variable | Default | Effect |
 |---|---|---|
-| `AIF_HOME` | `~/.aif` | Where hook state and logs live |
+| `AIF_HOME` | `~/.aif` | Where the user config, hook state and logs live |
 | `AIF_HOOK_LOG_DIR` | `$AIF_HOME/logs` | Hook log directory |
 | `AIF_RULES_DIR` | `rules/` beside `hooks/` | Rules the context hooks point to and the reminder injects |
 | `AIF_PLAN_CJS` | `skills/engineering/aif-plan/scripts/plan.cjs` beside `hooks/` | Script that resolves the active plan |

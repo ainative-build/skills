@@ -14,7 +14,7 @@
  *
  * Configuration:
  * - Add <project-root>/.scoutignore to block more paths for one project
- * - Turn the hook off with `hooks.scout-block: false` in .aif.json
+ * - Turn the hook off with `hooks.scout-block: false` in .aif/config.json
  * - Supports negation patterns (!) to allow specific paths
  *
  * Exit Codes:

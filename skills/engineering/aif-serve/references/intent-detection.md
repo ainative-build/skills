@@ -14,7 +14,7 @@ FUNCTION detectMode(input):
   IF input contains "--no-test": RETURN "no-test"
 
   # Priority 2: Plan path detection
-  IF input matches path pattern (./plans/*, plan.md, phase-*.md):
+  IF input matches path pattern (.aif/plans/*, plan.md, phase-*.md):
     RETURN "code"
 
   # Priority 3: Keyword detection (case-insensitive)

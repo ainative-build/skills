@@ -4,7 +4,7 @@ description: "Ship a completed branch via tests, review, commit, push and PR, wi
 when_to_use: "Invoke when work is done and needs a PR."
 category: workflow
 keywords: [ship, PR, merge, push, release, advice, chef]
-argument-hint: "[official|stable|main|beta|dev|next] [--both] [--chef] [--merge] [--skip-tests] [--skip-review] [--skip-journal] [--skip-docs] [--dry-run]"
+argument-hint: "[official|stable|main|beta|dev|next] [--both] [--chef] [--merge] [--skip-tests] [--skip-review] [--skip-docs] [--dry-run]"
 license: MIT
 metadata:
   author: ainative-build
@@ -23,7 +23,7 @@ Single command to ship a feature branch. Continue through authorized repairs and
 
 | Flag | Effect |
 |------|--------|
-| `official`, `stable`, `main` | Normalize to `official`; ship to the detected default branch (main/master). Full pipeline with docs + journal |
+| `official`, `stable`, `main` | Normalize to `official`; ship to the detected default branch (main/master). Full pipeline with docs update |
 | `beta`, `dev`, `next` | Normalize to `beta`; ship to the detected development branch (dev/beta/develop). Lighter pipeline, skip docs update |
 | (none) | Auto-detect: if base branch is main/master → official, else → beta |
 | `--both` | Dual-target ship: beta stage first, then a gated stable stage (see Dual-target ship). Supersedes a positional mode token |
@@ -31,7 +31,6 @@ Single command to ship a feature branch. Continue through authorized repairs and
 | `--merge` | After PR creation, merge it through the `aif-git` merge-pr workflow (readiness gate, merge, post-merge CI to green) |
 | `--skip-tests` | Skip test step (use when tests already passed) |
 | `--skip-review` | Skip pre-landing review step |
-| `--skip-journal` | Skip journal writing step (also honors `journal.auto=false` config preference) |
 | `--skip-docs` | Skip docs update step |
 | `--dry-run` | Show what would happen without executing |
 
@@ -94,7 +93,7 @@ delegation call occurs, the workflow is incomplete.
 
 When `--merge` is also present, add one more mandatory checkpoint:
 
-- **After the PR exists, before Step 13 merges** — pass the PR URL, its check
+- **After the PR exists, before Step 12 merges** — pass the PR URL, its check
   and review state, and ask for a go/no-go on merging.
 
 `--chef` never bypasses tests, review blockers, branch protection, security
@@ -113,7 +112,7 @@ do:
   they name (for example a verification receipt line) in the PR body.
 - Create the PR ready for review. Keep it draft only when that evidence is
   missing.
-- Stop after Step 12b, even with `--merge`: skip Step 13, and do not enable
+- Stop after Step 11b, even with `--merge`: skip Step 12, and do not enable
   auto-merge, update the branch, merge, or wait for PR checks. Report
   `Merge=delegated` with the landing owner and `CI=n/a`.
 
@@ -144,14 +143,13 @@ Step 4:  Run tests        → Auto-detect test runner, run, check results
 Step 5:  Review           → Two-pass checklist review (critical + informational)
 Step 6:  Version bump     → Auto-detect version file, bump patch/minor
 Step 7:  Changelog        → Auto-generate from commits + diff
-Step 8:  Journal          → Write technical journal via /aif-journal (see the shared "Journal step — opt-out" contract: --skip-journal flag or journal.auto config skips)
-Step 9:  Docs update      → Update project docs via an aif-docs-manager subagent (official only)
-Step 9b: Finalize plan    → plan.cjs update <plan-dir> --status completed (plan-backed; foreground, staged by Step 10)
-Step 10: Commit           → Conventional commit with version/changelog
-Step 11: Push             → git push -u origin <branch>
-Step 12: Create PR        → gh pr create with structured body + linked issues
-Step 12b: Link plan↔PR    → plan.cjs update <plan-dir> --linked-pr <n> (plan-backed; no close until merge)
-Step 13: Merge            → if --merge: aif-git merge-pr workflow on the PR (skipped in batch-landing repositories)
+Step 8:  Docs update      → Update project docs via an aif-docs-manager subagent (official only)
+Step 8b: Finalize plan    → plan.cjs update <plan-dir> --status completed (plan-backed; foreground, staged by Step 9)
+Step 9:  Commit           → Conventional commit with version/changelog
+Step 10: Push             → git push -u origin <branch>
+Step 11: Create PR        → gh pr create with structured body + linked issues
+Step 11b: Link plan↔PR    → plan.cjs update <plan-dir> --linked-pr <n> (plan-backed; no close until merge)
+Step 12: Merge            → if --merge: aif-git merge-pr workflow on the PR (skipped in batch-landing repositories)
 ```
 
 **Detailed steps:** Load `references/ship-workflow.md`
@@ -161,7 +159,7 @@ Step 13: Merge            → if --merge: aif-git merge-pr workflow on the PR (s
 
 ## Writing language + PR body
 
-Before Step 12, resolve the writing language with
+Before Step 11, resolve the writing language with
 `node <aif-plan>/scripts/prefs.cjs get language` (`null` or an error means
 English) and author the PR body in that language. Titles stay English
 conventional commits. The body must include the seven evidence sections of
@@ -171,17 +169,17 @@ conventional commits. The body must include the seven evidence sections of
 ## Token Efficiency Rules
 
 - Steps 4 (tests) and 5 (review): delegate to `aif-tester` and `aif-code-reviewer` subagents — don't inline
-- Steps 8 (journal) and 9 (docs): run in **background** — don't block pipeline
+- Step 8 (docs): run in **background** — don't block pipeline
 - Step 2 (issues): use single `gh` command batch — avoid multiple API calls
 - Skip steps early via flags to save tokens on unnecessary work
-- Beta mode auto-skips: docs update (Step 9)
+- Beta mode auto-skips: docs update (Step 8)
 - Capture step outputs inline — don't re-read files already in context
 
 ## Quick Start
 
 User says `/aif-ship` → run full pipeline → output PR URL.
 User says `/aif-ship beta` → ship to dev branch with lighter pipeline.
-User says `/aif-ship official` → ship to main with full docs + journal.
+User says `/aif-ship official` → ship to main with full docs update.
 User says `/aif-ship stable` or `/aif-ship main` → normalize to official mode.
 User says `/aif-ship dev` or `/aif-ship next` → normalize to beta mode.
 User says `/aif-ship beta --chef --merge` → supervised ship, then gated merge and CI convergence.
@@ -197,7 +195,6 @@ User says `/aif-ship --both --merge` → beta PR, beta merge to green, then the 
 ✓ Review: 0 critical, 2 informational
 ✓ Version: 1.2.3 → 1.2.4
 ✓ Changelog: updated
-✓ Journal: written (background) / skipped (opt-out via --skip-journal or journal.auto)
 ✓ Docs: updated (background)
 ✓ Committed: feat(auth): add OAuth2 login flow
 ✓ Pushed: origin/feature/foo
@@ -214,14 +211,13 @@ User says `/aif-ship --both --merge` → beta PR, beta merge to green, then the 
 - **Ask only for unresolved expensive decisions:** scope-changing critical findings and major/minor version bumps. Repair in-scope defects and continue on established defaults.
 - **Auto-detect everything.** Test runner, version file, changelog format, target branch — detect from project files.
 - **Framework-agnostic.** Works for Node, Python, Rust, Go, Ruby, Java, or any project with a test command.
-- **Subagent delegation.** Use `aif-tester` for tests, `aif-code-reviewer` for review, `aif-journal-writer` for journal, `aif-docs-manager` for docs. Don't inline.
+- **Subagent delegation.** Use `aif-tester` for tests, `aif-code-reviewer` for review, `aif-docs-manager` for docs. Don't inline.
 - **Merge delegation.** `--merge` runs the `aif-git` merge-pr workflow, which refuses on conflicts, red CI, `CHANGES_REQUESTED`, or branch protection. `--skip-review` skips only the local Step 5 review.
 - **Fail closed on merge state.** When `--merge` is requested, a merged/green completion claim requires `Merge=merged` and `CI=green`; a blocked, red, pending, or unavailable state stops the run and is reported as such.
 - **Dry-run has no delegation side effects.** `--dry-run` stops before `aif-chef` or any merge.
-- **Background tasks.** Journal and docs run in background to not block the pipeline.
+- **Background tasks.** The docs update runs in background to not block the pipeline.
 
 ## Workflow Position
 
 **Typically follows:** `/aif-code-review` (ship after review passes)
-**Typically precedes:** `/aif-journal` (document after shipping)
 **Related:** `/aif-code-review` (review before shipping), `/aif-test` (test before shipping)

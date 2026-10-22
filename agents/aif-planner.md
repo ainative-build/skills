@@ -74,8 +74,8 @@ When a whole-file read fails because the file exceeds the runtime's per-read tok
 If you see a section like this at the start of your context:
 ```
 ## Plan Context (auto-injected)
-- Active Plan: plans/<timestamp>-feature-name
-- Reports Path: plans/<timestamp>-feature-name/reports/
+- Active Plan: .aif/plans/<timestamp>-feature-name
+- Reports Path: .aif/reports/
 - Naming Format: {date}-{issue}-{slug}
 - Issue ID: GH-88
 - Git Branch: kai/feat/plan-name-config
@@ -85,9 +85,9 @@ If you see a section like this at the start of your context:
 
 | If Naming section shows... | Then create folder like... |
 |--------------------------|---------------------------|
-| `Plan dir: plans/<timestamp>-{slug}/` | `plans/<timestamp>-my-feature/` |
+| `Plan dir: .aif/plans/<timestamp>-{slug}/` | `.aif/plans/<timestamp>-my-feature/` |
 | `Plan dir: ai_docs/feature/MRR-1453/` | `ai_docs/feature/MRR-1453/` |
-| No Naming section present | `plans/{date}-my-feature/` (default) |
+| No Naming section present | `.aif/plans/{date}-my-feature/` (default) |
 
 **STEP 3: Get current date dynamically.**
 

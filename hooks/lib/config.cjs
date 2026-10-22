@@ -4,7 +4,7 @@
  * Settings and project context for the aif hooks.
  *
  * Preferences come from prefs.cjs, a byte-identical copy of the aif-plan
- * script, so hooks and skills read `.aif.json` the same way. The active plan
+ * script, so hooks and skills read `.aif/config.json` the same way. The active plan
  * comes from `plan.cjs resolve`, never from a second implementation of plan
  * lookup. Every reader here fails toward the defaults: a broken config file or
  * a missing plan script leaves the hooks on and reports no plan.
@@ -126,11 +126,9 @@ function loadContext({ cwd = process.cwd(), now = new Date(), environment = proc
   const resolved = loadPrefs(cwd);
   const prefs = resolved?.prefs || {};
   const root = resolved?.root || cwd;
-  const plansDir = path.resolve(root, prefs.plans?.dir || 'plans');
+  const plansDir = path.resolve(root, prefs.plans?.dir || '.aif/plans');
   const activePlan = resolveActivePlan(root, environment);
-  const reportsDir = activePlan?.dir
-    ? path.join(path.resolve(root, activePlan.dir), 'reports')
-    : path.resolve(root, prefs.reports?.dir || 'plans/reports');
+  const reportsDir = path.resolve(root, prefs.reports?.dir || '.aif/reports');
   const naming = prefs.plans?.naming || '{date}-{slug}';
   const namePattern = naming.replace('{date}', formatDate(now, prefs.plans?.dateFormat || 'YYMMDD-HHmm'));
   return {

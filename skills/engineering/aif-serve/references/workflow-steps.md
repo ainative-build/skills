@@ -80,6 +80,5 @@ chef on each failed verification before edits or re-diagnosis as its checkpoint 
 Reconcile completed work against all affected existing plan phases, preserving unchecked
 items that lack evidence. Use `plan-state-files-first.md`; runtime tracking is optional.
 Assess docs impact and update the smallest owning surface. Report outcome, verification,
-remaining work and setup requirements. Commit only when already authorized. Apply the
-journal preference contract in SKILL.md, reusing a preference resolved earlier in this run.
+remaining work and setup requirements. Commit only when already authorized.
 Continue the next authorized phase unless explicit interactive review or a real blocker stops it.

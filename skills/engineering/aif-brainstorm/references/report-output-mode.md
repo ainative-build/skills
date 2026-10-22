@@ -4,9 +4,8 @@ When `--report` is present, persist the accepted brainstorm as a durable
 markdown report following the installed project-organization skill's
 conventions (path resolution, naming, and markdown body standards):
 
-- **Path:** the plan-scoped reports directory (`plans/{plan-dir}/reports/`)
-  when an active plan exists, otherwise the standalone `plans/reports/`
-  directory — or the injected `Report:` path from the `## Naming` section when
+- **Path:** the reports directory (`.aif/reports/` by default, the
+  `reports.dir` preference) — or the injected `Report:` path from the `## Naming` section when
   the runtime provides one.
 - **Naming:** timestamped kebab-case per the naming convention, e.g.
   `brainstorm-{YYMMDD-HHmm}-{slug}.md`.

@@ -11,7 +11,7 @@
     {
       "name": "aif",
       "source": "./",
-      "description": "aif dev-cycle skills (advise, brainstorm, research, plan, serve, debug, fix, test, code-review, git, ship, journal, recon and more) with 15 aif agents, rules, guard hooks and the aif-install installer for Claude Code, Codex, OMP and Cursor."
+      "description": "aif dev-cycle skills (advise, brainstorm, research, plan, serve, debug, fix, test, code-review, git, ship, recon and more) with 14 aif agents, rules, guard hooks and the aif-install installer for Claude Code, Codex, OMP and Cursor."
     }
   ]
 }

@@ -1,6 +1,6 @@
 ---
 description: "Fix bugs, test failures, type and lint errors, log errors, UI defects and CI/CD failures with intelligent routing."
-argument-hint: "[issue] --auto|--review|--quick|--parallel [--pro-max] [--chef] [--skip-journal]"
+argument-hint: "[issue] --auto|--review|--quick|--parallel [--pro-max] [--chef]"
 ---
 
 # /aif:fix

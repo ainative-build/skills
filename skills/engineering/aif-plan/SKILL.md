@@ -4,7 +4,7 @@ description: "Create, validate or review implementation plans with acceptance cr
 when_to_use: "Invoke when work needs phases, architecture or a roadmap."
 category: workflow
 keywords: [planning, architecture, phases, roadmap, github]
-argument-hint: "[task] [--fast|--hard|--deep|--parallel|--two|--debate|--pro-max] [--no-tasks] [--github] [--chef] [--yagni] [--skip-journal] OR [archive|red-team|validate]"
+argument-hint: "[task] [--fast|--hard|--deep|--parallel|--two|--debate|--pro-max] [--no-tasks] [--github] [--chef] [--yagni] OR [archive|red-team|validate]"
 license: MIT
 metadata:
   author: ainative-build
@@ -17,9 +17,9 @@ Create structured, verifiable implementation plans with phased execution roadmap
 
 ## Plan Location & Invariants
 
-- **Location**: All plans live under `plans/<timestamp>-<descriptive-slug>/`.
+- **Location**: All plans live under `.aif/plans/<timestamp>-<descriptive-slug>/` (the `plans.dir` preference).
 - **Primary Files**: `plan.md` (index/summary) and `phase-NN-<name>.md` (execution details).
-- **Scripts**: `scripts/plan.cjs` scaffolds plans and mutates status; `scripts/prefs.cjs` resolves `.aif.json` preferences. `<aif-plan>` below means this skill's directory. See `references/cli-integration.md`.
+- **Scripts**: `scripts/plan.cjs` scaffolds plans and mutates status; `scripts/prefs.cjs` resolves `.aif/config.json` preferences. `<aif-plan>` below means this skill's directory. See `references/cli-integration.md`.
 - **Task Hydration**: Phases hydrate into project task management unless `--no-tasks` is specified.
 
 ## Mode & Subcommand Routing
@@ -44,7 +44,6 @@ Create structured, verifiable implementation plans with phased execution roadmap
 - **`--chef`**: Runs under `aif-chef` advisory supervision and formats the output plan for handover to lower-capability executor models (Sonnet, Gemini Flash). Decomposes every phase into step-by-step tasks with explicit success criteria, marks verification steps with mechanical pass conditions, and embeds a Failure Protocol that stops and escalates to `aif-chef` on verification failure. See `references/chef-handover-plan.md` for the artifact contract and `../aif-brainstorm/references/advisory-supervision.md` for supervisor identity and model routing.
 - **`--no-tasks`**: Skips hydrating phases into task management.
 - **`--yagni`**: Actively challenges and eliminates any scope not strictly necessary for the stated outcome (see `references/scope-challenge.md`).
-- **`--skip-journal`**: Skips session journal entry generation during plan archive.
 
 ### Mode Exclusivity
 
@@ -83,19 +82,10 @@ execution authority.
 7. **Hydrate Tasks**: Sync phases to live task management (unless `--no-tasks`, see `references/task-management.md`).
 8. **GitHub (if `--github`)**: Post the issue update (see `references/github-publish.md`).
 9. **Handoff**: Report plan path, summary, and next execution step (`/aif-serve`).
-10. **Journal**: Run `/aif-journal` to write a concise technical journal entry on completion. See the shared "Journal step — opt-out" block below.
 
 ### Extension trace
 
 During Plan Drafting, when the plan creates or changes a boundary that evidenced variants share, trace one credible next variant (provider, runtime, tenant, workflow, or policy) through the proposed boundaries: name the contract that stays stable, the pieces that must change, and how the plan proves that claim. A material risk becomes an ordinary task or acceptance check in the owning phase, never a new mode, phase, or speculative scaffolding such as a registry, factory, plugin system, or config layer with no second real case. Keep one real case concrete and reversible unless the user requested the seam; then plan it as requested and record its cost. Variants with different capabilities share the stable contract behind a capability-aware boundary. A local fix or a plan with no meaningful variation skips the trace and records nothing.
-
-### Journal step — opt-out
-
-Skip the automatic `/aif-journal` step when either applies:
-- The invocation includes the `--skip-journal` flag, OR
-- `node <aif-plan>/scripts/prefs.cjs get journal.auto` prints `false`. If the command errors or prints anything other than the exact string `false`, treat as `true` (default) — corrupt or missing config never suppresses the automatic journal.
-
-Precedence: flag > project config > user config > default (`true`). When skipped, print one line: `journal skipped by --skip-journal` (flag) or `journal skipped by preference` (config). Explicit `/aif-journal` and `journal.cjs create` are unaffected.
 
 ## References Index
 

@@ -95,7 +95,7 @@ Find or create related GitHub issues for traceability.
    )"
    ```
 
-5. Store issue numbers for Step 12 (PR creation).
+5. Store issue numbers for Step 11 (PR creation).
 
 ## Step 3: Merge target branch
 
@@ -158,17 +158,13 @@ Load `release-workflow.md` and run Step 6.
 
 Load `release-workflow.md` and run Step 7.
 
-## Step 8: Journal (background)
+## Step 8: Docs Update (conditional, background)
 
 Load `release-workflow.md` and run Step 8.
 
-## Step 9: Docs Update (conditional, background)
+## Step 8b: Finalize plan (foreground, plan-backed ships only)
 
-Load `release-workflow.md` and run Step 9.
-
-## Step 9b: Finalize plan (foreground, plan-backed ships only)
-
-Run **synchronously before Step 10** so the finalized plan files are staged by
+Run **synchronously before Step 9** so the finalized plan files are staged by
 the ship commit. Full protocol: the "Delivery finalization (close on ship)"
 section of the shared files-first plan-state reference
 (`../../aif-serve/references/plan-state-files-first.md`). `PLAN` below is
@@ -181,7 +177,7 @@ section of the shared files-first plan-state reference
    completed). If the work is genuinely partial, `PLAN update <plan-dir> --status in-progress` and skip the
    completion below.
 3. `PLAN update <plan-dir> --status completed` — rewrites `plan.md` front-matter
-   `status:`, the canonical status. Step 10's scoped staging then
+   `status:`, the canonical status. Step 9's scoped staging then
    commits the finalized plan files with the ship, so `status: completed` reaches
    the target branch in the same merge as the code.
 
@@ -190,7 +186,7 @@ Do **not** run `PLAN close` here — that is the merge flow's job (the plan stay
 the plan-dir path + reason and continue the ship with a warning; never hand-edit
 or delete plan files.
 
-## Step 10: Commit
+## Step 9: Commit
 
 1. Stage only reviewed task-owned paths, including intended plan/version/docs artifacts: `git add -- <owned-paths>`. Inspect the staged diff against ship scope; do not absorb unrelated dirty files or existing staged work.
 2. Security check: scan staged diff for secrets (API keys, tokens, passwords)
@@ -210,7 +206,7 @@ EOF
 )"
 ```
 
-## Step 11: Push
+## Step 10: Push
 
 ```bash
 git push -u origin $(git branch --show-current)
@@ -219,7 +215,7 @@ git push -u origin $(git branch --show-current)
 - **Never force push.**
 - If push rejected: suggest `git pull --rebase` and retry once.
 
-## Step 12: Create PR
+## Step 11: Create PR
 
 Check if `gh` CLI is available:
 ```bash
@@ -258,7 +254,7 @@ is a blocker: fix it with `gh pr edit` and check again.
 
 In a batch-landing repository (see "Batch-landing repositories" in the skill),
 include the local verification evidence its instructions name in the body and
-create the PR ready for review; after Step 12b, stop.
+create the PR ready for review; after Step 11b, stop.
 
 If PR already exists for this branch, update it instead (same contract):
 ```bash
@@ -268,9 +264,9 @@ EOF
 )"
 ```
 
-## Step 12b: Record plan↔PR linkage (plan-backed ships only)
+## Step 11b: Record plan↔PR linkage (plan-backed ships only)
 
-If Step 9b finalized a plan, record the PR number on it so the merge flow can
+If Step 8b finalized a plan, record the PR number on it so the merge flow can
 match plan to PR and close it unambiguously:
 ```bash
 node <aif-plan>/scripts/plan.cjs update <plan-dir> --linked-pr <pr-number>
@@ -279,6 +275,6 @@ node <aif-plan>/scripts/plan.cjs update <plan-dir> --linked-pr <pr-number>
 Skip silently when no plan was finalized. Do not close the plan here — `close` happens only
 after the PR merges (see the shared reference's "Delivery finalization" section).
 
-## Step 13: Merge (if `--merge`)
+## Step 12: Merge (if `--merge`)
 
-Load `merge-workflow.md` and run Step 13.
+Load `merge-workflow.md` and run Step 12.

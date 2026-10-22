@@ -171,10 +171,10 @@ test('context hooks', async (t) => {
   t.after(sb.cleanup);
   const created = sb.run('plan', ['create', 'hook-demo', '--title', 'Hook demo', '--json']);
   assert.equal(created.code, 0, created.stderr);
-  const planName = fs.readdirSync(path.join(sb.project, 'plans')).find((name) => name.endsWith('hook-demo'));
+  const planName = fs.readdirSync(path.join(sb.project, '.aif', 'plans')).find((name) => name.endsWith('hook-demo'));
   assert.ok(planName);
   assert.equal(sb.run('plan', ['use', planName]).code, 0);
-  const plansDir = fs.realpathSync(path.join(sb.project, 'plans'));
+  const plansDir = fs.realpathSync(path.join(sb.project, '.aif', 'plans'));
 
   await t.test('session-init prints the plans dir and the plan set with plan.cjs use', () => {
     const r = runHook(sb, 'session-init', { session_id: 's1', cwd: sb.project, source: 'startup' });
@@ -183,7 +183,7 @@ test('context hooks', async (t) => {
     assert.match(r.stdout, new RegExp(`- Plan: ".*${planName}"`));
     assert.match(r.stdout, /title "Hook demo"/);
     assert.match(r.stdout, /Read and follow development rules: ".*development-rules\.md"/);
-    assert.match(r.stdout, /- Plan dir: `.*plans\/\d{6}-\d{4}-\{slug\}\/`/);
+    assert.match(r.stdout, /- Plan dir: `.*\.aif\/plans\/\d{6}-\d{4}-\{slug\}\/`/);
   });
 
   await t.test('session-init reports no plan when plan.cjs is unavailable', () => {
@@ -198,7 +198,7 @@ test('context hooks', async (t) => {
     assert.equal(out.hookEventName, 'SubagentStart');
     assert.match(out.additionalContext, /## Subagent: "aif-tester"/);
     assert.match(out.additionalContext, new RegExp(`- Plan: ".*${planName}"`));
-    assert.match(out.additionalContext, /- Report: `.*reports\/aif-tester-\d{6}-\d{4}-\{slug\}\.md`/);
+    assert.match(out.additionalContext, /- Report: `.*\.aif\/reports\/aif-tester-\d{6}-\d{4}-\{slug\}\.md`/);
   });
 
   await t.test('dev-rules-reminder injects the development rules once per interval', () => {
@@ -220,19 +220,19 @@ test('context hooks', async (t) => {
     assert.match(r.json().hookSpecificOutput.additionalContext, /# Custom rules/);
   });
 
-  await t.test('language from .aif.json reaches the injected context', () => {
+  await t.test('language from .aif/config.json reaches the injected context', () => {
     assert.equal(sb.run('prefs', ['set', 'language', 'vi']).code, 0);
     assert.match(runHook(sb, 'session-init', { cwd: sb.project }).stdout, /## Language\n- Respond in "vi"/);
     assert.equal(sb.run('prefs', ['unset', 'language']).code, 0);
   });
 });
 
-test('hooks.<name>: false in .aif.json makes that hook a no-op', async (t) => {
+test('hooks.<name>: false in .aif/config.json makes that hook a no-op', async (t) => {
   const sb = sandbox();
   t.after(sb.cleanup);
   const secretFile = path.join(sb.project, DOTENV);
   fs.writeFileSync(secretFile, 'PLACEHOLDER=1\n');
-  const off = (name) => fs.writeFileSync(path.join(sb.project, '.aif.json'), JSON.stringify({ hooks: { [name]: false } }));
+  const off = (name) => fs.writeFileSync(sb.configFile(), JSON.stringify({ hooks: { [name]: false } }));
 
   const cases = {
     'privacy-block': () => runHook(sb, 'privacy-block', { session_id: 's', cwd: sb.project, tool_name: 'Read', tool_input: { file_path: secretFile } }),
@@ -244,7 +244,7 @@ test('hooks.<name>: false in .aif.json makes that hook a no-op', async (t) => {
   };
   for (const [name, run] of Object.entries(cases)) {
     await t.test(name, () => {
-      fs.rmSync(path.join(sb.project, '.aif.json'), { force: true });
+      fs.rmSync(sb.configFile(), { force: true });
       const on = run();
       assert.ok(on.code !== 0 || on.stdout !== '', `${name} should act while enabled`);
       off(name);

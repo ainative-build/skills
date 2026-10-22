@@ -74,7 +74,7 @@ test('cursor-adapter', async (t) => {
 
   await t.test('sessionStart returns the project context with the plans dir', () => {
     const out = cursor(sb, 'session-init', { ...base, hook_event_name: 'sessionStart' });
-    assert.match(out.additional_context, new RegExp(`Plans: ${JSON.stringify(path.join(fs.realpathSync(sb.project), 'plans')).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`));
+    assert.match(out.additional_context, new RegExp(`Plans: ${JSON.stringify(path.join(fs.realpathSync(sb.project), '.aif', 'plans')).replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}`));
   });
 
   await t.test('prints valid JSON for an empty payload and an unknown hook', () => {

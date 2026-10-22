@@ -10,7 +10,7 @@ the calling skill. Every `plan.cjs` command accepts `--json`.
 
 ## Canonical state = repo files
 
-- `plans/<timestamp>-<slug>/plan.md` plus `phase-NN-*.md` in the repo ARE the
+- `.aif/plans/<timestamp>-<slug>/plan.md` plus `phase-NN-*.md` in the repo ARE the
   plan. Hand-editable Markdown. They are the deliverable of planning skills and
   the only thing implementation skills read to know what to build.
 - A project with no GitHub remote, no `gh` auth, and no network still has a

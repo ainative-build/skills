@@ -8,8 +8,14 @@ const repoRoot = path.resolve(__dirname, '..');
 const scripts = {
   prefs: path.join(repoRoot, 'skills/engineering/aif-plan/scripts/prefs.cjs'),
   plan: path.join(repoRoot, 'skills/engineering/aif-plan/scripts/plan.cjs'),
-  journal: path.join(repoRoot, 'skills/engineering/aif-journal/scripts/journal.cjs'),
 };
+
+// HOME points at the sandbox and AIF_HOME is cleared unless a test sets it.
+function sandboxEnv(home, extra = {}) {
+  const env = { ...process.env, HOME: home, ...extra };
+  if (!('AIF_HOME' in extra)) delete env.AIF_HOME;
+  return env;
+}
 
 // A throwaway git project plus an isolated HOME, so user config and local state never leak.
 function sandbox(branch = 'feature/demo') {
@@ -25,14 +31,19 @@ function sandbox(branch = 'feature/demo') {
   const run = (script, args, opts = {}) => {
     const r = spawnSync(process.execPath, [scripts[script] || script, ...args], {
       cwd: opts.cwd || project,
-      env: { ...process.env, HOME: home },
+      env: sandboxEnv(home, opts.env),
       input: opts.input,
       encoding: 'utf8',
     });
     return { code: r.status, stdout: r.stdout, stderr: r.stderr, json: () => JSON.parse(r.stdout) };
   };
   const cleanup = () => fs.rmSync(base, { recursive: true, force: true });
-  return { base, project, home, run, cleanup };
+  // The project config file, with its .aif/ folder created.
+  const configFile = () => {
+    fs.mkdirSync(path.join(project, '.aif'), { recursive: true });
+    return path.join(project, '.aif', 'config.json');
+  };
+  return { base, project, home, run, cleanup, configFile };
 }
 
 module.exports = { sandbox, scripts, repoRoot };

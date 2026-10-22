@@ -1,5 +1,5 @@
 'use strict';
-// Shared helpers for plan.cjs and journal.cjs: argument parsing, frontmatter, git, local state.
+// Shared helpers for plan.cjs: argument parsing, frontmatter, git, local state.
 const fs = require('fs');
 const os = require('os');
 const path = require('path');
@@ -31,7 +31,7 @@ function git(args, cwd) {
   }
 }
 
-// ---- frontmatter (the YAML subset plan and journal files use: top-level scalars and inline lists)
+// ---- frontmatter (the YAML subset plan files use: top-level scalars and inline lists)
 
 const FM_RE = /^---\r?\n([\s\S]*?)\r?\n---[ \t]*(?:\r?\n|$)/;
 
@@ -135,10 +135,6 @@ function isoDate(d = new Date()) {
   return formatDate(d, 'YYYY-MM-DD');
 }
 
-function readStdin() {
-  try { return fs.readFileSync(0, 'utf8'); } catch { return ''; }
-}
-
 function runCli(name, main) {
   try {
     main(process.argv.slice(2));
@@ -154,5 +150,5 @@ function output(json, obj, text) {
 
 module.exports = {
   parseArgs, git, parseFrontmatter, setFrontmatterField, formatScalar, loadState, saveState, statePath,
-  slugify, formatDate, isoDate, readStdin, runCli, output,
+  slugify, formatDate, isoDate, runCli, output,
 };

@@ -1,13 +1,13 @@
 # Merge Workflow
 
-## Step 13: Merge (if `--merge`)
+## Step 12: Merge (if `--merge`)
 
 Skip this step in a batch-landing repository (see "Batch-landing
 repositories" in the skill): the repository's landing owner merges, so report
 `Merge=delegated` and stop.
 
-Run only when `--merge` is present and after Step 12 created or updated a PR,
-its body passed the section check, and Step 12b completed or explicitly skipped
+Run only when `--merge` is present and after Step 11 created or updated a PR,
+its body passed the section check, and Step 11b completed or explicitly skipped
 without a plan. Capture one concrete PR URL or number as `PR_REF`; missing or
 ambiguous PR state is a blocker.
 

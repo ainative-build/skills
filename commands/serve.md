@@ -1,6 +1,6 @@
 ---
 description: "Implement features, plans and fixes through a structured workflow."
-argument-hint: "[task|plan-path] [--interactive|--fast|--parallel|--auto|--no-test] [--chef] [--yagni] [--skip-journal]"
+argument-hint: "[task|plan-path] [--interactive|--fast|--parallel|--auto|--no-test] [--chef] [--yagni]"
 ---
 
 # /aif:serve

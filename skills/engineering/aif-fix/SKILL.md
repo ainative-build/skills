@@ -4,7 +4,7 @@ description: "Fix bugs, test failures, type and lint errors, log errors, UI defe
 when_to_use: "Invoke when there is a concrete bug, error, or CI failure."
 category: workflow
 keywords: [bugfix, error, test-failure, CI, lint]
-argument-hint: "[issue] --auto|--review|--quick|--parallel [--pro-max] [--chef] [--skip-journal]"
+argument-hint: "[issue] --auto|--review|--quick|--parallel [--pro-max] [--chef]"
 license: MIT
 metadata:
   author: ainative-build
@@ -58,20 +58,6 @@ counsel on every failed verification before re-diagnosis or edits, including in 
 Finalize by reconciling an existing plan if present, updating impacted docs and reporting
 cause, changed paths, verification and limitations. Use available tracking; a missing
 optional skill never blocks a local fix. Commit or publish only when already authorized.
-
-### Journal step — opt-out
-
-Skip the automatic `/aif-journal` step when either applies:
-- The invocation includes the `--skip-journal` flag, OR
-- `node <aif-plan>/scripts/prefs.cjs get journal.auto` prints `false` (`<aif-plan>` means the installed aif-plan skill directory, a sibling of this skill). If the command errors or prints anything other than the exact string `false`, treat as `true` (default) — corrupt or missing config never suppresses the automatic journal.
-
-Precedence: flag > project config > user config > default (`true`).
-When skipped, print one line:
-- `journal skipped by --skip-journal` (flag), or
-- `journal skipped by preference` (config).
-
-Explicit `/aif-journal` and `node <aif-journal>/scripts/journal.cjs create` (`<aif-journal>` is the sibling aif-journal skill directory) are unaffected. The opt-out covers the journal step only; the rest of the Finalize block still runs.
-
 
 ## Pro-Max Verifier Mode (`--pro-max`)
 

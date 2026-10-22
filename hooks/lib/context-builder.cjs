@@ -17,7 +17,7 @@ function languageSection(ctx) {
   if (!ctx.language) return [];
   return [
     '## Language',
-    `- Respond in ${safeDisplayValue(ctx.language)}, set by \`language\` in .aif.json. Delegates and their reports follow it too.`,
+    `- Respond in ${safeDisplayValue(ctx.language)}, set by \`language\` in .aif/config.json. Delegates and their reports follow it too.`,
     '',
   ];
 }
@@ -56,10 +56,11 @@ function rulesPointers(ctx) {
 
 function markdownRule(ctx) {
   const plans = safeDisplayValue(ctx.plansDir);
+  const reports = safeDisplayValue(ctx.reportsDir);
   const docs = safeDisplayValue(ctx.docsDir);
   return [
-    `- Markdown files go in Plans → ${plans} or Docs → ${docs}.`,
-    `- Do not create markdown files outside ${plans} or ${docs} unless the user asks for it.`,
+    `- Markdown files go in Plans → ${plans}, Reports → ${reports} or Docs → ${docs}.`,
+    `- Do not create markdown files outside ${plans}, ${reports} or ${docs} unless the user asks for it.`,
   ];
 }
 

@@ -27,7 +27,6 @@ skill it does not list.
 | Commit, branch, open or merge a PR | `aif-git`; release via `aif-ship` |
 | Analyze or generate images, audio, video or documents | `aif-ai-multimodal` |
 | Reason through a hard problem | `aif-problem-solving`, `aif-deep-thinking` |
-| Record work history | `aif-journal` |
 
 ## Usage Rules
 

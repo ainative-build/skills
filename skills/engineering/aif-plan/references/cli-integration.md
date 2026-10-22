@@ -4,14 +4,14 @@ This skill orchestrates planning; `<aif-plan>/scripts/plan.cjs` scaffolds plan f
 
 ## Files-First Architecture
 
-- `plan.md` + `phase-NN-*.md` under `<timestamp>-<slug>/` in the configured plans directory (`plans/` by default) ARE the plan.
+- `plan.md` + `phase-NN-*.md` under `<timestamp>-<slug>/` in the configured plans directory (`.aif/plans/` by default) ARE the plan.
 - `plan.cjs` reads status from the files themselves. Lifecycle state (active, closed, archived), the active-plan pointer and GitHub ids live in `~/.aif/plans-state.json`; `plan.cjs reindex` reports state entries whose plan directory no longer exists.
 - A GitHub issue is an optional visibility projection; plans remain fully functional as local files without GitHub.
 
 ## CLI Scaffolding Rules
 
-- Scaffold with `node <aif-plan>/scripts/plan.cjs create <slug> --title "<title>" --phases <n>`. The directory name follows `plans.naming` from `.aif.json`.
-- Default scope is project-local (`plans.dir`, `plans/` by default).
+- Scaffold with `node <aif-plan>/scripts/plan.cjs create <slug> --title "<title>" --phases <n>`. The directory name follows `plans.naming` from `.aif/config.json`.
+- Default scope is project-local (`plans.dir`, `.aif/plans/` by default).
 - Change status with `plan.cjs update <plan-dir> --status <s>` and `plan.cjs phase update <phase-file> --status <s>`; the phase command also updates the matching row in the `plan.md` Phases table. Tick tasks with `plan.cjs check|uncheck`.
 - Set the active plan with `plan.cjs use <plan-dir>`; find it again with `plan.cjs resolve`.
 
