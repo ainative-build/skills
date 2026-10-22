@@ -1,34 +1,54 @@
-# Web-app overlay (additive to base.md)
+# Web App Review Checklist (Overlay)
 
-**Detection — apply when any hold:** `package.json` has react/vue/svelte/next/nuxt/angular; dirs
-`src/pages|app|components|views/`; HTML/JSX/TSX/Vue files in the diff.
+Additive to `base.md`. Apply when project has frontend framework (React, Vue, Svelte, Next.js, etc.).
 
-## Pass 1 — blocking (adds to base)
+## Detection
+
+Apply this overlay when any of these are true:
+- `package.json` has `react`, `vue`, `svelte`, `next`, `nuxt`, `angular` dependency
+- Project has `src/pages/`, `src/app/`, `src/components/`, `src/views/` directories
+- HTML/JSX/TSX/Vue files in the diff
+
+---
+
+## Pass 1 — CRITICAL (additions to base)
 
 ### XSS
-- `innerHTML` (or `dangerouslySetInnerHTML`) from any non-static source.
-- Template literals interpolated into the DOM without escaping.
-- URL params rendered without sanitization; `<a href={userInput}>` without protocol check (`javascript:`).
-- Server-rendered user content without HTML-entity encoding.
+- `innerHTML` assignment from any non-static source
+- Template literals interpolated into DOM without escaping
+- URL parameters rendered without sanitization
+- `<a href={userInput}>` without protocol validation (javascript: protocol)
+- Server-rendered user content without HTML entity encoding
 
 ### CSRF
-- State-changing endpoint (POST/PUT/DELETE) using **cookie/session auth** without CSRF-token
-  verification. (Bearer/`Authorization`-header-only APIs are not CSRF-exposed — do not flag them.)
-- Cookie-based auth without `SameSite`.
+- State-changing endpoints (POST/PUT/DELETE) without CSRF token verification
+- Cookie-based auth without SameSite attribute
+- Form submissions to external URLs
 
-### N+1 (server-rendered views)
-- DB queries inside a list-render loop; missing eager loading for rendered associations.
+### N+1 Queries (server-rendered views)
+- Database queries inside loops rendering lists
+- Missing eager loading for associations rendered in views/pages
+- Sequential API calls that could be batched
 
-## Pass 2 — non-blocking (adds to base)
+---
 
-### Frontend performance
-- Missing `key` on list items; full-lib imports that could be tree-shaken (`lodash` vs `lodash/get`).
-- Images without width/height (layout shift); no `loading="lazy"` below the fold.
+## Pass 2 — INFORMATIONAL (additions to base)
+
+### Frontend Performance
+- Inline `<style>` blocks in components re-parsed every render
+- Missing `key` prop on list items
+- Large bundle imports that could be lazy-loaded (e.g., full lodash instead of lodash/get)
+- Images without width/height causing layout shift
+- Missing `loading="lazy"` on below-fold images
 
 ### Accessibility
-- Interactive element without keyboard support (`onClick` without `onKeyDown`).
-- Missing `alt`; form input without an associated label; color-only status indicators.
-- Custom interactive component missing ARIA attributes.
+- Interactive elements without keyboard support (onClick without onKeyDown)
+- Missing `alt` text on images
+- Form inputs without associated labels
+- Color-only indicators (no text/icon fallback)
+- Missing ARIA attributes on custom interactive components
 
-### Responsive
-- Fixed pixel widths that break on mobile; missing viewport meta; overflow clipping content.
+### Responsive / Layout
+- Fixed pixel widths that break on mobile
+- Missing viewport meta tag
+- Overflow hidden cutting off content on small screens
