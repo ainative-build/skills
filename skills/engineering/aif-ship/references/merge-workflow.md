@@ -6,6 +6,16 @@ Skip this step in a batch-landing repository (see "Batch-landing
 repositories" in the skill): the repository's landing owner merges, so report
 `Merge=delegated` and stop.
 
+**Local ship (`LOCAL=1`):** there is no PR or CI. With `--merge`, merge on the target
+locally and verify the merged result, then report `Merge=merged (local)` and `CI=n/a`:
+
+```bash
+git switch <target> && git merge --no-ff <branch> --no-edit
+<test command from Step 4>    # must pass on the merged result; on failure stop and report
+```
+
+Never push, add a remote, or delete the branch. Without `--merge`, stop after Step 11.
+
 Run only when `--merge` is present and after Step 11 created or updated a PR,
 its body passed the section check, and Step 11b completed or explicitly skipped
 without a plan. Capture one concrete PR URL or number as `PR_REF`; missing or

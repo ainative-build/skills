@@ -116,6 +116,14 @@ do:
   auto-merge, update the branch, merge, or wait for PR checks. Report
   `Merge=delegated` with the landing owner and `CI=n/a`.
 
+## Local ship (no remote or gh auth)
+
+Pre-flight sets `LOCAL=1` when the repository has no git remote or `gh` is missing or not
+signed in. A local ship runs tests, review, version, changelog, docs, plan finalization and the
+commit as usual; skips issues, fetch, push, PR and plan↔PR linkage; diffs against the local
+target; and finishes with the branch ready to merge. It merges into the local target only with
+`--merge`. It never adds a remote, pushes, creates a repository, or calls `gh`.
+
 ## When to Stop (blocking)
 
 - On target branch already → abort
@@ -136,7 +144,7 @@ do:
 ## Pipeline
 
 ```
-Step 1:  Pre-flight      → Branch check, mode detection, status, diff analysis
+Step 1:  Pre-flight      → Branch check, local-ship detection, mode detection, status, diff analysis
 Step 2:  Link Issues      → Find/create related GitHub issues
 Step 3:  Merge target     → Fetch + merge origin/<target-branch>
 Step 4:  Run tests        → Auto-detect test runner, run, check results
@@ -199,6 +207,7 @@ User says `/aif-ship --both --merge` → beta PR, beta merge to green, then the 
 ✓ Committed: feat(auth): add OAuth2 login flow
 ✓ Pushed: origin/feature/foo
 ✓ PR: https://github.com/org/repo/pull/123 (linked: #42, #43)
+  (local ship: "– Issues/Push/PR: skipped (local ship)" and "✓ Ready: feature/foo can merge into main")
 ✓ Advice: 2 checkpoints completed / failed with reason / not requested
 ✓ Merge: merged / delegated(landing owner) / blocked(reason) / not requested
 ✓ CI: green / red / pending / n/a
@@ -213,7 +222,7 @@ User says `/aif-ship --both --merge` → beta PR, beta merge to green, then the 
 - **Framework-agnostic.** Works for Node, Python, Rust, Go, Ruby, Java, or any project with a test command.
 - **Subagent delegation.** Use `aif-tester` for tests, `aif-code-reviewer` for review, `aif-docs-manager` for docs. Don't inline.
 - **Merge delegation.** `--merge` runs the `aif-git` merge-pr workflow, which refuses on conflicts, red CI, `CHANGES_REQUESTED`, or branch protection. `--skip-review` skips only the local Step 5 review.
-- **Fail closed on merge state.** When `--merge` is requested, a merged/green completion claim requires `Merge=merged` and `CI=green`; a blocked, red, pending, or unavailable state stops the run and is reported as such.
+- **Fail closed on merge state.** When `--merge` is requested, a merged/green completion claim requires `Merge=merged` and `CI=green` (a local ship reports `Merge=merged (local)` and `CI=n/a` after the merged result passes its tests); a blocked, red, pending, or unavailable state stops the run and is reported as such.
 - **Dry-run has no delegation side effects.** `--dry-run` stops before `aif-chef` or any merge.
 - **Background tasks.** The docs update runs in background to not block the pipeline.
 
