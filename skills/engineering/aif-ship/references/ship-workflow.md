@@ -19,13 +19,18 @@
    - Aliases select the canonical mode only. `main` does not force a branch
      literally named `main`; `dev` does not force a branch literally named
      `dev`.
-3. Detect a local ship. Set `LOCAL=1` when any of these holds, else `LOCAL=0`:
+3. Detect what the repository can reach. Shell state does not persist between commands, so
+   record both values in your notes:
    ```bash
-   [ -z "$(git remote)" ]                      # no remote
-   gh auth status >/dev/null 2>&1 || echo nogh # gh missing or not signed in
+   L=0; [ -z "$(git remote)" ] && L=1
+   G=0; gh auth status >/dev/null 2>&1 || G=1
+   echo "LOCAL=$L NOGH=$G"
    ```
-   With `LOCAL=1`, print once: `Local ship: no remote or gh auth; skipping issues, fetch, push and PR`.
-   A local ship never adds a remote, pushes, creates a repository, or calls `gh`.
+   - `LOCAL=1` (no remote): a **local ship**. Print once:
+     `Local ship: no remote; skipping issues, fetch, push and PR`. It never adds a remote,
+     pushes, creates a repository, or calls `gh`.
+   - `NOGH=1` with a remote: fetch and push as usual, but skip issues and the PR (Steps 2, 11
+     and 11b), print `– Issues/PR: skipped (gh unavailable)`, and never call `gh`.
 4. Auto-detect target branch. With `LOCAL=1`, use local branches instead of `origin/*`:
    `main`, else `master` for official; the first of `dev`, `beta`, `develop` that exists for beta.
    With `LOCAL=0`:
@@ -53,7 +58,7 @@
 
 Find or create related GitHub issues for traceability.
 
-**Skip if:** `LOCAL=1`. Print `– Issues: skipped (local ship)` and continue to Step 3.
+**Skip if:** `LOCAL=1` or `NOGH=1`. Print `– Issues: skipped (local ship)` or `(gh unavailable)` and continue to Step 3.
 
 1. Search for related open issues by keywords from branch name and commit messages:
    ```bash
@@ -231,16 +236,16 @@ git push -u origin $(git branch --show-current)
 
 ## Step 11: Create PR
 
-**Skip if:** `LOCAL=1`. Print `– PR: skipped (local ship)` and finish with
-`✓ Ready: <branch> can merge into <target>`. Do not merge unless `--merge` was passed
-(see Step 12).
+**Skip if:** `LOCAL=1` or `NOGH=1`. Print `– PR: skipped (local ship)` or `(gh unavailable)`
+and finish with `✓ Ready: <branch> can merge into <target>`. A local ship merges only when
+`--merge` was passed (see Step 12).
 
 Check if `gh` CLI is available:
 ```bash
 which gh 2>/dev/null || echo "MISSING"
 ```
 
-If missing: output "Install GitHub CLI (gh) to auto-create PRs" and stop after push.
+If missing (`NOGH=1`): output "Install GitHub CLI (gh) to auto-create PRs" and stop after push.
 
 **Resolve writing language** before rendering the body:
 ```bash
@@ -284,14 +289,14 @@ EOF
 
 ## Step 11b: Record plan↔PR linkage (plan-backed ships only)
 
-**Skip if:** `LOCAL=1` (there is no PR).
+**Skip if:** Step 11 was skipped (there is no PR).
 
 If Step 8b finalized a plan, record the PR number on it so the merge flow can
 match plan to PR and close it unambiguously:
 ```bash
 node <aif-plan>/scripts/plan.cjs update <plan-dir> --linked-pr <pr-number>
 ```
-`--linked-pr` is stored in `~/.aif/plans-state.json` (it does not touch files).
+`--linked-pr` is stored in `$AIF_HOME/plans-state.json` (default `~/.aif`) (it does not touch files).
 Skip silently when no plan was finalized. Do not close the plan here — `close` happens only
 after the PR merges (see the shared reference's "Delivery finalization" section).
 

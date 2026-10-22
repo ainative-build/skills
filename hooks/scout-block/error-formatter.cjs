@@ -91,7 +91,7 @@ function formatBlockedError(details) {
     `    !${pattern}`,
     '',
     `  Do not work around this block (absolute paths, createRequire, symlinks, other tools).`,
-    `  Add the line above to opt out, or ask the user.`,
+    `  Ask the user; they can opt out by adding the line above.`,
     '',
     `  ${colorize('Config:', 'dim')} ${resolvedConfigPath}`,
     ''

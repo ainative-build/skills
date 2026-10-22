@@ -12,8 +12,9 @@ When `aif-serve` calls `create` for one phase or task, or `aif-fix` calls it for
 - Scope the scout to the files the phase touches and their existing tests; skip the project-wide matrix.
 - Write the tests, plus signature-only stubs for any module or export the phase's Tests First
   `Stubs:` line names (or the tests import) that does not exist yet. A stub has the exported
-  name and signature and no logic: it returns `undefined`, so tests fail on assertions. Never
-  write behavior, and never edit an existing implementation. `aif-serve` writes no tests or
+  name and signature and no logic: it returns a neutral value the language accepts (`undefined`,
+  `null`, a zero value or an empty result), so tests compile and fail on assertions. A new export
+  may be added to an existing module, but never write behavior or change existing code. `aif-serve` writes no tests or
   stubs itself.
 - Run the new tests and report them red: each new-behavior test must fail on an assertion about
   the missing behavior, and each characterization test must pass. Fix any test that fails on an

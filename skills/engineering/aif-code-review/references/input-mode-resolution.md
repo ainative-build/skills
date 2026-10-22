@@ -20,7 +20,7 @@ Parse arguments left-to-right. First match wins.
 | `--pending` | Pending | explicit flag |
 | `codebase` | Codebase | existing mode |
 | *(none + context)* | Default | recent changes |
-| *(none + no context)* | Prompt | ask user via `ask_user capability` |
+| *(none + no context)* | Prompt | ask user via `ask_user capability`; when no user can answer, use Branch mode against the target if the branch has commits ahead of it, else Pending |
 
 ## Resolution Commands
 
@@ -72,11 +72,12 @@ git show "$COMMIT_HASH" --name-only --format=""
 ### Branch Mode (`--base [ref]`)
 
 Reviews everything a local branch adds over its base, with or without a PR or remote.
-Without a `ref`, use the target branch: `origin/HEAD` when a remote exists, else local `main`,
-else `master`.
+`ref` is the next argument when it does not start with `--`; otherwise (`--base` alone, or
+followed by another flag) use the target branch: `origin/HEAD` when a remote exists, else local
+`main`, else `master`. Set it in the same command that uses it:
 
 ```bash
-BASE=$(git merge-base "$REF" HEAD)
+REF=main   # the resolved ref
 
 # Intent: the branch's commit messages
 git log "$REF"..HEAD --format='%s%n%b'
@@ -112,7 +113,9 @@ git status --short
 git ls-files --others --exclude-standard
 ```
 
-Read each untracked file in full; it is new code with no diff base. `.gitignore`d files stay out.
+Read each untracked text file in full; it is new code with no diff base. Skip `.gitignore`d files,
+binaries, and generated or vendored files over about 2,000 lines (list them as not reviewed).
+In a repository with no commits yet, `git diff HEAD` fails; review the staged and untracked files instead.
 
 **Context passed to reviewers:**
 - Intent, inferred without asking: the active plan (`plan.cjs resolve`), then the branch name,

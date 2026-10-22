@@ -8,6 +8,10 @@ const fs = require('fs');
 const path = require('path');
 
 const rootArg = process.argv.indexOf('--root');
+if (rootArg > -1 && !process.argv[rootArg + 1]) {
+  console.error('check-refs: --root needs a directory');
+  process.exit(2);
+}
 const repoRoot = rootArg > -1 ? path.resolve(process.argv[rootArg + 1]) : path.resolve(__dirname, '..');
 const SCAN_DIRS = ['skills', 'agents', 'rules', 'hooks', 'commands'];
 // aif-* words that are not skill or agent names.

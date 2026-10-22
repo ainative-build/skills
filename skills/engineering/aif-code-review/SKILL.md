@@ -22,7 +22,8 @@ current source/revision and use evidence; scores never substitute for checks or 
 
 ## Input Modes
 
-Auto-detect from arguments. If ambiguous or no arguments, prompt via `ask_user capability`.
+Auto-detect from arguments. If ambiguous or no arguments, prompt via `ask_user capability`; when no
+user can answer, review the branch against its target (`--base`) if it has commits ahead, else pending changes.
 
 | Input | Mode | What Gets Reviewed |
 |-------|------|--------------------|

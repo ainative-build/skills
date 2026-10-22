@@ -116,13 +116,15 @@ do:
   auto-merge, update the branch, merge, or wait for PR checks. Report
   `Merge=delegated` with the landing owner and `CI=n/a`.
 
-## Local ship (no remote or gh auth)
+## Local ship (no remote)
 
-Pre-flight sets `LOCAL=1` when the repository has no git remote or `gh` is missing or not
-signed in. A local ship runs tests, review, version, changelog, docs, plan finalization and the
-commit as usual; skips issues, fetch, push, PR and plan↔PR linkage; diffs against the local
-target; and finishes with the branch ready to merge. It merges into the local target only with
-`--merge`. It never adds a remote, pushes, creates a repository, or calls `gh`.
+Pre-flight sets `LOCAL=1` when the repository has no git remote. A local ship runs tests,
+review, version, changelog, docs, plan finalization and the commit as usual; skips issues,
+fetch, push, PR and plan↔PR linkage; diffs against the local target; and finishes with the
+branch ready to merge. It merges into the local target only with `--merge`, testing the merged
+result before it commits. It never adds a remote, pushes, creates a repository, or calls `gh`.
+When a remote exists but `gh` is missing or signed out (`NOGH=1`), ship still fetches and
+pushes, skips issues and the PR, and never calls `gh`.
 
 ## When to Stop (blocking)
 

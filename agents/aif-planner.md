@@ -96,7 +96,7 @@ Use the naming pattern from the `## Naming` section injected by hooks. The patte
 **STEP 4: Mark the plan active after creating it.**
 
 Run `node <aif-plan>/scripts/plan.cjs use {plan-dir}` (`<aif-plan>` is the installed aif-plan
-skill directory). The session hooks read the active-plan pointer from `~/.aif/plans-state.json`, so
+skill directory). The session hooks resolve the active plan through `plan.cjs resolve`, which reads the pointer from `$AIF_HOME/plans-state.json` (default `~/.aif`), so
 subsequent subagents receive the plan context. If the command fails, continue and pass the plan
 path to subagents explicitly. Run `plan.cjs use --clear` to deactivate it.
 

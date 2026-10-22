@@ -93,7 +93,7 @@ User explicitly says "breaking" or "major feature" → ask_user capability for m
 
 ## Main Branch Detection
 
-In a local ship (`LOCAL=1`, no remote or gh auth), detect from local branches: `main` if it
+In a local ship (`LOCAL=1`, no remote), detect from local branches: `main` if it
 exists, else `master`. Otherwise:
 
 ```bash

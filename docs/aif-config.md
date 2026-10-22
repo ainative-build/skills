@@ -53,7 +53,7 @@ node aif-plan/scripts/prefs.cjs validate            # exit 3 when a file is inva
 ## Local plan state
 
 Plan files are canonical: `plan.md` and `phase-NN-*.md` carry titles, status and checkboxes.
-Information that is per machine rather than part of the plan lives in `~/.aif/plans-state.json`,
+Information that is per machine rather than part of the plan lives in `$AIF_HOME/plans-state.json` (default `~/.aif`),
 outside the repository:
 
 - lifecycle state (`active`, `closed`, `archived`), set by `plan.cjs close`, `archive` and `cleanup`;

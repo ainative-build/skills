@@ -28,7 +28,7 @@ Archive by changing index visibility, never by touching files:
 - Run `node <aif-plan>/scripts/plan.cjs archive <plan-dir>` (and/or
   `plan.cjs cleanup --older-than <duration>` for a retention sweep of stale
   closed plans — a dry run unless `--apply` is passed).
-- These mark the plan archived in `~/.aif/plans-state.json`. They do NOT move
+- These mark the plan archived in `$AIF_HOME/plans-state.json` (default `~/.aif`). They do NOT move
   or delete the `plan.md`/`phase-*.md` files.
 - Physically removing a plan folder is a separate, explicit user action only,
   and only after the plan is closed or archived and its files are

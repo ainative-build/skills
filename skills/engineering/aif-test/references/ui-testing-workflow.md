@@ -33,7 +33,7 @@ Load the `aif-agent-browser` skill before driving the `agent-browser` CLI; it ca
 reference. After auth is available, run tests normally. If real user Chrome state is not needed:
 ```bash
 agent-browser open https://example.com/dashboard
-agent-browser screenshot "$PWD/.aif/reports/profile.png"   # path is positional; there is no -o flag
+mkdir -p "$REPORTS_DIR" && agent-browser screenshot "$REPORTS_DIR/profile.png"   # REPORTS_DIR: the configured reports directory; the path is positional, there is no -o flag
 ```
 
 If real user Chrome state is needed:
