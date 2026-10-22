@@ -151,6 +151,19 @@ files instead of the reminder hook. Codex runs new hooks only after you approve 
 Plans, reports, language and per-hook switches live in an optional `.aif/config.json`. See
 [docs/aif-config.md](docs/aif-config.md).
 
+## Upgrading from v2.0
+
+v2.1.0 is a breaking change:
+
+- **Journal removed:** the `aif-journal` skill, the `aif-journal-writer` agent and `/aif:journal`
+  are gone. Rerunning `aif-install` removes the old agent. A skills.sh install leaves the old skill
+  in place; remove it with `npx skills remove -g aif-journal`.
+- **Output moves to `.aif/`:** plans go to `.aif/plans/` and reports to `.aif/reports/`. Config moves
+  to `.aif/config.json`, and user config to `~/.aif/config.json`. `.aif.json`, `~/.aif.json` and the
+  `journal.*` settings are no longer read, so move existing plans and config by hand.
+- **Test-first by default:** every plan phase has a Tests First section, and `/aif-serve` writes
+  failing tests before it implements. The `--tdd` flag is removed.
+
 ## Upgrading from v1
 
 v2.0.0 is a breaking change. The v1 skills `aif-code-review`, `aif-recon` and `aif-improve` and

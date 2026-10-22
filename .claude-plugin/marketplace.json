@@ -5,7 +5,7 @@
   },
   "metadata": {
     "description": "Development-cycle coding-agent skills, agents and hooks from ainative-build.",
-    "version": "2.0.0"
+    "version": "2.1.0"
   },
   "plugins": [
     {

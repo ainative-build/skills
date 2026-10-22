@@ -1,6 +1,6 @@
 {
   "name": "@ainative-build/skills",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "aif agents, rules and hooks for Claude Code, Codex, oh-my-pi and Cursor, with the aif-install installer.",
   "private": false,
   "license": "MIT",
