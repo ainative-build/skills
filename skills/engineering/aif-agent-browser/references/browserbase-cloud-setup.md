@@ -73,7 +73,7 @@ jobs:
         run: |
           agent-browser open https://example.com
           agent-browser snapshot -i
-          agent-browser screenshot -o screenshot.png
+          agent-browser screenshot screenshot.png
           agent-browser close
 
       - name: Upload artifacts

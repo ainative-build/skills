@@ -16,8 +16,8 @@ metadata:
 
 # Serve
 
-Invoke `/aif-serve <task|plan-path> [flags]` in Claude Code; use the runtime's
-installed invocation form elsewhere.
+Invoke `/aif-serve <task|plan-path> [flags]`; on the Claude Code plugin the command is
+`/aif:serve`. Use the runtime's installed invocation form elsewhere.
 
 Implement the full authorized outcome through verification and review. Capture or reuse
 outcome, constraints, non-goals and acceptance criteria; inspect nearby code and tests.

@@ -1,8 +1,8 @@
 ## Report Output Mode (`--report`)
 
 When `--report` is present, persist the accepted brainstorm as a durable
-markdown report following the installed project-organization skill's
-conventions (path resolution, naming, and markdown body standards):
+markdown report, using the injected `## Naming` section (or the `reports.dir`
+preference from `prefs.cjs`) for its path and file name:
 
 - **Path:** the reports directory (`.aif/reports/` by default, the
   `reports.dir` preference) — or the injected `Report:` path from the `## Naming` section when

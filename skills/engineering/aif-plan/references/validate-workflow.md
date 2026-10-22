@@ -79,7 +79,7 @@ Required checks:
 - Search all plan files for old terms, renamed fields/APIs/files, rejected assumptions, and superseded validation decisions.
 - Reconcile `plan.md` overview, phase summaries, implementation steps, success criteria, risk notes, and validation logs.
 - If the same SQL/query/API/body/contract appears as both prose and embedded draft, update both copies or mark the unresolved conflict.
-- Confirm every phase has a Tests First section whose tests trace to its acceptance criteria and whose red and green commands exist in the repo, or a stated not-applicable reason.
+- Confirm every phase has a Tests First section whose tests trace to its acceptance criteria and whose red and green commands exist in the repo or are created by an earlier phase of the same plan (for example a scaffold phase that adds the test runner), or a stated not-applicable reason.
 - Append `### Whole-Plan Consistency Sweep` to the current `## Validation Log`.
 - If any unresolved contradiction remains, ask the user before recommending implementation.
 

@@ -69,7 +69,7 @@ chrome__get_content → extract DOM/text to verify rendered output matches expec
 ```bash
 # Screenshot + console error check
 agent-browser open http://localhost:3000
-agent-browser screenshot -o ./verification-screenshot.png
+agent-browser screenshot "$PWD/verification-screenshot.png"
 ```
 
 For repeatable test evidence, prefer the project's Playwright/Vitest/Cypress commands if present.

@@ -21,7 +21,7 @@
     "LICENSE"
   ],
   "scripts": {
-    "test": "node --test tests/*.test.cjs"
+    "test": "node --test tests/*.test.cjs && node tools/check-refs.cjs"
   },
   "engines": {
     "node": ">=18"
