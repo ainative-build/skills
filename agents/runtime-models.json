@@ -1,5 +1,4 @@
 {
-  "source": "AgentKit 3.0.0-beta.35 installs on 2026-10-22 (~/.claude/agents, ~/.codex/agents, ~/.omp/agent/agents, ~/.cursor/agents)",
   "agents": {
     "chef": {
       "claude": "fable",
@@ -136,8 +135,5 @@
       "omp": "@plan",
       "cursor": "claude-opus-4-8-thinking-high"
     }
-  },
-  "derived": {
-    "recon": "omp and cursor copied from haiku-tier peers (git-manager, tester, explore); AgentKit installed no scout agent for those runtimes"
   }
 }
