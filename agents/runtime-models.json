@@ -13,8 +13,8 @@
     "code-reviewer": {
       "claude": "opus",
       "codex": {
-        "model": "gpt-5.6-luna",
-        "reasoningEffort": "max"
+        "model": "gpt-6-sol",
+        "reasoningEffort": "high"
       },
       "omp": "@plan",
       "cursor": "claude-opus-4-8-thinking-high"
@@ -22,8 +22,8 @@
     "planner": {
       "claude": "opus",
       "codex": {
-        "model": "gpt-5.6-luna",
-        "reasoningEffort": "max"
+        "model": "gpt-6-sol",
+        "reasoningEffort": "high"
       },
       "omp": "@plan",
       "cursor": "claude-opus-4-8-thinking-high"
@@ -32,7 +32,7 @@
       "claude": "opus",
       "codex": {
         "model": "gpt-5.6-luna",
-        "reasoningEffort": "max"
+        "reasoningEffort": "high"
       },
       "omp": "@plan",
       "cursor": "claude-opus-4-8-thinking-high"
@@ -41,7 +41,7 @@
       "claude": "haiku",
       "codex": {
         "model": "gpt-5.6-luna",
-        "reasoningEffort": "max"
+        "reasoningEffort": "low"
       },
       "omp": "@smol",
       "cursor": "composer-2.5-fast"
@@ -49,8 +49,8 @@
     "researcher": {
       "claude": "opus",
       "codex": {
-        "model": "gpt-5.6-luna",
-        "reasoningEffort": "max"
+        "model": "gpt-6-sol",
+        "reasoningEffort": "high"
       },
       "omp": "@plan",
       "cursor": "claude-opus-4-8-thinking-high"
@@ -59,7 +59,7 @@
       "claude": "haiku",
       "codex": {
         "model": "gpt-5.6-luna",
-        "reasoningEffort": "max"
+        "reasoningEffort": "medium"
       },
       "omp": "@smol",
       "cursor": "composer-2.5-fast"
@@ -76,8 +76,8 @@
     "debugger": {
       "claude": "opus",
       "codex": {
-        "model": "gpt-5.6-luna",
-        "reasoningEffort": "max"
+        "model": "gpt-6-sol",
+        "reasoningEffort": "high"
       },
       "omp": "@plan",
       "cursor": "claude-opus-4-8-thinking-high"
@@ -86,7 +86,7 @@
       "claude": "opus",
       "codex": {
         "model": "gpt-5.6-luna",
-        "reasoningEffort": "max"
+        "reasoningEffort": "high"
       },
       "omp": "@plan",
       "cursor": "claude-opus-4-8-thinking-high"
@@ -95,7 +95,7 @@
       "claude": "haiku",
       "codex": {
         "model": "gpt-5.6-luna",
-        "reasoningEffort": "max"
+        "reasoningEffort": "low"
       },
       "omp": "@smol",
       "cursor": "composer-2.5-fast"
@@ -103,8 +103,8 @@
     "ui-ux-designer": {
       "claude": "opus",
       "codex": {
-        "model": "gpt-5.6-luna",
-        "reasoningEffort": "max"
+        "model": "gpt-6-sol",
+        "reasoningEffort": "high"
       },
       "omp": "@plan",
       "cursor": "claude-opus-4-8-thinking-high"
@@ -113,7 +113,7 @@
       "claude": "haiku",
       "codex": {
         "model": "gpt-5.6-luna",
-        "reasoningEffort": "max"
+        "reasoningEffort": "low"
       },
       "omp": "@smol",
       "cursor": "composer-2.5-fast"
@@ -121,8 +121,8 @@
     "code-simplifier": {
       "claude": "opus",
       "codex": {
-        "model": "gpt-5.6-sol",
-        "reasoningEffort": "medium"
+        "model": "gpt-5.6-luna",
+        "reasoningEffort": "high"
       },
       "omp": "@plan",
       "cursor": "claude-opus-4-8-thinking-high"
@@ -130,8 +130,8 @@
     "fullstack-developer": {
       "claude": "opus",
       "codex": {
-        "model": "gpt-5.6-luna",
-        "reasoningEffort": "max"
+        "model": "gpt-6-sol",
+        "reasoningEffort": "high"
       },
       "omp": "@plan",
       "cursor": "claude-opus-4-8-thinking-high"
