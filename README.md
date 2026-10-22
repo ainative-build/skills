@@ -354,6 +354,13 @@ No breaking changes. Rerun `aif-install` (or update the plugin) to pick up:
 
 </details>
 
+## Talk deck
+
+[`docs/deck/index.html`](docs/deck/index.html) is the deck for the talk *Multiply your
+productivity in a nutshell*: seven mental models for working with coding agents, then the system
+we run, from harness to AI Factory. It is one self-contained file; download it and open it in a
+browser. The arrow keys move between slides, `N` shows the speaker notes and `F` goes full screen.
+
 ## License
 
 MIT © 2026 ainative-build; see [LICENSE](./LICENSE). These parts keep their own licenses:
