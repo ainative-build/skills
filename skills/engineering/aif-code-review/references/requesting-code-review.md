@@ -25,7 +25,7 @@ Dispatch aif-code-reviewer subagent to catch issues before they cascade.
 
 **0. Scout edge cases first (NEW):**
 ```
-Before dispatching code-reviewer, invoke /aif-scout to find:
+Before dispatching code-reviewer, invoke /aif-recon to find:
 - Files affected by changes (not just modified files)
 - Data flow paths that could break
 - Edge cases and boundary conditions

@@ -125,9 +125,9 @@ Then structure the advice as:
 7. **Trade-offs**: bulleted, honest costs of the recommendation — including what the user's own decisions cost where you disagreed. State the condition under which the recommendation stops being the right call, and what it costs to switch away from it then.
 8. **Unverified** (only when something is): claims the advice relies on that you could not confirm, each with where you looked (files, commands, URLs) and what would confirm it. Keep verified evidence and belief visibly separate.
 9. **Work checklist, success metrics & handoff brief**: end the advice so the reader can act, know when the work is finished, and know whether it worked:
-   - *Work checklist*: an ordered checkbox list (`- [ ] ...`) of the actual tasks needed to execute the recommendation, small enough to hand to `aif-plan` or `aif-cook`.
+   - *Work checklist*: an ordered checkbox list (`- [ ] ...`) of the actual tasks needed to execute the recommendation, small enough to hand to `aif-plan` or `aif-serve`.
    - *Success metrics*: signals that the delivered result is working once it is delivered or adopted — each verifiable by a command, a number, or an observable state, not a vibe. State the target value where one exists.
-   - *Handoff brief*: a fenced block the user can paste as a single message to an executor (`aif-plan`, `aif-cook`, or a long autonomous run) so it can work to the end without back-and-forth:
+   - *Handoff brief*: a fenced block the user can paste as a single message to an executor (`aif-plan`, `aif-serve`, or a long autonomous run) so it can work to the end without back-and-forth:
 
      ```text
      Objective: <the recommended work in one sentence>
@@ -167,6 +167,6 @@ Load [optional-modes.md](references/optional-modes.md); preserve five candidates
 ## Workflow Position
 
 **Typically starts from:** a raw user idea before requirements are clear.
-**Typically follows:** `/aif-scout` (advise after discovery)
+**Typically follows:** `/aif-recon` (advise after discovery)
 **Typically precedes:** `aif-brainstorm` (deeper solution exploration), `aif-plan` (plan the accepted advice)
 **Related:** `aif-brainstorm` (design-focused, ends in a plan handoff; advise ends in a recommendation the user takes elsewhere)

@@ -50,7 +50,7 @@ gh run view <run-id> --log > /tmp/ci-logs.txt
 **For codebase understanding:**
 - Read repository instructions and follow the existing documentation navigation to locate relevant architecture, ownership, and runbook context
 - Verify that context against current source, tests, configuration, and logs
-- Use `/aif-scout` or `/aif-scout ext` to find relevant files whenever context is missing or conflicting
+- Use `/aif-recon` or `/aif-recon ext` to find relevant files whenever context is missing or conflicting
 - Read package/plugin documentation directly with the runtime's fetch capability
 
 ## Step 3: Analysis Process

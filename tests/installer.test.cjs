@@ -131,7 +131,7 @@ for (const runtime of ['claude', 'codex', 'omp', 'cursor', 'all']) {
         for (const r of ruleNames) assert.ok(agentsMd.includes(`## Rule: ${r}\n`), r);
       }
       if (runtimes.includes('omp')) {
-        assert.match(read(home, '.omp/agent/agents/aif-oracle.md'), /\nmodel: "@[a-z]+"\n/);
+        assert.match(read(home, '.omp/agent/agents/aif-chef.md'), /\nmodel: "@[a-z]+"\n/);
         assert.match(read(home, '.omp/agent/rules/aif-development-rules.md'), /^---\nalwaysApply: true\n---\n# Development Rules\n/);
         assert.match(read(home, '.omp/agent/rules/aif-process-management.md'), /^---\ndescription: ".+"\nalwaysApply: false\n---\n/);
       }

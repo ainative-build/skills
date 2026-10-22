@@ -4,7 +4,7 @@ description: "Review code for bugs, regressions, maintainability, reliability an
 when_to_use: "Invoke for pending changes, a PR number, a commit hash or a codebase scan."
 category: workflow
 keywords: [review, quality, verification, reliability]
-argument-hint: "[#PR | COMMIT | --pending | codebase [parallel]] [--pro-max] [--advice] [--yagni]"
+argument-hint: "[#PR | COMMIT | --pending | codebase [parallel]] [--pro-max] [--chef] [--yagni]"
 license: MIT
 metadata:
   author: ainative-build
@@ -57,7 +57,7 @@ If invoked WITHOUT arguments and no recent changes in context, use `ask_user cap
 - Authorized fixes: repair confirmed findings in scope, then review the changed revision.
 - Codebase scan: `references/codebase-scan-workflow.md`; parallel uses
   `references/parallel-review-workflow.md` when explicitly selected and supported.
-- `--pro-max` / `--advice`: `references/advanced-modes.md`; preserve their explicit checkpoints
+- `--pro-max` / `--chef`: `references/advanced-modes.md`; preserve their explicit checkpoints
   and the pro-max/codebase-parallel conflict.
 
 Use `references/checklist-workflow.md` for risky pre-landing work and

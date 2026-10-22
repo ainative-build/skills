@@ -86,7 +86,7 @@ Required checks:
 
 ## Next Steps
 Remind user they can run `/aif-plan validate {plan-directory-path}` before implementation.
-When the user approves implementation, run `/aif-cook {ABSOLUTE_PATH_TO_PLAN_DIR}/plan.md`.
+When the user approves implementation, run `/aif-serve {ABSOLUTE_PATH_TO_PLAN_DIR}/plan.md`.
 Add `--auto` only when the user explicitly asks for autonomous implementation.
 
 ## Important Notes
@@ -94,4 +94,4 @@ Add `--auto` only when the user explicitly asks for autonomous implementation.
 - Deduplicate aggressively
 - Adjudication must be evidence-based
 - Reviewers read plan files directly
-- Never recommend cooking until the whole-plan consistency sweep has no unresolved contradictions
+- Never recommend serving until the whole-plan consistency sweep has no unresolved contradictions

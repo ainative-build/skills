@@ -15,8 +15,8 @@ nothing needs AgentKit or the `ak` CLI.
 | | `aif-brainstorm` | Turns unclear intent into an accepted outcome and compares approaches. |
 | | `aif-research` | Researches technologies, architectures and requirements. |
 | Plan | `aif-plan` | Writes phased plans with acceptance criteria; validate, red-team and archive modes. |
-| Build | `aif-cook` | Implements a plan or feature end to end with verification and review. |
-| | `aif-scout` | Maps the files, callers and tests a task touches. |
+| Build | `aif-serve` | Implements a plan or feature end to end with verification and review. |
+| | `aif-recon` | Maps the files, callers and tests a task touches. |
 | Fix | `aif-debug` | Proves the root cause of a failure before any fix. |
 | | `aif-fix` | Fixes bugs, test, type, lint and CI failures with routed workflows. |
 | Verify | `aif-test` | Runs and designs test suites; create, audit and optimize modes. |
@@ -31,11 +31,11 @@ nothing needs AgentKit or the `ak` CLI.
 | | `aif-deep-thinking` | A disciplined reasoning protocol for hard problems. |
 | Media | `aif-ai-multimodal` | Analyzes and generates images, audio, video and documents. |
 
-The usual path is `/aif-plan` → `/aif-cook` → `/aif-test` → `/aif-code-review` → `/aif-ship`.
+The usual path is `/aif-plan` → `/aif-serve` → `/aif-test` → `/aif-code-review` → `/aif-ship`.
 
 ## Agents, rules and hooks
 
-- **15 agents** (`agents/aif-*.md`): oracle, advisor, planner, researcher, scout, explore,
+- **15 agents** (`agents/aif-*.md`): chef, advisor, planner, researcher, recon, explore,
   debugger, tester, code-reviewer, code-simplifier, fullstack-developer, ui-ux-designer,
   docs-manager, git-manager and journal-writer. Per-runtime models are in
   `agents/runtime-models.json`.
@@ -62,7 +62,7 @@ npx skills@latest add ainative-build/skills
 /plugin install aif@ainative-build
 ```
 
-Commands are namespaced: `/aif:plan`, `/aif:cook`, `/aif:code-review`, and so on.
+Commands are namespaced: `/aif:plan`, `/aif:serve`, `/aif:code-review`, and so on.
 
 ### Agents, rules and hooks without the plugin
 
@@ -100,9 +100,9 @@ Plans, reports, journals, language and per-hook switches live in an optional `.a
 
 v2.0.0 is a breaking change. The v1 skills `aif-code-review`, `aif-recon` and `aif-improve` and
 the v1 `code-reviewer` agent are replaced: `aif-code-review` is now the AgentKit-derived review
-skill, `aif-scout` covers reconnaissance, and `aif-improve` is gone. A skills.sh install of v2
-leaves the old `aif-recon` and `aif-improve` in place; remove them with
-`npx skills remove -g aif-recon aif-improve`. The v1 tree stays available
+skill, `aif-recon` is now the AgentKit-derived recon skill, and `aif-improve` is gone. A
+skills.sh install of v2 replaces `aif-code-review` and `aif-recon` but leaves the old
+`aif-improve` in place; remove it with `npx skills remove -g aif-improve`. The v1 tree stays available
 at the [`v1.3.1`](https://github.com/ainative-build/skills/tree/v1.3.1) tag.
 
 ## License

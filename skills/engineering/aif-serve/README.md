@@ -1,6 +1,6 @@
-# Cook Skill Reference Map
+# Serve Skill Reference Map
 
-[`SKILL.md`](./SKILL.md) is the authority for cook behavior, modes, flags, and
+[`SKILL.md`](./SKILL.md) is the authority for serve behavior, modes, flags, and
 workflow. This README intentionally does not duplicate that contract.
 
 Supporting references:

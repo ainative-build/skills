@@ -2,8 +2,8 @@
 
 Use this file to choose the next workflow step. Each bracketed capability maps to
 an aif skill: [brainstorm] `aif-brainstorm`, [plan] `aif-plan`, [implement]
-`aif-cook`, [test] `aif-test`, [review] `aif-code-review`, [ship] `aif-ship`,
-[journal] `aif-journal`, [scout] `aif-scout`, [diagnose] `aif-debug`, [fix]
+`aif-serve`, [test] `aif-test`, [review] `aif-code-review`, [ship] `aif-ship`,
+[journal] `aif-journal`, [scout] `aif-recon`, [diagnose] `aif-debug`, [fix]
 `aif-fix`. Confirm each against the runtime's live installed-skill catalog
 before invoking it; skip an optional step whose skill is unavailable, and never
 synthesize an absent skill command.

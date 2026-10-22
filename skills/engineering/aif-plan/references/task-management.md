@@ -29,10 +29,10 @@ that contains actionable checkboxes. Otherwise, leave runtime tracking empty.
 5. Retain enough context to map each runtime item back to its phase file and checklist item.
 6. If no live surface exists, keep status current in the plan files.
 
-## Cook Handoff
+## Serve Handoff
 
-In the same session, Cook may reuse the live view after confirming it matches
-the plan. In a new session, or when the view is absent or stale, Cook rebuilds
+In the same session, Serve may reuse the live view after confirming it matches
+the plan. In a new session, or when the view is absent or stale, Serve rebuilds
 it from unchecked plan items. The plan always wins when states disagree.
 
 ## Sync-Back

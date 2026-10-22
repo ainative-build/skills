@@ -69,31 +69,31 @@ Detect multiple features from natural language:
 ## Examples
 
 ```
-"/aif-cook implement user auth --interactive"
+"/aif-serve implement user auth --interactive"
 → Mode: interactive (explicit flag, stops at review gates)
 
-"/aif-cook implement user auth"
+"/aif-serve implement user auth"
 → Mode: auto (default, authorized continuation)
 
-"/aif-cook <plan-dir>/phase-02-api.md"
+"/aif-serve <plan-dir>/phase-02-api.md"
 → Mode: code (path detected, continues within authorized scope)
 
-"/aif-cook quick fix for the login bug"
+"/aif-serve quick fix for the login bug"
 → Mode: fast ("quick" keyword, continues within authorized scope)
 
-"/aif-cook implement auth, payments, notifications, shipping"
+"/aif-serve implement auth, payments, notifications, shipping"
 → Mode: parallel (4 features, continues within authorized scope)
 
-"/aif-cook implement dashboard --fast"
+"/aif-serve implement dashboard --fast"
 → Mode: fast (explicit flag, continues within authorized scope)
 
-"/aif-cook refactor auth middleware --tdd"
+"/aif-serve refactor auth middleware --tdd"
 → Mode: auto (default mode, with tests-first implementation behavior)
 
-"/aif-cook implement everything --auto"
+"/aif-serve implement everything --auto"
 → Mode: auto (NO STOPS, implements all phases continuously)
 
-"/aif-cook implement dashboard trust me"
+"/aif-serve implement dashboard trust me"
 → Mode: auto ("trust me" keyword, NO STOPS)
 ```
 

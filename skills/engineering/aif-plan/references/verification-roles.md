@@ -125,7 +125,7 @@ Run this after any validation or red-team change that edits `plan.md` or any `ph
 3. Search all plan files for old terms, superseded assumptions, and duplicate embedded drafts from each delta.
 4. Reconcile affected sections across files, not only the file that triggered the finding.
 5. Check `plan.md` summary, phases table text, phase requirements, implementation steps, success criteria, risk notes, and validation/red-team logs for contradictions.
-6. If a conflict cannot be resolved with current evidence, add it to unresolved questions and do not recommend cooking yet.
+6. If a conflict cannot be resolved with current evidence, add it to unresolved questions and do not recommend serving yet.
 
 ### Output Format
 

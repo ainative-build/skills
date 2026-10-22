@@ -7,11 +7,11 @@ map only; load the owning `SKILL.md` before executing details.
 
 | User intent | Sequence |
 |---|---|
-| Implement a feature | `/aif-brainstorm` -> `/aif-plan` -> `/aif-cook` -> `/aif-test` -> `/aif-code-review` |
-| Execute an accepted plan | reuse its brainstorm contract -> `/aif-cook <plan-path>` |
-| Quick implementation | bounded brainstorm gate -> `/aif-cook --fast` |
+| Implement a feature | `/aif-brainstorm` -> `/aif-plan` -> `/aif-serve` -> `/aif-test` -> `/aif-code-review` |
+| Execute an accepted plan | reuse its brainstorm contract -> `/aif-serve <plan-path>` |
+| Quick implementation | bounded brainstorm gate -> `/aif-serve --fast` |
 | Bug, error, failed test, or CI failure | opening intent frame -> `/aif-fix` |
-| Investigate before deciding | `/aif-scout` -> `/aif-debug` -> `/aif-brainstorm` -> `/aif-plan` |
+| Investigate before deciding | `/aif-recon` -> `/aif-debug` -> `/aif-brainstorm` -> `/aif-plan` |
 | Review a PR | `/aif-code-review <PR>` |
 | Fix review feedback | `/aif-fix --parallel` |
 | Ship a completed branch | `/aif-ship` |
@@ -20,7 +20,7 @@ map only; load the owning `SKILL.md` before executing details.
 
 - Start delivery with outcome, constraints, non-goals, and acceptance criteria.
   Reuse them from an accepted plan instead of asking again.
-- Use `/aif-cook` for known feature scope after requirements are clear.
+- Use `/aif-serve` for known feature scope after requirements are clear.
 - Use `/aif-fix` for concrete bugs, errors, test failures, and CI failures.
 - Use `/aif-plan` when work needs architecture, phases, file ownership, or TDD
   structure.
@@ -33,7 +33,7 @@ map only; load the owning `SKILL.md` before executing details.
 ## Handoff Rules
 
 - Establish the brainstorm contract, then gather evidence and design, followed
-  by the workflow owner (`/aif-plan`, then `/aif-cook`).
+  by the workflow owner (`/aif-plan`, then `/aif-serve`).
 - For documentation changes, delegate to the `aif-docs-manager` agent for the
   affected docs only.
 - When skill choice is ambiguous, use the installed skill names and descriptions.

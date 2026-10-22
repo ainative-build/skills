@@ -1,10 +1,10 @@
 ---
 name: aif-ship
-description: "Ship a completed branch via tests, review, commit, push and PR, with official/beta aliases, Oracle advice and gated merge plus CI convergence."
+description: "Ship a completed branch via tests, review, commit, push and PR, with official/beta aliases, Chef advice and gated merge plus CI convergence."
 when_to_use: "Invoke when work is done and needs a PR."
 category: workflow
-keywords: [ship, PR, merge, push, release, advice, oracle]
-argument-hint: "[official|stable|main|beta|dev|next] [--both] [--advice] [--merge] [--skip-tests] [--skip-review] [--skip-journal] [--skip-docs] [--dry-run]"
+keywords: [ship, PR, merge, push, release, advice, chef]
+argument-hint: "[official|stable|main|beta|dev|next] [--both] [--chef] [--merge] [--skip-tests] [--skip-review] [--skip-journal] [--skip-docs] [--dry-run]"
 license: MIT
 metadata:
   author: ainative-build
@@ -27,7 +27,7 @@ Single command to ship a feature branch. Continue through authorized repairs and
 | `beta`, `dev`, `next` | Normalize to `beta`; ship to the detected development branch (dev/beta/develop). Lighter pipeline, skip docs update |
 | (none) | Auto-detect: if base branch is main/master → official, else → beta |
 | `--both` | Dual-target ship: beta stage first, then a gated stable stage (see Dual-target ship). Supersedes a positional mode token |
-| `--advice` | Run the ship-to-PR path under advisory-only `aif-oracle` supervision |
+| `--chef` | Run the ship-to-PR path under advisory-only `aif-chef` supervision |
 | `--merge` | After PR creation, merge it through the `aif-git` merge-pr workflow (readiness gate, merge, post-merge CI to green) |
 | `--skip-tests` | Skip test step (use when tests already passed) |
 | `--skip-review` | Skip pre-landing review step |
@@ -57,7 +57,7 @@ Aliases select a canonical mode; they do not force a literal branch name.
 When `--both` is present, ship to both targets in sequence — the beta pipeline
 first, then a gated stable stage. `--both` supersedes a positional mode token;
 if one is also given, warn once and continue in dual-target mode. It composes
-with `--advice`, `--merge`, and the skip flags. With `--dry-run`, it simulates
+with `--chef`, `--merge`, and the skip flags. With `--dry-run`, it simulates
 the beta stage only and reports the stable stage as not-simulated.
 
 Load `references/dual-stage-workflow.md` for the stage sequencing, the stable
@@ -67,14 +67,14 @@ contract. The stable stage never force-pushes, never bypasses branch
 protection, and never merges a promotion PR that sweeps unrelated work without
 asking.
 
-## Advisory supervision (`--advice`)
+## Advisory supervision (`--chef`)
 
-When `--advice` is present, the workflow MUST spawn `aif-oracle` to supervise
+When `--chef` is present, the workflow MUST spawn `aif-chef` to supervise
 the local ship-to-PR path, because the flag's entire contract is that a
 supervisor saw the change. Load `../aif-brainstorm/references/advisory-supervision.md`
 for supervisor identity, host detection, and model routing (Claude
 subscription → Fable 5; Codex → `gpt-6-astra` + low effort; Cursor →
-`claude-fable-5-high`). Oracle returns counsel, never code; the main agent
+`claude-fable-5-high`). Chef returns counsel, never code; the main agent
 remains responsible for every decision, edit, and gate.
 
 Mandatory normal-path checkpoints:
@@ -89,7 +89,7 @@ Mandatory normal-path checkpoints:
   exact blocker or irreversible choice, and ask for a legitimate next step.
 
 Empty/error counsel is recorded as a non-fatal advisory failure; authoritative
-ship gates still decide whether to proceed. If `--advice` is present and no
+ship gates still decide whether to proceed. If `--chef` is present and no
 delegation call occurs, the workflow is incomplete.
 
 When `--merge` is also present, add one more mandatory checkpoint:
@@ -97,7 +97,7 @@ When `--merge` is also present, add one more mandatory checkpoint:
 - **After the PR exists, before Step 13 merges** — pass the PR URL, its check
   and review state, and ask for a go/no-go on merging.
 
-`--advice` never bypasses tests, review blockers, branch protection, security
+`--chef` never bypasses tests, review blockers, branch protection, security
 policy, or the merge-pr readiness gate.
 
 ## Batch-landing repositories
@@ -184,7 +184,7 @@ User says `/aif-ship beta` → ship to dev branch with lighter pipeline.
 User says `/aif-ship official` → ship to main with full docs + journal.
 User says `/aif-ship stable` or `/aif-ship main` → normalize to official mode.
 User says `/aif-ship dev` or `/aif-ship next` → normalize to beta mode.
-User says `/aif-ship beta --advice --merge` → supervised ship, then gated merge and CI convergence.
+User says `/aif-ship beta --chef --merge` → supervised ship, then gated merge and CI convergence.
 User says `/aif-ship --both --merge` → beta PR, beta merge to green, then the gated stable stage.
 
 ## Output Format
@@ -217,7 +217,7 @@ User says `/aif-ship --both --merge` → beta PR, beta merge to green, then the 
 - **Subagent delegation.** Use `aif-tester` for tests, `aif-code-reviewer` for review, `aif-journal-writer` for journal, `aif-docs-manager` for docs. Don't inline.
 - **Merge delegation.** `--merge` runs the `aif-git` merge-pr workflow, which refuses on conflicts, red CI, `CHANGES_REQUESTED`, or branch protection. `--skip-review` skips only the local Step 5 review.
 - **Fail closed on merge state.** When `--merge` is requested, a merged/green completion claim requires `Merge=merged` and `CI=green`; a blocked, red, pending, or unavailable state stops the run and is reported as such.
-- **Dry-run has no delegation side effects.** `--dry-run` stops before `aif-oracle` or any merge.
+- **Dry-run has no delegation side effects.** `--dry-run` stops before `aif-chef` or any merge.
 - **Background tasks.** Journal and docs run in background to not block the pipeline.
 
 ## Workflow Position

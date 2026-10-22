@@ -40,7 +40,7 @@ In the active scope root:
 After creating plan.md and phase files, hydrate tasks (unless `--no-tasks`):
 1. Discover the live task-management surface
 2. If available, mirror phases, dependencies, and critical high-risk steps
-3. Otherwise, keep progress in the active plan; see `task-management.md` for the cook handoff protocol
+3. Otherwise, keep progress in the active plan; see `task-management.md` for the serve handoff protocol
 
 ### Active Plan State Tracking
 

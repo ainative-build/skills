@@ -9,7 +9,7 @@ parallel and never starts the stable stage on an unproven beta result.
 - `--both` supersedes a positional mode token (`official`, `beta`, aliases).
   If a token is also present, warn once ("--both supersedes <token>") and
   continue in dual-target mode. Never silently drop either input.
-- Composes with `--advice`, `--merge`, and the skip flags. Each
+- Composes with `--chef`, `--merge`, and the skip flags. Each
   stage applies the composed flags with its own canonical mode semantics
   (beta stage skips docs update; stable stage runs the full official pipeline).
 - `--dry-run` simulates the beta stage only and reports the stable stage as

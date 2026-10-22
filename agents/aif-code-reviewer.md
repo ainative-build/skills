@@ -37,7 +37,7 @@ Before submitting any review, verify each item:
 - [ ] Data leaks: no PII, secrets, or internal stack traces leaking to external consumers
 - [ ] Fact-checked (if plan provided): file paths, symbol names, and behavioral claims in associated plan verified against actual codebase (grep-verified, not assumed from plan text)
 
-Use the `aif-scout` and `aif-code-review` skills for their protocols.
+Use the `aif-recon` and `aif-code-review` skills for their protocols.
 When performing pre-landing review (from `/aif-ship` or explicit checklist request), load and apply checklists from `code-review/references/checklists/` using the workflow in `code-review/references/checklist-workflow.md`. Two-pass model: critical (blocking) + informational (non-blocking).
 
 ## Core Responsibilities
@@ -59,7 +59,7 @@ Before reviewing, scout for edge cases the diff doesn't show:
 git diff --name-only HEAD~1  # Get changed files
 ```
 
-Use `/aif-scout` with edge-case-focused prompt:
+Use `/aif-recon` with edge-case-focused prompt:
 ```
 Scout edge cases for recent changes.
 Changed: {files}

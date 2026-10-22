@@ -5,9 +5,9 @@
 ## Core Activities
 
 ### Parallel Scout Agents
-- Use `/aif-scout ext` (preferred) or `/aif-scout` (fallback) skill invocation to search the codebase for files needed to complete the task
+- Use `/aif-recon ext` (preferred) or `/aif-recon` (fallback) skill invocation to search the codebase for files needed to complete the task
 - Each scout locates files needed for specific task aspects
-- Wait for all aif-scout agents to report back before analysis
+- Wait for all aif-recon agents to report back before analysis
 - Efficient for finding relevant code across large codebases
 
 ### Project Context Discovery

@@ -5,12 +5,12 @@ when_to_use: "Use when opening multi-step delivery or picking between viable fix
 category: workflow
 keywords: [ideation, tradeoffs, decisions, intent, acceptance]
 license: MIT
-argument-hint: "[topic or problem] [--ask] [--advice] [--report] [--pro-max] [--yagni]"
+argument-hint: "[topic or problem] [--ask] [--chef] [--report] [--pro-max] [--yagni]"
 metadata:
   author: ainative-build
   version: "2.9.0"
   workflow:
-    precedes: [aif-plan, aif-cook]
+    precedes: [aif-plan, aif-serve]
 ---
 
 # Brainstorm
@@ -117,7 +117,7 @@ the stated outcome.
 |---|---|
 | `--ask` | `references/interview-mode.md`; interview once, never forward this flag |
 | `--report` | `references/report-output-mode.md`; durable Markdown report |
-| `--advice` | `references/advice-mode.md`; explicit supervisor checkpoints |
+| `--chef` | `references/chef-mode.md`; explicit supervisor checkpoints |
 | `--pro-max` | `references/brainstorm-pro-max-mode.md`; five candidates and verifier |
 | `--yagni` | Scope-cutting opt-in; forward downstream |
 
@@ -145,7 +145,7 @@ flowchart TD
     G -->|No| J[Inspect relevant evidence]
     J --> K[Compare approaches when choice is material]
     I --> L[Plan or fix]
-    K --> L2[Plan or cook]
+    K --> L2[Plan or serve]
 ```
 
 When `--ask` is present and unsettled material decisions remain after evidence inspection, the clarification round runs before the brainstorm contract is finalized, aligning user intent with discovered repository reality. If an accepted contract already settles requirements, reuse it directly without redundant questioning.
@@ -154,7 +154,7 @@ When `--ask` is present and unsettled material decisions remain after evidence i
 Pass the contract fields, including Trade-offs and Better approaches when present, chosen direction, evidence, and unresolved risks
 to the next owning workflow:
 
-- feature or documentation delivery: the installed plan skill, then `/aif-cook`;
+- feature or documentation delivery: the installed plan skill, then `/aif-serve`;
 - diagnosed bug: `/aif-fix`;
 - exploration only: report the recommendation and stop.
 
@@ -175,7 +175,7 @@ do not create a report merely to satisfy the gate.
 
 ## Workflow position
 
-**Typically precedes:** `aif-plan`, `/aif-cook`.
+**Typically precedes:** `aif-plan`, `/aif-serve`.
 
 **Bug path:** opening intent frame -> scout and debug -> solution brainstorm when
 needed -> `/aif-fix`.

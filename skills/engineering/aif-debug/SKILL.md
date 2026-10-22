@@ -114,7 +114,7 @@ Frontend fix   → frontend-verification.md (agent-browser/chrome-profile/Chrome
 - **Database:** `psql` for PostgreSQL queries and diagnostics
 - **CI/CD:** `gh` CLI for GitHub Actions logs and pipeline debugging
 - **Docs:** read package/plugin documentation directly with the runtime's fetch capability
-- **Scouting:** `/aif-scout` or `/aif-scout ext` for finding relevant files
+- **Scouting:** `/aif-recon` or `/aif-recon ext` for finding relevant files
 - **Frontend:** `aif-agent-browser`, `aif-chrome-profile`, Chrome MCP / `chrome-devtools-mcp`, or project-native browser tests for visual verification. For real profile state, let `chrome-profile open --json` create the tab and bind to its returned selector before using MCP inspection tools.
 - **Skills:** Activate `aif-problem-solving` skill when stuck on complex issues
 
@@ -131,9 +131,9 @@ Stop and follow process if thinking:
 
 ## Workflow Position
 
-**Typically follows:** `/aif-scout` (after locating relevant code)
+**Typically follows:** `/aif-recon` (after locating relevant code)
 **Typically precedes:** `/aif-fix` (fix the diagnosed issue), `/aif-brainstorm` (explore solutions for complex problems)
-**Related:** `/aif-scout` (discover before debugging), `/aif-fix` (fix after diagnosing)
+**Related:** `/aif-recon` (discover before debugging), `/aif-fix` (fix after diagnosing)
 
 ## Pro-Max Verifier Mode (`--pro-max`)
 

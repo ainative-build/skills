@@ -10,5 +10,5 @@ If repeated attempts produce no progress, report evidence and the smallest missi
 
 In explicit `--interactive`, present findings and wait for the user's review at each major
 checkpoint. A request to accept a finding cannot override repository or safety requirements.
-Under `--advice`, consult the supervisor on a failed verification before re-diagnosis or edits.
+Under `--chef`, consult the supervisor on a failed verification before re-diagnosis or edits.
 Report findings fixed, validation and remaining limitations instead of a score threshold.

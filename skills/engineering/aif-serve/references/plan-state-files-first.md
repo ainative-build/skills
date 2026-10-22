@@ -1,7 +1,7 @@
 # Plan State: Files-First Model
 
 Shared by every skill that creates, resolves, or mutates a plan (`aif-plan`,
-`aif-cook`, and any other skill referencing this file).
+`aif-serve`, and any other skill referencing this file).
 This is the single description of where plan state lives — do not restate a
 divergent copy in another skill; link here instead.
 
@@ -38,7 +38,7 @@ the calling skill. Every `plan.cjs` command accepts `--json`.
 ## Current-plan resolution
 
 - `plan.cjs use <plan-dir>` sets the current-plan pointer for this worktree so
-  downstream skills (`aif-cook` and other agents) can resolve the active plan
+  downstream skills (`aif-serve` and other agents) can resolve the active plan
   without re-scanning or requiring a GitHub link. `plan.cjs use --clear` removes it.
 - `plan.cjs resolve` returns the active plan, matching by `--issue <n>` when
   given, then the pointer, then the plan whose `branch:` front matter equals the
@@ -143,7 +143,7 @@ write and the state close are **two different commands at two different moments*
 
 Do **not** run `plan.cjs close` here. During the review window the correct
 intermediate state is `status: completed` (file) + `state: active` (local state):
-`plan.cjs resolve` only returns active plans, so an early close would blind cook
+`plan.cjs resolve` only returns active plans, so an early close would blind serve
 during review-fix cycles, and there is no reopen command — a rejected PR must not
 leave a stuck-closed plan.
 

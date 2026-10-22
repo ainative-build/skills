@@ -31,7 +31,7 @@ finish. Plan files are the durable source of truth.
 
 ### Step 2: Scout the Codebase
 
-Use `aif-scout` or parallel `aif-explore` subagents to find affected code. See
+Use `aif-recon` or parallel `aif-explore` subagents to find affected code. See
 `references/parallel-exploration.md` for patterns.
 
 ### Step 3: Plan the Fix
@@ -48,7 +48,7 @@ Implement the smallest cause-aligned fix.
 Use the aif-tester agent. If the original symptom remains, return to Step 2 and
 re-diagnose before changing more code.
 
-Under `--advice`, a failed check is an objective `aif-oracle` trigger: STOP and spawn `aif-oracle` with the command, its output, and what you tried before re-diagnosing; never self-reason past a red check.
+Under `--chef`, a failed check is an objective `aif-chef` trigger: STOP and spawn `aif-chef` with the command, its output, and what you tried before re-diagnosing; never self-reason past a red check.
 
 ### Step 6: Review
 

@@ -8,5 +8,5 @@ unavailable, perform permitted checks/review inline and report the limitation ho
 Research and planning delegates are optional when uncertainty or coordination warrants them.
 Parallel workers need disjoint files and known integration points. Finalization can reconcile
 plan files and docs inline; no additional skill is required.
-Explicit `--advice` uses its own supervisor checkpoints; missing optional delegation must not
+Explicit `--chef` uses its own supervisor checkpoints; missing optional delegation must not
 be represented as a completed independent review.

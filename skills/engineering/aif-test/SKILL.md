@@ -4,7 +4,7 @@ description: "Run unit, integration, e2e and UI tests with coverage analysis, bu
 when_to_use: "Invoke for running or designing validation suites."
 category: workflow
 keywords: [test, unit, integration, e2e, coverage]
-argument-hint: "[context] OR ui [url] OR create|optimize|audit [scope] [--advice] [--pro-max] [--interview]"
+argument-hint: "[context] OR ui [url] OR create|optimize|audit [scope] [--chef] [--pro-max] [--interview]"
 license: MIT
 metadata:
   author: ainative-build
@@ -77,7 +77,7 @@ Structured QA report template: test results overview, coverage metrics, failed t
 
 ### 4. Suite Creation (`references/create-suite-workflow.md`)
 
-`create`: activate `aif-scout` over the codebase and docs, map features and
+`create`: activate `aif-recon` over the codebase and docs, map features and
 workflows to a coverage matrix, then design and implement a test suite that
 covers them.
 
@@ -187,13 +187,13 @@ or session-scoped.
 
 ## Workflow Position
 
-**Typically follows:** `/aif-cook` (test after implementation), `/aif-fix` (test after bug fix)
+**Typically follows:** `/aif-serve` (test after implementation), `/aif-fix` (test after bug fix)
 **Typically precedes:** `aif-git` (commit once tests pass)
-**Related:** `/aif-cook` (implement then test), `/aif-fix` (fix then test)
+**Related:** `/aif-serve` (implement then test), `/aif-fix` (fix then test)
 
 ## Flags (create / optimize / audit)
 
-- `--advice` — run under `aif-oracle` advisory supervision (see below).
+- `--chef` — run under `aif-chef` advisory supervision (see below).
 - `--pro-max` — run the analysis/design step as a best-of-5 verifier pass (see
   Pro-Max Verifier Mode).
 - `--interview` — before applying any change, list every proposed change
@@ -201,18 +201,18 @@ or session-scoped.
   interview the user via `ask_user capability` — one decision per change group;
   apply only the approved changes. Without `--interview`, `create` and `optimize` apply directly and report the full change list; `audit` reports findings unless repair was separately requested.
 
-## Advisory supervision (`--advice`)
+## Advisory supervision (`--chef`)
 
-When `--advice` is present, run this skill under `aif-oracle` supervision.
-`aif-oracle` is an advisory-only supervisor: it returns counsel, never code, and
+When `--chef` is present, run this skill under `aif-chef` supervision.
+`aif-chef` is an advisory-only supervisor: it returns counsel, never code, and
 the main agent stays responsible for every decision, edit, and gate.
 
-Spawn `aif-oracle` at these checkpoints: after the scout/analysis phase (pass the
+Spawn `aif-chef` at these checkpoints: after the scout/analysis phase (pass the
 coverage matrix or findings and ask for a go/no-go plus the top risk); before
 applying suite or CI workflow changes (pass the proposed change list); and when
 stuck. Invoke with
-`delegate_agent capability(subagent_type="aif-oracle", prompt="<task, evidence, approaches tried, the exact question>", description="advice: <checkpoint>")`.
-`--advice` never bypasses the failing-test rules or CI safety gates.
+`delegate_agent capability(subagent_type="aif-chef", prompt="<task, evidence, approaches tried, the exact question>", description="advice: <checkpoint>")`.
+`--chef` never bypasses the failing-test rules or CI safety gates.
 
 ## Pro-Max Verifier Mode (`--pro-max`)
 
@@ -232,4 +232,4 @@ verifier.
 
 Full mechanics are in `../aif-brainstorm/references/pro-max-verifier-mode.md`. It
 is a best-of-5 verifier mode inspired by LLM-as-a-Verifier, not the full
-framework. `--pro-max` composes with `--advice` and `--interview`.
+framework. `--pro-max` composes with `--chef` and `--interview`.

@@ -19,7 +19,7 @@ delivery. Direct answers and low-level read-only utilities may stay direct.
 - Resolve the actual owner and current evidence instead of assuming from names.
 - Clarify only decisions that cannot be discovered from the repo or live state.
 - For broad or risky work, create or update a plan in `plans/`.
-- For ambiguous workflow sequence, load the `aif-cook` skill's
+- For ambiguous workflow sequence, load the `aif-serve` skill's
   `references/workflow-routing.md`.
 
 ## 3. Plan and implement

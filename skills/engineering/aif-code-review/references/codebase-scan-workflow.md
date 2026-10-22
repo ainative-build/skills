@@ -13,7 +13,7 @@ Scan and analyze the codebase following the Orchestration Protocol, Core Respons
 ### Research
 * Use 2 `aif-researcher` subagents in parallel to search up to 5 sources
 * Keep every research report concise (≤150 lines)
-* Use `/aif-scout` skill invocation to search the codebase
+* Use `/aif-recon` skill invocation to search the codebase
 
 ### Code Review
 * Use multiple `aif-code-reviewer` subagents in parallel to review code

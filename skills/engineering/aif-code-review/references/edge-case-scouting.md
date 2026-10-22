@@ -29,7 +29,7 @@ git diff --name-only HEAD~1
 
 ### 2. Invoke Scout
 ```
-/aif-scout edge cases for recent changes.
+/aif-recon edge cases for recent changes.
 
 Changed: {files from git diff}
 

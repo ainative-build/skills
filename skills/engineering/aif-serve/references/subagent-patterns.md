@@ -1,6 +1,6 @@
 # Subagent Patterns
 
-Standard patterns for spawning and using subagents in cook workflows.
+Standard patterns for spawning and using subagents in serve workflows.
 
 ## Delegation Capability Pattern
 ```
@@ -16,9 +16,9 @@ delegate_agent capability(subagent_type="aif-researcher", prompt="Research [topi
 
 ## Scout Phase
 ```
-delegate_agent capability(subagent_type="aif-scout", prompt="Find files related to [feature] in codebase", description="Scout [feature]")
+delegate_agent capability(subagent_type="aif-recon", prompt="Find files related to [feature] in codebase", description="Scout [feature]")
 ```
-- Use `/aif-scout ext` (preferred) or `/aif-scout` (fallback)
+- Use `/aif-recon ext` (preferred) or `/aif-recon` (fallback)
 
 ## Planning Phase
 ```

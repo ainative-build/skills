@@ -26,14 +26,14 @@ Stage mapping — are in `../../aif-brainstorm/references/pro-max-verifier-mode.
 inspired by LLM-as-a-Verifier, not the full framework; never claim its
 logprob/tournament algorithm.
 
-## Advisory supervision (`--advice`)
+## Advisory supervision (`--chef`)
 
-When `--advice` is present, run this skill under `aif-oracle` supervision.
+When `--chef` is present, run this skill under `aif-chef` supervision.
 Load `../../aif-brainstorm/references/advisory-supervision.md` for supervisor
 identity, host detection, and model routing (Claude subscription → Fable 5;
 Codex → `gpt-6-astra` + low effort; Cursor → `claude-fable-5-high`).
 
-Spawn `aif-oracle` at these checkpoints:
+Spawn `aif-chef` at these checkpoints:
 
 - **After Stage 1 (spec compliance) and after Stage 2 (quality review)** —
   pass scope, findings with evidence, and tentative severity; ask for
@@ -43,5 +43,5 @@ Spawn `aif-oracle` at these checkpoints:
 - **Before publishing a high-stakes verdict** (Request changes on a public
   contract, security finding, or large refactor) — get counsel first.
 
-`--advice` composes with `--pro-max` and input modes; it never bypasses evidence
+`--chef` composes with `--pro-max` and input modes; it never bypasses evidence
 rules or the `codebase parallel` / `--pro-max` hard-conflict.

@@ -56,7 +56,7 @@ Created files use `YYYY-MM-DD-<slug>.md` with `-2`, `-3`, … collision suffixes
 
 ## Workflow Position
 
-**Typically follows:** `/aif-cook` (journal after implementation), `/aif-fix` (journal after bug fix)
+**Typically follows:** `/aif-serve` (journal after implementation), `/aif-fix` (journal after bug fix)
 **Related:** `aif-ship` (journal after shipping)
 **Terminal skill** — no typical successor.
 
@@ -65,7 +65,7 @@ Created files use `YYYY-MM-DD-<slug>.md` with `-2`, `-3`, … collision suffixes
 Explicit `/aif-journal` and `journal.cjs create` are always available and are
 unaffected by any preference or flag.
 
-The **automatic** journal step at the end of the `aif-plan`, `/aif-cook`,
+The **automatic** journal step at the end of the `aif-plan`, `/aif-serve`,
 `/aif-fix`, and `aif-ship` skills honors:
 - The `--skip-journal` flag on the invoking skill.
 - The `journal.auto` preference (default: `true`).

@@ -17,7 +17,7 @@ skill it does not list.
 
 | User intent | Skill |
 |-------------|-------|
-| Locate code or understand a repository | `aif-scout` |
+| Locate code or understand a repository | `aif-recon` |
 | Research a technology, library or approach | `aif-research` |
 | Get a second opinion or pressure-test a plan | `aif-advise` |
 | Diagnose a failure or prove a root cause | `aif-debug`, then `aif-fix` |

@@ -34,9 +34,9 @@
 4. Run `git status` (never use `-uall`). Record task ownership and intended ship scope; preserve unrelated uncommitted changes.
 5. Run `git diff <target>...HEAD --stat` and `git log <target>..HEAD --oneline` to understand what's being shipped.
 6. If `--dry-run`: output what would happen at each step and stop here. Do not
-   spawn `aif-oracle`, merge, or perform any mutation.
+   spawn `aif-chef`, merge, or perform any mutation.
 
-7. If `--advice`, run the mandatory post-preflight Oracle checkpoint from
+7. If `--chef`, run the mandatory post-preflight Chef checkpoint from
    `SKILL.md` before Step 2 or any mutation. Pass the canonical mode, detected
    target, branch/diff summary, constraints, and the exact go/no-go question.
 
@@ -142,7 +142,7 @@ git fetch origin <target> && git merge origin/<target> --no-edit
 8. **If no issues:** Output "No issues found." and continue.
 ## Mandatory advice checkpoint after Steps 4-5
 
-If `--advice`, run the mandatory post-tests/local-review Oracle checkpoint
+If `--chef`, run the mandatory post-tests/local-review Chef checkpoint
 before Step 6 or any versioning, changelog, commit, push, or PR write. This
 checkpoint remains mandatory when `--skip-review` skips Step 5; pass the skip
 reason together with test evidence. Otherwise pass review findings and fixes as
@@ -171,7 +171,7 @@ Load `release-workflow.md` and run Step 9.
 Run **synchronously before Step 10** so the finalized plan files are staged by
 the ship commit. Full protocol: the "Delivery finalization (close on ship)"
 section of the shared files-first plan-state reference
-(`../../aif-cook/references/plan-state-files-first.md`). `PLAN` below is
+(`../../aif-serve/references/plan-state-files-first.md`). `PLAN` below is
 `node <aif-plan>/scripts/plan.cjs`.
 
 1. `PLAN resolve --json` for the current repo + branch. **No active plan → skip

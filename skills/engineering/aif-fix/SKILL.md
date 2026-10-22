@@ -4,7 +4,7 @@ description: "Fix bugs, test failures, type and lint errors, log errors, UI defe
 when_to_use: "Invoke when there is a concrete bug, error, or CI failure."
 category: workflow
 keywords: [bugfix, error, test-failure, CI, lint]
-argument-hint: "[issue] --auto|--review|--quick|--parallel [--pro-max] [--advice] [--skip-journal]"
+argument-hint: "[issue] --auto|--review|--quick|--parallel [--pro-max] [--chef] [--skip-journal]"
 license: MIT
 metadata:
   author: ainative-build
@@ -25,16 +25,16 @@ path, direct callers and relevant tests; record the failing command or observed 
 - `--review`: explicit human review at each major step.
 - `--quick`: a bounded cause-aligned repair using `references/workflow-quick.md`.
 - `--parallel`: independent issues with disjoint ownership and available delegation.
-- `--advice`: supervisor checkpoints described below.
+- `--chef`: supervisor checkpoints described below.
 - `--pro-max`: post-diagnosis best-of-5 selection; conflicts with quick and parallel.
 
-## Advisory supervision (`--advice`)
+## Advisory supervision (`--chef`)
 
-When `--advice` is present, run this skill under `aif-oracle` supervision, as
+When `--chef` is present, run this skill under `aif-chef` supervision, as
 defined by `../aif-brainstorm/references/advisory-supervision.md`. Load
 `references/advisory-supervision-checkpoints.md` for supervisor identity and
 model routing, the spawn checkpoints (after each step, when stuck, on any failed
-verification, before a high-stakes decision), when to treat `--advice` as active,
+verification, before a high-stakes decision), when to treat `--chef` as active,
 and how supervision persists through a PR.
 
 
@@ -52,7 +52,7 @@ independent review scales with risk and repository requirements, not every trivi
 
 Repair your regressions within the authorized scope. Ask only for a material missing decision,
 a contract reversal or an unauthorized destructive action. After three failed repair attempts,
-stop and reconsider the architecture with the user and evidence. With `--advice`, obtain
+stop and reconsider the architecture with the user and evidence. With `--chef`, obtain
 counsel on every failed verification before re-diagnosis or edits, including in quick mode.
 
 Finalize by reconciling an existing plan if present, updating impacted docs and reporting
@@ -96,7 +96,7 @@ Load as needed:
 - `references/step-markers.md` - Unified step markers printed as each step completes
 - `references/skill-activation-matrix.md` - When to activate each skill
 - `references/parallel-exploration.md` - Parallel `aif-explore`/run_shell capability/Task coordination patterns
-- `references/advisory-supervision-checkpoints.md` - `--advice` supervisor routing and spawn checkpoints
+- `references/advisory-supervision-checkpoints.md` - `--chef` supervisor routing and spawn checkpoints
 - `references/diagnosis-gates.md` - Exact-root-cause and no-side-effects gates
 - `references/anti-rationalization.md` - Thought-vs-reality table for process shortcuts
 - `references/pro-max-verifier-mode-fix.md` - `--pro-max` best-of-5 fix-plan selection

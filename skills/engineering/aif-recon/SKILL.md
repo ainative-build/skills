@@ -1,5 +1,5 @@
 ---
-name: aif-scout
+name: aif-recon
 description: "Scout a codebase fast with native search, optional Explore agents and user-permitted OpenCode probes."
 when_to_use: "Invoke for file discovery, task context or scoped searches."
 category: workflow
@@ -11,7 +11,7 @@ metadata:
   version: "1.1.2"
 ---
 
-# Scout
+# Recon
 
 Fast, token-efficient codebase scouting using parallel agents to find files needed for tasks.
 
@@ -109,7 +109,7 @@ Invoke "the engineer project-organization skill" skill to organize the outputs.
 ## Report Format
 
 ```markdown
-# Scout Report
+# Recon Report
 
 ## Relevant Files
 - `path/to/file.ts` - Brief description
@@ -137,7 +137,7 @@ parallel wave; a single strongest-model verifier scores them.
   passes — a relevant file may surface in only one candidate. It drops paths it
   cannot validate; the controller emits the merged report.
 
-Scout's no-delegation degrade path does not apply under `--pro-max`: if the
+Recon's no-delegation degrade path does not apply under `--pro-max`: if the
 runtime cannot dispatch five parallel read-only candidates,
 hard-stop and name the missing capability — never degrade to main-agent
 scouting for an pro-max run. Full mechanics (evidence packet, anonymization, the

@@ -1,6 +1,6 @@
 ---
-description: "Create, validate or review implementation plans with acceptance criteria and executable phases; cook implements them."
-argument-hint: "[task] [--fast|--hard|--deep|--parallel|--two|--debate|--pro-max] [--tdd|--no-tasks] [--github] [--advice] [--yagni] [--skip-journal] OR [archive|red-team|validate]"
+description: "Create, validate or review implementation plans with acceptance criteria and executable phases; serve implements them."
+argument-hint: "[task] [--fast|--hard|--deep|--parallel|--two|--debate|--pro-max] [--tdd|--no-tasks] [--github] [--chef] [--yagni] [--skip-journal] OR [archive|red-team|validate]"
 ---
 
 # /aif:plan

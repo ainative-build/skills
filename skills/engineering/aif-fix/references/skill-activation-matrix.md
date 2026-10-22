@@ -13,7 +13,7 @@
 | Changed docs contract | Smallest owning docs update |
 
 Quick does not automatically load any helper. Standard/deep add only the capabilities the
-failure needs. `--advice`, `--review` and `--pro-max` retain their explicit contracts. Pass current
+failure needs. `--chef`, `--review` and `--pro-max` retain their explicit contracts. Pass current
 scope and existing evidence so helpers do not repeat completed gates. Reuse resolved journal
 preferences during finalization: `/aif-journal` follows SKILL.md's **Journal step — opt-out**.
 Never infer git authorization from completing a fix.

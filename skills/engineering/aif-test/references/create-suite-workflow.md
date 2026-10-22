@@ -5,7 +5,7 @@ in what the code and docs actually do — never in guessed behavior.
 
 ## 1. Scout the codebase and docs
 
-Inspect the requested scope directly; use installed `aif-scout` for larger
+Inspect the requested scope directly; use installed `aif-recon` for larger
 independent areas only when its cost is justified. Inspect:
 
 - entry points, public APIs, exported modules, CLI commands, HTTP routes;
@@ -43,8 +43,8 @@ tests; an empty addition list is valid when no protection gap remains.
 
 With `--interview`: present the matrix and the planned test list; interview the
 user per group before writing. With `--pro-max`: fan this design step per the
-skill's Pro-Max Verifier Mode. With `--advice`: checkpoint the matrix with
-`aif-oracle` before implementation.
+skill's Pro-Max Verifier Mode. With `--chef`: checkpoint the matrix with
+`aif-chef` before implementation.
 
 ## 4. Implement
 

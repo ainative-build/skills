@@ -15,6 +15,6 @@ Follows the shared Pro-Max Verifier protocol in `../../aif-brainstorm/references
 3. **Mandatory generated-file read pass**: Read scaffolded stubs per `cli-integration.md`.
 4. **Dispatch 5 parallel `aif-planner` subagents**: Each prompt carries identical evidence packet and writes to `{plan-dir}/reports/planner-pro-max-candidate-{N}.md`.
 5. **Usable candidate gate**: Require all 5 usable. Run one bounded re-dispatch of failed slots if needed.
-6. **Anonymize & Verify**: Present 5 candidates to strongest-model verifier (`aif-oracle`) as Candidate A..E.
+6. **Anonymize & Verify**: Present 5 candidates to strongest-model verifier (`aif-chef`) as Candidate A..E.
 7. **Materialize winner**: Write winning candidate into `plan.md` + `phase-*.md` unchanged; record ranking appendix in report.
 8. **Run Red-Team & Validation gates**: Execute standard gates before task hydration.

@@ -1,7 +1,7 @@
 # Pro-Max Verifier Mode (`--pro-max`)
 
 Shared protocol for the opt-in `--pro-max` mode of `aif-brainstorm`, `aif-plan`,
-`aif-code-review`, `aif-advise`, `aif-scout`, `aif-research`, `aif-debug`,
+`aif-code-review`, `aif-advise`, `aif-recon`, `aif-research`, `aif-debug`,
 `aif-fix`, `aif-problem-solving`, and `aif-test`. Each of those skills adds a short section
 that sets its own candidate task and rubric, then defers to this file for the
 mechanics.
@@ -35,8 +35,8 @@ path.
   that support per-subagent model-tier routing they run on the Opus tier;
   otherwise they run on the runtime's single strongest available tier (see the
   model-tier degrade note below).
-- **Verifier** — one verifier subagent (Oracle). Model routing matches
-  `--advice`: Claude Code subscription → `fable` (Fable 5); Codex →
+- **Verifier** — one verifier subagent (Chef). Model routing matches
+  `--chef`: Claude Code subscription → `fable` (Fable 5); Codex →
   `gpt-6-astra` at low reasoning; see
   `advisory-supervision.md`. It runs on the runtime's strongest available
   model when tier routing exists; otherwise it shares the candidates' tier
@@ -113,7 +113,7 @@ so reject-all and evidence-backed rubric scores stay mandatory, not optional.
    margin means the default single-pass path would likely have produced
    equivalent output at a fifth of the cost. `unanimous=yes` means the winner
    topped every rubric criterion. For union finalizers (`aif-code-review`,
-   `aif-scout`) report coverage instead:
+   `aif-recon`) report coverage instead:
 
    ```
    pro-max: union=<findings-kept>/<findings-proposed> single_candidate_only=<n>
@@ -141,7 +141,7 @@ The finalizer differs by skill and MUST NOT be collapsed to one behavior:
   confidence; it never selects one review wholesale, because a real defect may
   appear in only one (possibly lower-ranked) candidate. The verifier drops
   findings it cannot validate against cited evidence and merges duplicates.
-- **`aif-scout` returns the evidence-validated, deduplicated union of scouted findings**
+- **`aif-recon` returns the evidence-validated, deduplicated union of scouted findings**
   across the five scout passes — a relevant file may surface in only one
   candidate, so winner selection would lose coverage. The verifier drops paths
   it cannot validate and merges duplicates.

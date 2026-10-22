@@ -7,8 +7,8 @@ Always finish plan authoring with an explicit handoff so the user or orchestrato
 ```markdown
 ### Plan Summary
 - **Plan Path**: `{relative-plan-dir}/plan.md`
-- **Handover Contract**: `--advice` — phased tasks with success criteria, mechanical verification, and a per-phase Failure Protocol (when `--advice` is active; see `references/advice-handover-plan.md`)
-- **Status**: Ready for implementation (`ready to cook`)
+- **Handover Contract**: `--chef` — phased tasks with success criteria, mechanical verification, and a per-phase Failure Protocol (when `--chef` is active; see `references/chef-handover-plan.md`)
+- **Status**: Ready for implementation (`ready to serve`)
 - **Phases**:
   1. Phase 1: [Phase 1 Title] — [Short description]
   2. Phase 2: [Phase 2 Title] — [Short description]
@@ -16,12 +16,12 @@ Always finish plan authoring with an explicit handoff so the user or orchestrato
 ### Next Recommended Step
 To execute this plan:
 ```bash
-/aif-cook {relative-plan-dir}/plan.md
+/aif-serve {relative-plan-dir}/plan.md
 ```
 ```
 
-## Handover under `--advice`
+## Handover under `--chef`
 
-When `--advice` is active:
+When `--chef` is active:
 - Keep the **Handover Contract** row shown in the template above; it names the phased-task, success-criteria, mechanical-verification, and per-phase Failure Protocol shape the executor must honor.
-- Recommend running `/aif-cook {relative-plan-dir}/plan.md --advice` so advisory supervision carries forward.
+- Recommend running `/aif-serve {relative-plan-dir}/plan.md --chef` so advisory supervision carries forward.

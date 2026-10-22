@@ -1,7 +1,7 @@
-# Handover Plan Contract (`--advice`)
+# Handover Plan Contract (`--chef`)
 
-Under `--advice`, a plan is not only supervised — it is written to be executed by
-a **different, weaker model** than the one that planned it. A `--advice` plan is
+Under `--chef`, a plan is not only supervised — it is written to be executed by
+a **different, weaker model** than the one that planned it. A `--chef` plan is
 routinely handed to a Sonnet-class or Flash-class executor that follows
 instructions well but under-infers: it does not reliably reconstruct a missing
 step, guess an unstated file path, or recognize on its own that it has gone off
@@ -31,7 +31,7 @@ richer section list in `plan-organization.md` overlaps these fields, the handove
 fields are authoritative and additive — do not drop a handover field because a
 similarly named section already exists.
 
-Precedence when `--advice` combines with other modes:
+Precedence when `--chef` combines with other modes:
 - `--tdd`: the test-first commands become the `Verify` field's mechanical pass
   condition. When a task requires a failing test first (red phase), state that
   explicitly as the pass condition (e.g. `Verify: test command exits non-zero with
@@ -82,21 +82,21 @@ implied. Use this shape:
 ## Failure Protocol
 If any Verify step does not meet its stated pass condition, STOP this phase.
 Do not improvise a fix, retry blindly, or reason around the failure.
-Spawn the `aif-oracle` subagent for next-step counsel and pass:
+Spawn the `aif-chef` subagent for next-step counsel and pass:
 - the phase and task id,
 - what you attempted (the steps you ran),
 - the exact command and its full output,
 - the pass condition it failed to meet.
-Apply oracle's guidance, then re-run the Verify step.
-If `aif-oracle` cannot be spawned in this environment, STOP and report the same
+Apply chef's guidance, then re-run the Verify step.
+If `aif-chef` cannot be spawned in this environment, STOP and report the same
 failure evidence to the user. Never continue by self-reasoning.
 ```
 
-The STOP is the load-bearing part. Spawning `aif-oracle` is the enhancement; a plan
-executed by an agent without a `aif-oracle` subagent must still stop and hand the
+The STOP is the load-bearing part. Spawning `aif-chef` is the enhancement; a plan
+executed by an agent without a `aif-chef` subagent must still stop and hand the
 failure back rather than degrade into confident guessing. This protocol applies
 whenever a Verify step fails, whether or not the executor itself was invoked with
-`--advice`.
+`--chef`.
 
 ## Illustrative example: a failing verification
 
@@ -118,7 +118,7 @@ Now the executor runs `npm test -- auth.middleware` and it prints `500` and exit
 1. The pass condition said exit 0 and `401 unauthorized`. They do not match, so the
 executor does not edit further, does not guess that a different file is at fault,
 and does not lower the assertion. It follows the Failure Protocol: it stops, spawns
-`aif-oracle` with the task id, the change it made, the failing command, and its full
+`aif-chef` with the task id, the change it made, the failing command, and its full
 output, and waits for counsel before touching the code again.
 
 ## Handoff note

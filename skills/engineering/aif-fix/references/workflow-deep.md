@@ -29,7 +29,7 @@ runtime permits the needed delegation.
 ### Step 1: Scout Codebase (parallel with Steps 2+3)
 Record the scout phase as active.
 
-**Mandatory:** Activate `aif-scout` skill or, when delegation is permitted,
+**Mandatory:** Activate `aif-recon` skill or, when delegation is permitted,
 launch 2-3 `aif-explore` subagents in parallel through `delegate_agent`. In Codex
 Desktop, expose deferred multi-agent tools with `tool_search` first, then use
 `multi_agent_v1.spawn_agent(agent_type="aif-explore", message="...")`.
@@ -117,11 +117,11 @@ Record verification as active.
 5. **Verification commands:** Run typecheck + lint + build + test through `run_shell`; delegate only when explicitly requested/permitted.
 6. **Edge cases:** Test boundary conditions, security implications, performance impact.
 
-**On regression / side effect:** repair implementation-caused failures within scope; ask only for a changed contract or unauthorized action. Under `--advice`, obtain counsel first.
+**On regression / side effect:** repair implementation-caused failures within scope; ask only for a changed contract or unauthorized action. Under `--chef`, obtain counsel first.
 
 **If verification fails:** Loop back to Step 2 (re-diagnose). Max 3 attempts → question architecture.
 
-Under `--advice`, a failed check is an objective `aif-oracle` trigger: STOP and spawn `aif-oracle` with the command, its output, and what you tried before re-diagnosing; never self-reason past a red check.
+Under `--chef`, a failed check is an objective `aif-chef` trigger: STOP and spawn `aif-chef` with the command, its output, and what you tried before re-diagnosing; never self-reason past a red check.
 
 Use the prevention checklist in the parent skill.
 
@@ -140,7 +140,7 @@ Record review as completed after accepted findings are resolved.
 ### Step 9: Finalize
 Record finalization as active.
 - Report summary: root cause, evidence chain, changes, prevention measures, confidence score
-- Reconcile the active plan with `plan.cjs` (tick proven boxes, update phase and plan status) per `../../aif-cook/references/plan-state-files-first.md`
+- Reconcile the active plan with `plan.cjs` (tick proven boxes, update phase and plan status) per `../../aif-serve/references/plan-state-files-first.md`
 - Evaluate docs impact; use delegated docs-manager only for affected authority
   surfaces and git-manager only when explicitly requested/permitted
 - Run `/aif-journal` — unless the shared "Journal step — opt-out" applies (see SKILL.md; skip when `--skip-journal` or `journal.auto=false`)
@@ -152,7 +152,7 @@ Record finalization as completed in the live surface when available and in the a
 
 | Step | Skills/Subagents |
 |------|------------------|
-| 1 | `aif-scout` OR parallel `aif-explore` subagents when delegation is permitted |
+| 1 | `aif-recon` OR parallel `aif-explore` subagents when delegation is permitted |
 | 2 | `aif-debug`, `aif-deep-thinking` (sequential mode), optional delegated `aif-explore` when permitted, optional `aif-problem-solving` when stuck |
 | 3 | `aif-researcher` via `delegate_agent` when permitted |
 | 4 | `aif-brainstorm` |

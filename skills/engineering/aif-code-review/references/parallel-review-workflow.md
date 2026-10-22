@@ -10,7 +10,7 @@ Activate the skills the scope needs. Write findings in complete sentences and ke
 
 Main agent deeply analyzes the scope to LIST all potential edge cases FIRST:
 - Read repository instructions and follow the existing documentation navigation to find applicable requirements, architecture, and standards
-- Use `/aif-scout` to find relevant files
+- Use `/aif-recon` to find relevant files
 - Confirm documentation claims against current source and tests in the review scope
 - Cover each failure class below:
   - Null/undefined scenarios

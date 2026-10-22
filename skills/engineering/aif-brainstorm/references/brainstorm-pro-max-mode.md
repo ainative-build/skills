@@ -20,6 +20,6 @@ and ranks them and selects the winning candidate (or rejects all).
 Full mechanics — evidence packet, anonymization, the five-usable-candidate gate
 with one bounded re-dispatch, the fail-closed runtime rule, and reject-all — are
 in `pro-max-verifier-mode.md`. `--pro-max` composes with
-`--report`, `--advice`, and `--yagni`, and adds no new conflicts. It is a best-of-5 verifier
+`--report`, `--chef`, and `--yagni`, and adds no new conflicts. It is a best-of-5 verifier
 mode inspired by LLM-as-a-Verifier, not the full framework; never claim its
 logprob/tournament algorithm.

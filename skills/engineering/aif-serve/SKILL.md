@@ -1,10 +1,10 @@
 ---
-name: aif-cook
+name: aif-serve
 description: "Implement features, plans and fixes through a structured workflow."
 when_to_use: "Invoke to implement known scope after requirements are clear."
 category: workflow
 keywords: [implementation, workflow, feature, pipeline]
-argument-hint: "[task|plan-path] [--interactive|--fast|--parallel|--auto|--no-test] [--tdd] [--advice] [--yagni] [--skip-journal]"
+argument-hint: "[task|plan-path] [--interactive|--fast|--parallel|--auto|--no-test] [--tdd] [--chef] [--yagni] [--skip-journal]"
 license: MIT
 metadata:
   author: ainative-build
@@ -14,9 +14,9 @@ metadata:
     precedes: [aif-test]
 ---
 
-# Cook
+# Serve
 
-Invoke `/aif-cook <task|plan-path> [flags]` in Claude Code; use the runtime's
+Invoke `/aif-serve <task|plan-path> [flags]` in Claude Code; use the runtime's
 installed invocation form elsewhere.
 
 Implement the full authorized outcome through verification and review. Capture or reuse
@@ -37,7 +37,7 @@ Repair regressions caused by the change and rerun affected checks before finishi
 | `--no-test` | Skip test execution and report that verification gap |
 
 `--tdd` preserves current behavior with tests before each refactoring phase.
-`--advice` loads `references/advisory-supervision-checkpoints.md`; also honor an
+`--chef` loads `references/advisory-supervision-checkpoints.md`; also honor an
 accepted plan's advice handover or Failure Protocol. Its failed-verification counsel
 checkpoint remains active in every mode. `--yagni` opts into scope cutting; otherwise
 deliver all requested scope and nothing extra. Pass selected flags to delegates.

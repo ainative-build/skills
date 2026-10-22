@@ -30,14 +30,14 @@ No research. Analyze → Plan → Hydrate Tasks. Fast mode reduces workflow dept
 1. Read repository instructions and follow existing documentation navigation to locate current requirements, architecture, and standards; confirm them against relevant source and tests.
 2. Use `aif-planner` subagent to create plan.
 3. Hydrate tasks (unless `--no-tasks`).
-4. **Implementation option:** `/aif-cook {absolute-plan-path}/plan.md`.
+4. **Implementation option:** `/aif-serve {absolute-plan-path}/plan.md`.
 
 ## Hard Mode (`--hard`)
 
 Research → Scout → Plan → Red Team → Validate → Hydrate Tasks.
 
 1. Spawn max 2 `aif-researcher` agents in parallel.
-2. Read repository instructions and use `/aif-scout` when owning evidence is missing or ambiguous.
+2. Read repository instructions and use `/aif-recon` when owning evidence is missing or ambiguous.
 3. Gather research + scout report filepaths → pass to `aif-planner` subagent.
 4. Post-plan red team review (see `red-team-workflow.md`).
 5. Post-plan validation (see `validate-workflow.md`).
@@ -49,7 +49,7 @@ Per-phase scouting for large architectural overhauls.
 
 1. Research + Scout Phase 1.
 2. Plan Phase 1 in detail, outline Phases 2+.
-3. During cook, each subsequent phase gets a dedicated scout pass before execution.
+3. During serve, each subsequent phase gets a dedicated scout pass before execution.
 4. Post-plan red team review & validation.
 
 ## Parallel Mode (`--parallel`)
@@ -59,7 +59,7 @@ Designed for parallel execution with strict file ownership.
 1. Research & design decoupled modular architecture.
 2. Decompose into phases with strictly disjoint file boundaries.
 3. Post-plan red team review & validation.
-4. Pass plan to `/aif-cook --parallel`.
+4. Pass plan to `/aif-serve --parallel`.
 
 ## Two Approaches Mode (`--two`)
 
@@ -76,4 +76,4 @@ Researches and presents 2 distinct architectural solutions with concrete trade-o
 
 ## Pro-Max Verifier Mode (`--pro-max`)
 
-Best-of-5 independent candidate plans scored and ranked by a single strongest-model verifier (`aif-oracle`). The winning plan is materialized unchanged. See `pro-max-mode.md`.
+Best-of-5 independent candidate plans scored and ranked by a single strongest-model verifier (`aif-chef`). The winning plan is materialized unchanged. See `pro-max-mode.md`.
