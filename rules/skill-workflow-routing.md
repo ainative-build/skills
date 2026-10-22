@@ -3,15 +3,14 @@
 Use this file to choose the next workflow step. Each bracketed capability maps to
 an aif skill: [brainstorm] `aif-brainstorm`, [plan] `aif-plan`, [implement]
 `aif-serve`, [test] `aif-test`, [review] `aif-code-review`, [ship] `aif-ship`,
-[journal] `aif-journal`, [scout] `aif-recon`, [diagnose] `aif-debug`, [fix]
-`aif-fix`. Confirm each against the runtime's live installed-skill catalog
+[scout] `aif-recon`, [diagnose] `aif-debug`, [fix] `aif-fix`. Confirm each against the runtime's live installed-skill catalog
 before invoking it; skip an optional step whose skill is unavailable, and never
 synthesize an absent skill command.
 
 ## Core Development Workflow
 
 ```text
-[brainstorm] -> [plan] -> [implement] -> [test] -> [review] -> [ship] -> [journal]
+[brainstorm] -> [plan] -> [implement] -> [test] -> [review] -> [ship]
 ```
 
 - New feature: start with the brainstorm contract, then plan and implement.
@@ -45,8 +44,7 @@ delivery work.
 After implementation, use installed capabilities for:
 
 - code review before merge;
-- release or shipping validation when publication is in scope;
-- decision or journal capture when the repository requires it.
+- release or shipping validation when publication is in scope.
 
 ## Shared-Workspace Setup
 

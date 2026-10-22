@@ -1,6 +1,6 @@
 ---
 description: "Create, validate or review implementation plans with acceptance criteria and executable phases; /aif:serve implements them."
-argument-hint: "[task] [--fast|--hard|--deep|--parallel|--two|--debate|--pro-max] [--no-tasks] [--github] [--chef] [--yagni] [--skip-journal] OR [archive|red-team|validate]"
+argument-hint: "[task] [--fast|--hard|--deep|--parallel|--two|--debate|--pro-max] [--no-tasks] [--github] [--chef] [--yagni] OR [archive|red-team|validate]"
 ---
 
 # /aif:plan

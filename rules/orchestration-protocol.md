@@ -12,7 +12,7 @@ Every subagent prompt should include:
 - acceptance criteria
 - constraints
 - work context path
-- reports path, normally `{work_context}/plans/reports/`
+- reports path, normally `{work_context}/.aif/reports/`
 - any scope-affecting flag the user passed, `--yagni` above all. A delegate that
   never sees the flag silently reverts to the default of delivering the full
   requested scope.

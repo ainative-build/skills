@@ -81,15 +81,6 @@
       "omp": "@plan",
       "cursor": "claude-opus-4-8-thinking-high"
     },
-    "journal-writer": {
-      "claude": "opus",
-      "codex": {
-        "model": "gpt-5.6-luna",
-        "reasoningEffort": "high"
-      },
-      "omp": "@plan",
-      "cursor": "claude-opus-4-8-thinking-high"
-    },
     "recon": {
       "claude": "haiku",
       "codex": {

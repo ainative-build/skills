@@ -1,6 +1,6 @@
 ---
 description: "Ship a completed branch via tests, review, commit, push and PR, with official/beta aliases, Chef advice and gated merge plus CI convergence."
-argument-hint: "[official|stable|main|beta|dev|next] [--both] [--chef] [--merge] [--skip-tests] [--skip-review] [--skip-journal] [--skip-docs] [--dry-run]"
+argument-hint: "[official|stable|main|beta|dev|next] [--both] [--chef] [--merge] [--skip-tests] [--skip-review] [--skip-docs] [--dry-run]"
 ---
 
 # /aif:ship

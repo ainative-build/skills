@@ -111,7 +111,7 @@ installed skill; and when writing instructions that tell other agents which skil
   different content in two places. Read the one actually installed.
 - Argument hints and flags change behavior — scope flags especially; pass them through
   to delegates verbatim (`references/subagent-orchestration.md`).
-- Skills write to configured locations (plans, reports, journals); know where before
+- Skills write to configured locations (plans, reports); know where before
   running, and where that lands when working in a worktree.
 - Scripts often require a specific interpreter or virtual environment and read
   environment variables; a missing variable is a report, not a guess.

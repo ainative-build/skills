@@ -11,10 +11,10 @@ Unlike `--two` (2 approaches drafted by the same planning pass, user picks one),
 
 ## Execution Sequence
 
-1. **Build the shared evidence packet**: Run the same research step `--hard` mode uses (max 2 `aif-researcher` agents in parallel) and persist to `{plan-dir}/reports/debate-evidence-packet.md`.
+1. **Build the shared evidence packet**: Run the same research step `--hard` mode uses (max 2 `aif-researcher` agents in parallel) and persist to `.aif/reports/debate-evidence-packet-{YYMMDD-HHmm}-{slug}.md`.
 2. **Scaffold plan directory**: Run `plan.cjs create` per `cli-integration.md` and set the active plan with `plan.cjs use`.
 3. **Mandatory generated-file read pass**: Read scaffolded stubs per `cli-integration.md`.
-4. **Dispatch 3 parallel `aif-planner` subagents**: Build prompts from the shared evidence packet; each writes to `{plan-dir}/reports/planner-debate-candidate-{N}.md`.
+4. **Dispatch 3 parallel `aif-planner` subagents**: Build prompts from the shared evidence packet; each writes to `.aif/reports/planner-debate-{YYMMDD-HHmm}-{slug}-candidate-{N}.md`.
 5. **Usable candidate gate**: Verify all 3 candidates produced valid plans. If any slot fails, run one bounded re-dispatch.
 6. **Synthesize one plan**: Compare candidate architectures, identify consensus and disagreements, and write final `plan.md` + `phase-*.md`.
 7. **Run Red-Team & Validation gates**: Execute standard gates before task hydration.

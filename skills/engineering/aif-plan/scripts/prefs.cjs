@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 'use strict';
-// aif preferences: defaults < ~/.aif.json < <project>/.aif.json.
+// aif preferences: defaults < ~/.aif/config.json < <project>/.aif/config.json.
+// AIF_HOME overrides ~/.aif.
 // Self-contained (no local requires) so hooks can ship an identical copy.
 //
 //   prefs.cjs resolve [--json]        merged preferences
@@ -17,9 +18,8 @@ const { execFileSync } = require('child_process');
 const HOOK_NAMES = ['session-init', 'subagent-init', 'dev-rules-reminder', 'privacy-block', 'scout-block', 'secret-output-guardrail'];
 
 const DEFAULTS = {
-  plans: { dir: 'plans', naming: '{date}-{slug}', dateFormat: 'YYMMDD-HHmm' },
-  reports: { dir: 'plans/reports' },
-  journal: { auto: true, dir: 'plans/journals' },
+  plans: { dir: '.aif/plans', naming: '{date}-{slug}', dateFormat: 'YYMMDD-HHmm' },
+  reports: { dir: '.aif/reports' },
   language: null,
   hooks: Object.fromEntries(HOOK_NAMES.map((name) => [name, true])),
 };
@@ -30,13 +30,13 @@ const SCHEMA = {
   'plans.naming': 'string',
   'plans.dateFormat': 'string',
   'reports.dir': 'string',
-  'journal.auto': 'boolean',
-  'journal.dir': 'string',
   language: 'string',
   ...Object.fromEntries(HOOK_NAMES.map((name) => [`hooks.${name}`, 'boolean'])),
 };
 
-const CONFIG_NAME = '.aif.json';
+// Project config lives in <project>/.aif/, user config in AIF_HOME (default ~/.aif).
+const CONFIG_DIR = '.aif';
+const CONFIG_NAME = 'config.json';
 
 function projectRoot(cwd = process.cwd()) {
   try {
@@ -48,7 +48,8 @@ function projectRoot(cwd = process.cwd()) {
 }
 
 function configPaths(cwd) {
-  return { user: path.join(os.homedir(), CONFIG_NAME), project: path.join(projectRoot(cwd), CONFIG_NAME) };
+  const home = path.resolve(process.env.AIF_HOME || path.join(os.homedir(), CONFIG_DIR));
+  return { user: path.join(home, CONFIG_NAME), project: path.join(projectRoot(cwd), CONFIG_DIR, CONFIG_NAME) };
 }
 
 function readConfig(file) {
@@ -114,6 +115,7 @@ function parseValue(key, raw) {
 }
 
 function writeConfig(file, data) {
+  fs.mkdirSync(path.dirname(file), { recursive: true });
   fs.writeFileSync(file, JSON.stringify(data, null, 2) + '\n');
 }
 

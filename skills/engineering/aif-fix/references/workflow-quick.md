@@ -14,6 +14,5 @@ on a change believed complete requires chef counsel before edits or re-diagnosis
 does not waive that contract. Explicit `--review` retains human checkpoints.
 
 Reconcile an existing plan only if one exists; assess docs impact, report cause and before/
-after evidence, and run `/aif-journal` only as allowed by SKILL.md's **Journal step — opt-out**.
-Git actions require their
-own authorization. No blanket reasoning skill, parallel lint agents or finalizer is required.
+after evidence. Git actions require their own authorization. No blanket reasoning skill,
+parallel lint agents or finalizer is required.

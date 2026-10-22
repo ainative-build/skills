@@ -108,7 +108,6 @@ Record the finalize phase as active.
 - Reconcile the active plan with `plan.cjs` (tick proven boxes, update phase and plan status) per `../../aif-serve/references/plan-state-files-first.md`
 - Evaluate docs impact and use `aif-docs-manager` only for affected authority surfaces
 - Ask to commit via git workflow or delegated git-manager when explicitly requested/permitted
-- Run `/aif-journal` — unless the shared "Journal step — opt-out" applies (see SKILL.md; skip when `--skip-journal` or `journal.auto=false`)
 
 Record the finalize phase as completed in the live surface when available and in the active plan.
 **Output:** `✓ Step 6: Complete - [action]`

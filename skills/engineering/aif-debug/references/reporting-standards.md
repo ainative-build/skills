@@ -73,7 +73,7 @@ List anything that remains unclear:
 
 Use naming pattern from `## Naming` section injected by hooks. Pattern includes full path and computed date.
 
-**Example:** `plans/reports/debugger-260205-2215-api-500-investigation.md`
+**Example:** `.aif/reports/debugger-260205-2215-api-500-investigation.md`
 
 ## Writing Guidelines
 

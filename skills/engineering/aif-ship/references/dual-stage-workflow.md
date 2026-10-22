@@ -18,9 +18,9 @@ parallel and never starts the stable stage on an unproven beta result.
 
 ## Stage 1: beta stage
 
-1. Run the standard pipeline (`ship-workflow.md` Steps 1-12b) with canonical
+1. Run the standard pipeline (`ship-workflow.md` Steps 1-11b) with canonical
    mode `beta` (target = detected dev/beta/develop branch).
-2. If `--merge`: run Step 13 (load `merge-workflow.md`) and converge
+2. If `--merge`: run Step 12 (load `merge-workflow.md`) and converge
    the beta PR to `Merge=merged`, `CI=green`.
 3. Record the beta PR URL; it appears in the final output regardless of how far
    the stable stage proceeds.
@@ -58,9 +58,9 @@ Pick the path from how stable normally receives changes:
    merging — never merge a sweeping promotion silently.
 2. **Direct-PR convention**: run the standard pipeline again with canonical
    mode `official` (target = detected default branch) from the same feature
-   branch — Steps 1-12b, then Step 13 when `--merge` is present.
+   branch — Steps 1-11b, then Step 12 when `--merge` is present.
 
-Stage-2 merges go through the same Step 13 merge flow as any other
+Stage-2 merges go through the same Step 12 merge flow as any other
 `--merge` ship; this reference adds no separate merge mechanism and no
 alternative to branch protection.
 
@@ -82,7 +82,7 @@ Output both stages explicitly:
 ## Hard rules
 
 - Never force-push; never direct-push a protected target branch.
-- Never bypass branch protection, required checks, or the Step 13
+- Never bypass branch protection, required checks, or the Step 12
   merge-readiness gate in either stage.
 - Never merge a promotion PR that sweeps unrelated work without asking.
 - A failed or blocked beta stage always ends the run with the stable stage

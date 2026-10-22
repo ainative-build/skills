@@ -4,7 +4,7 @@ description: "Implement features, plans and fixes through a structured workflow.
 when_to_use: "Invoke to implement known scope after requirements are clear."
 category: workflow
 keywords: [implementation, workflow, feature, pipeline]
-argument-hint: "[task|plan-path] [--interactive|--fast|--parallel|--auto|--no-test] [--chef] [--yagni] [--skip-journal]"
+argument-hint: "[task|plan-path] [--interactive|--fast|--parallel|--auto|--no-test] [--chef] [--yagni]"
 license: MIT
 metadata:
   author: ainative-build
@@ -74,16 +74,3 @@ Details are in `references/workflow-steps.md`.
    are in `references/blocking-gates.md`.
 6. Reconcile existing plan state, update impacted docs, and report result, evidence and
    unresolved limitations. Commit/publish only within the user's authorized scope.
-
-## Journal step — opt-out
-
-Skip the automatic `/aif-journal` step when either applies:
-- The invocation includes the `--skip-journal` flag, OR
-- `node <aif-plan>/scripts/prefs.cjs get journal.auto` prints `false` (`<aif-plan>` means the installed aif-plan skill directory, a sibling of this skill). If the command errors or prints anything other than the exact string `false`, treat as `true` (default) — corrupt or missing config never suppresses the automatic journal.
-
-Precedence: flag > project config > user config > default (`true`).
-When skipped, print one line:
-- `journal skipped by --skip-journal` (flag), or
-- `journal skipped by preference` (config).
-
-Explicit `/aif-journal` and `node <aif-journal>/scripts/journal.cjs create` (`<aif-journal>` is the sibling aif-journal skill directory) are unaffected. The opt-out covers the journal step only; the rest of the Finalize block still runs.

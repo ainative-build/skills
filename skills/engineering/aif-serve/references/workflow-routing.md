@@ -43,4 +43,3 @@ map only; load the owning `SKILL.md` before executing details.
 - Review high-risk, cross-module, or public-contract changes before shipping.
 - Update docs only when behavior, setup, commands, architecture, security
   posture, public contracts, or future maintainer decisions changed.
-- Journal when a workflow creates durable decisions or debugging lessons.

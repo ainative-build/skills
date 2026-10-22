@@ -7,9 +7,9 @@
 Use `Plan dir:` from the `## Naming` section when the session hook injected one; otherwise `plan.cjs create` computes the path from `plans.dir` and `plans.naming`.
 
 Default scope:
-- project scope → `plans/<timestamp>-authentication/`
+- project scope → `.aif/plans/<timestamp>-authentication/`
 - global scope → `{configured-global-plans-root}/<timestamp>-authentication/`
-  - Default when unset: `~/.claude/plans/<timestamp>-authentication/`
+  - Default when unset: `~/.aif/plans/<timestamp>-authentication/` (`~/.aif` follows `AIF_HOME`)
 
 Use global scope only when `--global` is explicit or there is no project context.
 
@@ -18,13 +18,6 @@ Use global scope only when `--global` is explicit or there is no project context
 In the active scope root:
 ```
 {plan-dir}/                                    # From `Plan dir:` in ## Naming
-├── research/
-│   ├── researcher-XX-report.md
-│   └── ...
-├── reports/
-│   ├── scout-report.md
-│   ├── researcher-report.md
-│   └── ...
 ├── plan.md                                    # Overview access point
 ├── phase-01-setup-environment.md              # Setup environment
 ├── phase-02-implement-database.md             # Database models
@@ -34,6 +27,9 @@ In the active scope root:
 ├── phase-06-implement-profile.md              # Profile page
 └── phase-07-write-tests.md                    # Tests
 ```
+
+Research, scout and other reports go in the reports directory (the `reports.dir` preference,
+`.aif/reports/` by default), never inside the plan directory.
 
 ### Task Hydration
 
@@ -46,7 +42,6 @@ After creating plan.md and phase files, hydrate tasks (unless `--no-tasks`):
 
 - Check `## Plan Context` injected by the session hook for active/suggested/none state, or run `plan.cjs resolve`
 - After creating a plan, mark it active with `plan.cjs use <plan-dir>`
-- Active plans use plan-specific reports path; suggested plans use default path
 
 ## Plan Creation Via Script
 

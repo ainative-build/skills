@@ -14,6 +14,5 @@
 
 Quick does not automatically load any helper. Standard/deep add only the capabilities the
 failure needs. `--chef`, `--review` and `--pro-max` retain their explicit contracts. Pass current
-scope and existing evidence so helpers do not repeat completed gates. Reuse resolved journal
-preferences during finalization: `/aif-journal` follows SKILL.md's **Journal step — opt-out**.
+scope and existing evidence so helpers do not repeat completed gates.
 Never infer git authorization from completing a fix.

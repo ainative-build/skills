@@ -3,8 +3,8 @@
 Development-cycle skills, agents, rules and hooks for coding agents. One source tree runs on
 Claude Code, Codex, oh-my-pi (OMP) and Cursor.
 
-Everything is self-contained: plans, journals and preferences use the scripts in this repo, with
-no other CLI or service to install.
+Everything is self-contained: plans and preferences use the scripts in this repo, with no other
+CLI or service to install. aif keeps its plans and reports in a `.aif/` folder at the project root.
 
 ## Skills by stage
 
@@ -25,7 +25,6 @@ no other CLI or service to install.
 | Review | `aif-code-review` | Reviews changes, a PR, a commit or the codebase with evidence. |
 | Ship | `aif-git` | Conventional commits, branches, PRs and merges with secret scanning. |
 | | `aif-ship` | Takes a finished branch through tests, review, PR, merge and release. |
-| Record | `aif-journal` | Keeps a chronological technical journal in `plans/journals/`. |
 | Think | `aif-problem-solving` | Techniques for getting unstuck. |
 | | `aif-deep-thinking` | A disciplined reasoning protocol for hard problems. |
 | Media | `aif-ai-multimodal` | Analyzes and generates images, audio, video and documents. |
@@ -86,14 +85,14 @@ also call chef on its own, for example `@aif-chef` on Claude Code, for a second 
 call.
 
 ```
-/aif:serve plans/261022-rate-limit --chef
+/aif:serve .aif/plans/261022-1320-rate-limit --chef
 ```
 
 ## Agents, rules and hooks
 
-- **15 agents** (`agents/aif-*.md`): chef, advisor, planner, researcher, recon, explore,
+- **14 agents** (`agents/aif-*.md`): chef, advisor, planner, researcher, recon, explore,
   debugger, tester, code-reviewer, code-simplifier, fullstack-developer, ui-ux-designer,
-  docs-manager, git-manager and journal-writer. Per-runtime models are in
+  docs-manager and git-manager. Per-runtime models are in
   `agents/runtime-models.json`.
 - **9 rules** (`rules/*.md`): development rules, workflow and skill routing, orchestration,
   documentation, review decisions, process management and the hook response protocol.
@@ -149,7 +148,7 @@ files instead of the reminder hook. Codex runs new hooks only after you approve 
 
 ## Configuration
 
-Plans, reports, journals, language and per-hook switches live in an optional `.aif.json`. See
+Plans, reports, language and per-hook switches live in an optional `.aif/config.json`. See
 [docs/aif-config.md](docs/aif-config.md).
 
 ## Upgrading from v1

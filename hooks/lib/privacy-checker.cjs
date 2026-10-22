@@ -986,7 +986,7 @@ function stripApprovalMarkers(toolInput, approvedPaths) {
 }
 
 /**
- * Check whether the user turned the privacy guard off in `.aif.json`.
+ * Check whether the user turned the privacy guard off in `.aif/config.json`.
  *
  * Only an explicit `hooks.privacy-block: false` disables it. Anything else — no
  * setting, an unreadable config — leaves the guard on:
