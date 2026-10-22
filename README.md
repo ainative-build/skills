@@ -32,6 +32,11 @@ no other CLI or service to install.
 
 The usual path is `/aif-plan` → `/aif-serve` → `/aif-test` → `/aif-code-review` → `/aif-ship`.
 
+Work is test-first by default. Every plan phase has a Tests First section, and `/aif-serve` uses
+`aif-test` to write those tests and confirm they fail for the right reason before it implements
+anything, then makes them pass. Pass `--no-test` to `/aif-serve` to skip this; it reports the
+gap.
+
 ## Pro-max mode (`--pro-max`)
 
 `--pro-max` trades cost for quality on work with a checkable outcome. Instead of one pass, the

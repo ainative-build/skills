@@ -11,20 +11,30 @@ Follow existing helpers, imports, error handling and public contracts. Reconcile
 plan with current source before edits. Keep phase dependencies and ownership; track state
 through available capabilities or the plan files. Check coherent edits, not every keystroke.
 
-### `--tdd` Flag Behavior
+### Test-first steps (default)
 
-When `--tdd` is active, Step 3 splits into sub-steps per phase:
+Every phase runs these sub-steps unless `--no-test` is set or the phase states
+`Tests First: not applicable`:
 
 ```
-Step 3.T: Write tests for CURRENT behavior (regression safety net)
-Step 3.I: Implement changes (refactor, new code)
-Step 3.V: Verify all tests from 3.T still pass + compile gates
+Step 3.T: Invoke the aif-test skill: /aif-test create <phase file or task>
+Step 3.R: Run them red: new-behavior tests fail for the stated reason, characterization tests pass
+Step 3.I: Implement the smallest change that turns them green
+Step 3.V: Verify green: new tests and all characterization tests pass, plus compile gates
+Step 3.F: Refactor with the tests kept green
 ```
 
-Tests from Step 3.T document the current behavior. If any fail after Step 3.I,
-the refactor broke something and must be fixed before the workflow proceeds.
+- **3.T** invokes the `aif-test` skill rather than writing tests inline. It uses the phase's
+  Tests First section when a plan exists; otherwise it derives the tests
+  from the task's acceptance criteria. Write no production code in this step.
+- **3.R** records the failing output. A test that fails on an import, setup or syntax error, or
+  that already passes, is not red for the right reason: fix the test before implementing.
+- **3.I–3.V** never weaken, skip or rewrite a red test to get green. If a test encodes the wrong
+  contract, change it only with the reason stated in the report.
+- A characterization test that breaks after 3.I means the change broke existing behavior; fix the
+  code before the workflow proceeds.
 
-Under `--chef`, a broken characterization test here is an objective `aif-chef` trigger: STOP and spawn `aif-chef` with the command, its output, and what you tried before re-fixing; never self-reason past a red check.
+Under `--chef`, a broken characterization test or a test that will not go green is an objective `aif-chef` trigger: STOP and spawn `aif-chef` with the command, its output, and what you tried before re-fixing; never self-reason past a red check.
 
 
 ### Step 3.S: Conditional Simplify (live-diff gated)

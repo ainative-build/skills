@@ -8,7 +8,7 @@ argument-hint: "[context] OR ui [url] OR create|optimize|audit [scope] [--chef] 
 license: MIT
 metadata:
   author: ainative-build
-  version: "1.3.0"
+  version: "1.4.0"
   workflow:
     precedes: [aif-git]
 ---
@@ -49,6 +49,7 @@ is enough for a small change. A covered refactor may need no new tests.
 
 ## When to Use
 
+- **Before implementation**: `aif-serve` runs `create` scoped to a phase to write failing tests first
 - **After implementation**: Validate new features or bug fixes
 - **Coverage checks**: Assess coverage against repository thresholds and critical behavior
 - **UI verification**: Visual regression, responsive layout, accessibility
@@ -188,6 +189,7 @@ or session-scoped.
 ## Workflow Position
 
 **Typically follows:** `/aif-serve` (test after implementation), `/aif-fix` (test after bug fix)
+**Called by:** `/aif-serve` before implementing each phase, to write its tests first
 **Typically precedes:** `aif-git` (commit once tests pass)
 **Related:** `/aif-serve` (implement then test), `/aif-fix` (fix then test)
 

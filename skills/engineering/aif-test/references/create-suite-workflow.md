@@ -3,6 +3,19 @@
 Create a test suite that covers the project's features and workflows, grounded
 in what the code and docs actually do — never in guessed behavior.
 
+## Test-first scope (called by aif-serve)
+
+When `aif-serve` calls `create` for one phase or task before implementing it:
+
+- The authority is the phase's Tests First section and acceptance criteria, or the task's
+  acceptance criteria when there is no plan. Do not infer expectations from code that does not exist yet.
+- Scope the scout to the files the phase touches and their existing tests; skip the project-wide matrix.
+- Write tests only. Never write or change production code in this mode.
+- Run the new tests and report them red: each new-behavior test must fail on an assertion about
+  the missing behavior, and each characterization test must pass. Fix any test that fails on an
+  import, setup or syntax error, or that already passes, before handing back.
+- Hand back the test files, the red output and the green command for `aif-serve` to run.
+
 ## 1. Scout the codebase and docs
 
 Inspect the requested scope directly; use installed `aif-recon` for larger
