@@ -1,9 +1,24 @@
 {
   "name": "aif",
-  "version": "1.3.1",
-  "description": "Portable coding-agent skills: aif-code-review (three-axis adversarial review), aif-recon (codebase reconnaissance), and aif-improve (architectural deepening opportunities).",
-  "author": { "name": "ainative-build" },
+  "version": "2.0.0",
+  "description": "aif dev-cycle skills (advise, brainstorm, research, plan, cook, debug, fix, test, code-review, git, ship, journal, scout and more) with 15 aif agents, rules, guard hooks and the aif-install installer for Claude Code, Codex, OMP and Cursor.",
+  "author": {
+    "name": "ainative-build"
+  },
   "license": "MIT",
   "homepage": "https://github.com/ainative-build/skills",
-  "keywords": ["code-review", "adversarial", "security", "quality", "review", "refactoring", "architecture", "recon"]
+  "keywords": [
+    "development-workflow",
+    "planning",
+    "code-review",
+    "debugging",
+    "testing",
+    "git",
+    "shipping",
+    "agents",
+    "hooks",
+    "claude-code",
+    "codex",
+    "cursor"
+  ]
 }

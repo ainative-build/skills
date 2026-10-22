@@ -1,0 +1,32 @@
+ainative-build / skills
+Copyright (c) 2026 ainative-build
+
+This project is licensed under the MIT License (see LICENSE), except where a
+file or directory below states otherwise.
+
+AgentKit-derived content
+------------------------
+The aif-* skills, the aif-* agents, the rules, the hooks and the installer's
+runtime formats are derived from AgentKit 3.0.0-beta.35 (snapshot taken
+2026-10-22; details in tools/port/snapshot.json). ainative-build redistributes
+this derived content under the MIT License with the right to do so. The fork
+renames every skill and agent to aif-*, removes out-of-scope skills and
+AgentKit CLI dependencies, and replaces the AgentKit plan store, preferences
+and hook runtime with the scripts in this repository.
+
+Third-party components
+----------------------
+skills/engineering/aif-agent-browser/
+skills/engineering/aif-web-testing/
+    Licensed under the Apache License, Version 2.0; the full text is in each
+    directory's LICENSE file. Modified from the AgentKit originals: renamed to
+    aif-*, references to removed skills deleted, and AgentKit runtime metadata
+    (skill.yaml) removed.
+
+skills/engineering/aif-chrome-profile/
+    MIT License, Copyright (c) 2026 chrome-profile-cdp contributors; see that
+    directory's LICENSE file.
+
+hooks/scout-block/third-party/ignore.cjs
+    ignore v5.3.0 (https://github.com/kaelzhang/node-ignore),
+    MIT License, Copyright (c) 2013 Kael Zhang.
