@@ -152,7 +152,15 @@ your-project/
 ```
 
 User-wide settings live in `~/.aif/config.json`, or in `$AIF_HOME/config.json` when `AIF_HOME`
-is set.
+is set. Local plan state (`plans-state.json`) sits beside them.
+
+Skills write reports as they run, and `/aif-ship` commits the reports the shipped work produced.
+Add `.aif/reports/` to `.gitignore` if you would rather keep them out of git.
+
+One thing lands outside `.aif/`. The aif agents use Claude Code's project memory (`memory:
+project`), so Claude Code keeps their notes in `.claude/agent-memory/<agent>/`, for example
+`.claude/agent-memory/aif-aif-code-reviewer/`. Commit it to share what the agents learn, or
+ignore it.
 
 ## Pro-max mode (`--pro-max`)
 

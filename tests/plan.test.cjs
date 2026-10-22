@@ -172,3 +172,15 @@ test('plan', async (t) => {
     assert.equal(sb.run('plan', ['check', 'missing.md']).code, 1);
   });
 });
+
+test('plan state follows AIF_HOME', (t) => {
+  const sb = sandbox('feature/aif-home');
+  t.after(sb.cleanup);
+  const alt = path.join(sb.base, 'alt-home');
+  const env = { AIF_HOME: alt };
+  const created = sb.run('plan', ['create', 'Home Demo', '--json'], { env });
+  assert.equal(created.code, 0, created.stderr);
+  assert.equal(sb.run('plan', ['use', created.json().dir], { env }).code, 0);
+  assert.ok(fs.existsSync(path.join(alt, 'plans-state.json')), 'state should land in AIF_HOME');
+  assert.ok(!fs.existsSync(statePath(sb)), 'state should not land in ~/.aif');
+});

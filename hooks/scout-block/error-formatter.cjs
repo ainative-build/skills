@@ -90,6 +90,9 @@ function formatBlockedError(details) {
     `  ${colorize('To allow, add to', 'blue')} ${resolvedConfigPath}:`,
     `    !${pattern}`,
     '',
+    `  Do not work around this block (absolute paths, createRequire, symlinks, other tools).`,
+    `  Add the line above to opt out, or ask the user.`,
+    '',
     `  ${colorize('Config:', 'dim')} ${resolvedConfigPath}`,
     ''
   ];

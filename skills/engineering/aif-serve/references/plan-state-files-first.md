@@ -21,7 +21,7 @@ the calling skill. Every `plan.cjs` command accepts `--json`.
 - `node <aif-plan>/scripts/plan.cjs` reads plan and phase status straight from
   the files; there is no database or index to rebuild.
 - Lifecycle state (`active`, `closed`, `archived`), the current-plan pointer and
-  GitHub ids live in `~/.aif/plans-state.json`, local to this machine.
+  GitHub ids live in `$AIF_HOME/plans-state.json` (default `~/.aif/plans-state.json`), local to this machine.
   `plan.cjs reindex` scans the plans directory and reports state entries whose
   plan directory no longer exists.
 - File-writing commands (`create`, `check`, `uncheck`, `update --status`,

@@ -5,7 +5,7 @@ This skill orchestrates planning; `<aif-plan>/scripts/plan.cjs` scaffolds plan f
 ## Files-First Architecture
 
 - `plan.md` + `phase-NN-*.md` under `<timestamp>-<slug>/` in the configured plans directory (`.aif/plans/` by default) ARE the plan.
-- `plan.cjs` reads status from the files themselves. Lifecycle state (active, closed, archived), the active-plan pointer and GitHub ids live in `~/.aif/plans-state.json`; `plan.cjs reindex` reports state entries whose plan directory no longer exists.
+- `plan.cjs` reads status from the files themselves. Lifecycle state (active, closed, archived), the active-plan pointer and GitHub ids live in `$AIF_HOME/plans-state.json` (default `~/.aif/plans-state.json`); `plan.cjs reindex` reports state entries whose plan directory no longer exists.
 - A GitHub issue is an optional visibility projection; plans remain fully functional as local files without GitHub.
 
 ## CLI Scaffolding Rules
