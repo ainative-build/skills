@@ -60,6 +60,9 @@ Every plan is test-first, in every mode including `--fast`. Each phase file carr
 - **New-behavior tests** come from the phase's acceptance criteria. Each names the layer
   (unit, integration or e2e) and the failure it must show before the code exists, which has to be
   an assertion about the missing behavior, not an import, setup or syntax error.
+- **Stubs** list the new modules and exports the red run needs. `aif-test` writes them as
+  signature-only stubs (no logic) so new tests fail on assertions; write `Stubs: none` when
+  every module already exists.
 - **Commands** to run the tests red first and green after.
 
 A phase with no testable behavior, such as docs-only or a config change with no observable effect,

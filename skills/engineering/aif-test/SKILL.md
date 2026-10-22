@@ -49,7 +49,7 @@ is enough for a small change. A covered refactor may need no new tests.
 
 ## When to Use
 
-- **Before implementation**: `aif-serve` runs `create` scoped to a phase to write failing tests first
+- **Before implementation**: `aif-serve` and `aif-fix` run `create` scoped to a phase or issue to write failing tests first, plus signature-only stubs for new modules so they fail on assertions
 - **After implementation**: Validate new features or bug fixes
 - **Coverage checks**: Assess coverage against repository thresholds and critical behavior
 - **UI verification**: Visual regression, responsive layout, accessibility

@@ -3,18 +3,22 @@
 Create a test suite that covers the project's features and workflows, grounded
 in what the code and docs actually do — never in guessed behavior.
 
-## Test-first scope (called by aif-serve)
+## Test-first scope (called by aif-serve and aif-fix)
 
-When `aif-serve` calls `create` for one phase or task before implementing it:
+When `aif-serve` calls `create` for one phase or task, or `aif-fix` calls it for one issue, before implementing:
 
 - The authority is the phase's Tests First section and acceptance criteria, or the task's
   acceptance criteria when there is no plan. Do not infer expectations from code that does not exist yet.
 - Scope the scout to the files the phase touches and their existing tests; skip the project-wide matrix.
-- Write tests only. Never write or change production code in this mode.
+- Write the tests, plus signature-only stubs for any module or export the phase's Tests First
+  `Stubs:` line names (or the tests import) that does not exist yet. A stub has the exported
+  name and signature and no logic: it returns `undefined`, so tests fail on assertions. Never
+  write behavior, and never edit an existing implementation. `aif-serve` writes no tests or
+  stubs itself.
 - Run the new tests and report them red: each new-behavior test must fail on an assertion about
   the missing behavior, and each characterization test must pass. Fix any test that fails on an
   import, setup or syntax error, or that already passes, before handing back.
-- Hand back the test files, the red output and the green command for `aif-serve` to run.
+- Hand back the test files, any stubs, the red output and the green command for the caller to run.
 
 ## 1. Scout the codebase and docs
 

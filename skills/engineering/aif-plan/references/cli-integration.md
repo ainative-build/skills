@@ -48,6 +48,7 @@ dependencies: []      # phase IDs this blocks on
 <!-- Or: Tests First: not applicable — <reason> -->
 - Characterization: [existing behavior this phase must not change] — `[test file]`
 - New behavior: [acceptance criterion] — [unit|integration|e2e] — fails before implementation with: [expected assertion failure] — `[test file]`
+- Stubs: [new modules/exports the red run needs, written by `aif-test` as signature-only stubs] or `none`
 - Red: `[command that must fail for the reasons above]`
 - Green: `[command that must pass after implementation]`
 

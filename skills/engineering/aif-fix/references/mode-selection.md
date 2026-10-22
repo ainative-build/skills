@@ -1,6 +1,7 @@
 # Mode Selection
 
-Use `ask_user capability` at start of fixing workflow.
+Use `ask_user capability` at the start of the fixing workflow only under `--review`, or when
+the user asks to choose a mode. The default `--auto` asks nothing and continues.
 
 ## ask_user capability Format
 

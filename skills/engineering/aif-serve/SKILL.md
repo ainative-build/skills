@@ -51,7 +51,8 @@ production code:
 
 1. Invoke the `aif-test` skill as `/aif-test create <phase file or task>`. It writes the phase's
    Tests First tests, or, without a plan, tests derived from the task's acceptance criteria.
-   Do not write these tests inline in serve; the test skill owns their design.
+   It also writes signature-only stubs for new modules so the tests fail on assertions.
+   Do not write these tests or stubs inline in serve; the test skill owns both.
 2. Run them and confirm they are red for the stated reason: new-behavior tests fail on an
    assertion about the missing behavior, and characterization tests pass.
 3. Implement until they are green, then refactor with them kept green.
