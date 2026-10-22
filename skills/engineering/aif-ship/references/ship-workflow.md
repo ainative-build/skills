@@ -205,7 +205,7 @@ or delete plan files.
 
 ## Step 9: Commit
 
-1. Stage only reviewed task-owned paths, including intended plan/version/docs artifacts and the reports this task wrote under the configured reports directory (`.aif/reports/` by default): `git add -- <owned-paths>`. Ship is where reports get committed; never stage other tasks' reports. Inspect the staged diff against ship scope; do not absorb unrelated dirty files or existing staged work.
+1. Stage only reviewed task-owned paths, including intended plan/version/docs artifacts and the reports for this branch's work under the configured reports directory (`.aif/reports/` by default), both the ones ship wrote and untracked ones earlier aif steps wrote for this branch (review, test, fix): `git add -- <owned-paths>`. Ship is where reports get committed; never stage reports that belong to other tasks. Inspect the staged diff against ship scope; do not absorb unrelated dirty files or existing staged work.
 2. Security check: scan staged diff for secrets (API keys, tokens, passwords)
    - If secrets found: **STOP**, warn user, suggest `.gitignore`
 3. Compose commit message:
