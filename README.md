@@ -3,13 +3,8 @@
 Development-cycle skills, agents, rules and hooks for coding agents. One source tree runs on
 Claude Code, Codex, oh-my-pi (OMP) and Cursor.
 
-v2 is a hard fork of the AgentKit 3.0.0-beta.35 development-cycle skills, renamed to `aif-*`
-and made self-contained: plans, journals and preferences use the scripts in this repo, and
-nothing needs AgentKit or the `ak` CLI.
-
-A few names differ from AgentKit: `cook` is `aif-serve`, `scout` is `aif-recon`, the `kongming`
-agent is `aif-chef`, `fable-thinking` is `aif-deep-thinking`, `--advice` is `--chef` and `--ultra` is
-`--pro-max`.
+Everything is self-contained: plans, journals and preferences use the scripts in this repo, with
+no other CLI or service to install.
 
 ## Skills by stage
 
@@ -36,6 +31,58 @@ agent is `aif-chef`, `fable-thinking` is `aif-deep-thinking`, `--advice` is `--c
 | Media | `aif-ai-multimodal` | Analyzes and generates images, audio, video and documents. |
 
 The usual path is `/aif-plan` → `/aif-serve` → `/aif-test` → `/aif-code-review` → `/aif-ship`.
+
+## Pro-max mode (`--pro-max`)
+
+`--pro-max` trades cost for quality on work with a checkable outcome. Instead of one pass, the
+skill builds one evidence packet and a scoring rubric, sends the same packet to five independent
+read-only candidates in parallel, and has `aif-chef` on the strongest model score them.
+
+- **Winner selection:** `aif-brainstorm`, `aif-plan`, `aif-advise`, `aif-research`,
+  `aif-debug`, `aif-fix`, `aif-problem-solving` and `aif-test` keep the single best candidate
+  unchanged. They never blend candidates, because a blend is not what the verifier checked.
+- **Union:** `aif-code-review` and `aif-recon` keep the evidence-checked, deduplicated union of
+  the five candidates' findings, so a catch made by only one candidate is not lost.
+- **Fails closed:** it needs parallel subagents. On a runtime without them it stops and says so
+  instead of running five passes in a row. If fewer than five candidates are usable after one
+  retry, or the verifier rejects them all, nothing is written.
+- **Receipt:** each run appends a one-line `pro-max:` receipt to its report or plan with the pick
+  and its margin, so you can tell whether the extra cost paid off.
+
+Use it where checking an answer is easier than producing one, such as a plan against acceptance
+criteria or a review against evidence. For open-ended taste work it adds cost without a reliable
+signal.
+
+```
+/aif:plan add rate limiting to the public API --pro-max
+```
+
+## Chef mode (`--chef`)
+
+`--chef` runs a workflow under supervision by `aif-chef`, an agent that gives one-shot counsel
+from the strongest model available. Chef only advises: it never writes code, edits files or
+overrides a gate, and the main agent stays responsible for every decision.
+
+- **Checkpoints:** the skill consults chef after each phase or decision round, when it is stuck
+  after repeated failures, and before a high-stakes or irreversible step such as a public-contract
+  change.
+- **Carries forward:** `--chef` is passed to the next skill in the chain. Once a PR's required
+  checks are green, chef reviews the whole change and posts its assessment and next steps on the PR.
+- **Plans for smaller models:** `/aif:plan --chef` writes a handover plan that a lower-capability
+  executor can follow, with step-by-step tasks, mechanical pass conditions and a failure protocol
+  that stops and asks chef when a check fails.
+- **Supported by** `aif-brainstorm`, `aif-plan`, `aif-serve`, `aif-fix`, `aif-test`,
+  `aif-code-review` and `aif-ship`.
+
+Chef runs on Fable on Claude Code, on `claude-fable-5-high` on Cursor and on the `@advisor` model
+role on OMP. On Codex it is pinned to `gpt-6-astra`; when an account refuses that model, it falls
+back through the sol, terra and luna models in order and tells you which one answered. You can
+also call chef on its own, for example `@aif-chef` on Claude Code, for a second opinion on a hard
+call.
+
+```
+/aif:serve plans/261022-rate-limit --chef
+```
 
 ## Agents, rules and hooks
 
@@ -76,7 +123,7 @@ npx -p github:ainative-build/skills aif-install --runtime codex
 
 `--runtime` takes `claude`, `codex`, `omp`, `cursor` or `all`. Add `--dry-run` to list the files
 first and `--uninstall` to remove everything it added. The installer backs up each file it edits,
-never touches AgentKit entries, and records what it owns in `~/.aif/install-manifest.json`.
+never touches entries it did not write, and records what it owns in `~/.aif/install-manifest.json`.
 
 On Claude Code, use either the plugin or `aif-install --runtime claude`, not both; both register
 the same hooks.
@@ -103,13 +150,20 @@ Plans, reports, journals, language and per-hook switches live in an optional `.a
 ## Upgrading from v1
 
 v2.0.0 is a breaking change. The v1 skills `aif-code-review`, `aif-recon` and `aif-improve` and
-the v1 `code-reviewer` agent are replaced: `aif-code-review` is now the AgentKit-derived review
-skill, `aif-recon` is now the AgentKit-derived recon skill, and `aif-improve` is gone. A
+the v1 `code-reviewer` agent are replaced: `aif-code-review` and `aif-recon` are new skills under
+the same names, and `aif-improve` is gone. A
 skills.sh install of v2 installs `aif-code-review` and `aif-recon` under the same names but
 leaves the old `aif-improve` in place; remove it with `npx skills remove -g aif-improve`. The v1 tree stays available
 at the [`v1.3.1`](https://github.com/ainative-build/skills/tree/v1.3.1) tag.
 
 ## License
 
-MIT © 2026 ainative-build. See [LICENSE](./LICENSE) and [NOTICE](./NOTICE) for AgentKit
-attribution and the Apache-2.0 and third-party components.
+MIT © 2026 ainative-build; see [LICENSE](./LICENSE). These parts keep their own licenses:
+
+- `skills/engineering/aif-agent-browser/` and `skills/engineering/aif-web-testing/` are licensed
+  under Apache-2.0; the full text is in each directory's `LICENSE`. They were modified for this
+  repo: renamed to `aif-*`, with references to removed skills and runtime metadata deleted.
+- `skills/engineering/aif-chrome-profile/` is MIT, Copyright (c) 2026 chrome-profile-cdp
+  contributors; see that directory's `LICENSE`.
+- `hooks/scout-block/third-party/ignore.cjs` is
+  [ignore](https://github.com/kaelzhang/node-ignore) v5.3.0, MIT, Copyright (c) 2013 Kael Zhang.

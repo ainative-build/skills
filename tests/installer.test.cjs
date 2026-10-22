@@ -12,20 +12,20 @@ const installer = path.join(repoRoot, 'scripts', 'aif-install.cjs');
 const agentIds = fs.readdirSync(path.join(repoRoot, 'agents')).filter((f) => /^aif-.+\.md$/.test(f)).map((f) => f.slice(0, -3));
 const ruleNames = fs.readdirSync(path.join(repoRoot, 'rules')).filter((f) => f.endsWith('.md')).map((f) => f.slice(0, -3));
 
-// Config another kit (AgentKit-shaped) already installed; aif must leave all of it alone.
+// Config another kit already installed; aif must leave all of it alone.
 const SEED = {
-  '.claude/agents/planner.md': '---\nname: planner\nmodel: opus\n---\nAgentKit planner\n',
+  '.claude/agents/planner.md': '---\nname: planner\nmodel: opus\n---\nExisting planner\n',
   '.claude/settings.json': JSON.stringify({
     model: 'opus',
-    hooks: { PreToolUse: [{ matcher: 'Bash', hooks: [{ type: 'command', command: 'node "/opt/agentkit/hooks/scout.cjs"' }] }] },
+    hooks: { PreToolUse: [{ matcher: 'Bash', hooks: [{ type: 'command', command: 'node "/opt/otherkit/hooks/scout.cjs"' }] }] },
   }, null, 4) + '\n',
-  '.codex/agents/planner.toml': 'name = "planner"\ndeveloper_instructions = """\nAgentKit planner\n"""\n',
+  '.codex/agents/planner.toml': 'name = "planner"\ndeveloper_instructions = """\nExisting planner\n"""\n',
   '.codex/config.toml': 'model = "gpt-5"\n\n[agents.planner]\nconfig_file = "agents/planner.toml"\n\n[features]\nhooks = true\n',
-  '.codex/hooks.json': '{\n  "hooks": {\n    "SessionStart": [\n      { "matcher": "startup", "hooks": [ { "type": "command", "command": "node /opt/agentkit/session.cjs" } ] }\n    ]\n  }\n}\n',
+  '.codex/hooks.json': '{\n  "hooks": {\n    "SessionStart": [\n      { "matcher": "startup", "hooks": [ { "type": "command", "command": "node /opt/otherkit/session.cjs" } ] }\n    ]\n  }\n}\n',
   '.codex/AGENTS.md': '# My rules\n\nBe brief.\n',
   // Cursor writes & escapes; a re-serialised file would lose them.
-  '.cursor/hooks.json': '{\n  "version": 1,\n  "hooks": {\n    "preToolUse": [\n      { "command": "node /opt/agentkit/privacy.cjs \\u0026\\u0026 true", "type": "command" },\n      { "command": "node /opt/agentkit/privacy.cjs \\u0026\\u0026 true", "type": "command" },\n      { "command": "orca hook", "type": "command" }\n    ]\n  }\n}\n',
-  '.omp/agent/agents/planner.md': '---\nname: planner\n---\nAgentKit planner\n',
+  '.cursor/hooks.json': '{\n  "version": 1,\n  "hooks": {\n    "preToolUse": [\n      { "command": "node /opt/otherkit/privacy.cjs \\u0026\\u0026 true", "type": "command" },\n      { "command": "node /opt/otherkit/privacy.cjs \\u0026\\u0026 true", "type": "command" },\n      { "command": "orca hook", "type": "command" }\n    ]\n  }\n}\n',
+  '.omp/agent/agents/planner.md': '---\nname: planner\n---\nExisting planner\n',
   '.aif/plans-state.json': '{"plans":{}}\n',
 };
 
@@ -109,7 +109,7 @@ for (const runtime of ['claude', 'codex', 'omp', 'cursor', 'all']) {
       if (runtimes.includes('claude')) {
         const settings = JSON.parse(read(home, '.claude/settings.json'));
         assert.equal(settings.model, 'opus');
-        assert.equal(settings.hooks.PreToolUse[0].hooks[0].command, 'node "/opt/agentkit/hooks/scout.cjs"');
+        assert.equal(settings.hooks.PreToolUse[0].hooks[0].command, 'node "/opt/otherkit/hooks/scout.cjs"');
         assert.equal(aifCommands(settings.hooks).length, 6);
         assert.match(read(home, '.claude/settings.json'), /^\{\n {4}"model"/);
       }
@@ -122,7 +122,7 @@ for (const runtime of ['claude', 'codex', 'omp', 'cursor', 'all']) {
         assert.match(toml, /^name = "aif-planner"\ndescription = ".+"\nmodel = ".+"\nmodel_reasoning_effort = ".+"\ndeveloper_instructions = '''\n/);
         assert.ok(!toml.includes('\nmodel: '), 'no frontmatter in the TOML body');
         const hooks = JSON.parse(read(home, '.codex/hooks.json')).hooks;
-        assert.equal(hooks.SessionStart[0].hooks[0].command, 'node /opt/agentkit/session.cjs');
+        assert.equal(hooks.SessionStart[0].hooks[0].command, 'node /opt/otherkit/session.cjs');
         const commands = aifCommands(hooks);
         assert.equal(commands.length, 6);
         for (const c of commands) assert.match(c, /^AIF_RUNTIME=codex node "/);
@@ -142,7 +142,7 @@ for (const runtime of ['claude', 'codex', 'omp', 'cursor', 'all']) {
         assert.match(read(home, '.cursor/rules/aif-development-rules.mdc'), /^---\nalwaysApply: true\n---\n/);
         assert.match(read(home, '.cursor/rules/aif-process-management.mdc'), /^---\ndescription: ".+"\nalwaysApply: false\n---\n/);
         const hooks = JSON.parse(read(home, '.cursor/hooks.json')).hooks;
-        assert.equal(hooks.preToolUse.filter((h) => h.command.includes('/opt/agentkit/')).length, 2, 'existing duplicates kept');
+        assert.equal(hooks.preToolUse.filter((h) => h.command.includes('/opt/otherkit/')).length, 2, 'existing duplicates kept');
         assert.ok(hooks.preToolUse.some((h) => h.command === 'orca hook'));
         assert.deepEqual(aifCommands(hooks).map((c) => c.split(' ').pop()).sort(), ['privacy-block', 'scout-block', 'session-init']);
         assert.equal(hooks.beforeSubmitPrompt, undefined);
