@@ -20,10 +20,10 @@
      literally named `main`; `dev` does not force a branch literally named
      `dev`.
 3. Detect what the repository can reach. Shell state does not persist between commands, so
-   record both values in your notes:
+   record both values in your notes. Run this snippet as written; check `gh` only through it:
    ```bash
    L=0; [ -z "$(git remote)" ] && L=1
-   G=0; gh auth status >/dev/null 2>&1 || G=1
+   G=1; [ "$L" = 0 ] && gh auth status >/dev/null 2>&1 && G=0   # gh is never called without a remote
    echo "LOCAL=$L NOGH=$G"
    ```
    - `LOCAL=1` (no remote): a **local ship**. Print once:
