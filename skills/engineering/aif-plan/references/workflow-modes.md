@@ -12,7 +12,7 @@ When no flag specified, analyze task and pick mode:
 | 3+ independent features/layers/modules | parallel | Enable concurrent agents |
 | Ambiguous approach, multiple valid paths | two | Compare alternatives |
 
-Use `ask_user capability` if detection is uncertain. `debate` and `ultra` are never detection outcomes — each is explicit opt-in only (`--debate`, `--ultra`), never chosen by this heuristic table.
+Use `ask_user capability` if detection is uncertain. `debate` and `pro-max` are never detection outcomes — each is explicit opt-in only (`--debate`, `--pro-max`), never chosen by this heuristic table.
 
 ## Scope Challenge Integration
 
@@ -74,6 +74,6 @@ Researches and presents 2 distinct architectural solutions with concrete trade-o
 
 3 independent aif-planner subagents draft candidate plans in parallel; the orchestrator synthesizes the best ideas into one unified plan. See `debate-mode.md`.
 
-## Ultra Verifier Mode (`--ultra`)
+## Pro-Max Verifier Mode (`--pro-max`)
 
-Best-of-5 independent candidate plans scored and ranked by a single strongest-model verifier (`aif-kongming`). The winning plan is materialized unchanged. See `ultra-mode.md`.
+Best-of-5 independent candidate plans scored and ranked by a single strongest-model verifier (`aif-oracle`). The winning plan is materialized unchanged. See `pro-max-mode.md`.

@@ -11,7 +11,7 @@ its body passed the section check, and Step 12b completed or explicitly skipped
 without a plan. Capture one concrete PR URL or number as `PR_REF`; missing or
 ambiguous PR state is a blocker.
 
-When `--advice` was passed, run the pre-merge Kongming checkpoint from
+When `--advice` was passed, run the pre-merge Oracle checkpoint from
 `SKILL.md` first.
 
 Run the `aif-git` merge-pr workflow (`<aif-git>/references/workflow-merge-pr.md`)

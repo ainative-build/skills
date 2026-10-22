@@ -1,5 +1,5 @@
 ---
-name: aif-fable-thinking
+name: aif-deep-thinking
 description: "Reason by the Claude Fable 5.1 protocol: grounded claims, multi-hypothesis diagnosis, self-review, Floor checks for trick questions, Constraint Loops for exact formats."
 when_to_use: "Invoke when being right beats being fast: root causes, reviews, architecture, strategy or contested claims."
 category: reasoning

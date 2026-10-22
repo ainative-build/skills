@@ -24,7 +24,7 @@ Step 3.V: Verify all tests from 3.T still pass + compile gates
 Tests from Step 3.T document the current behavior. If any fail after Step 3.I,
 the refactor broke something and must be fixed before the workflow proceeds.
 
-Under `--advice`, a broken characterization test here is an objective `aif-kongming` trigger: STOP and spawn `aif-kongming` with the command, its output, and what you tried before re-fixing; never self-reason past a red check.
+Under `--advice`, a broken characterization test here is an objective `aif-oracle` trigger: STOP and spawn `aif-oracle` with the command, its output, and what you tried before re-fixing; never self-reason past a red check.
 
 
 ### Step 3.S: Conditional Simplify (live-diff gated)
@@ -63,7 +63,7 @@ risk. Do not fake results, disable failing checks, or add tests that merely mirr
 For type/lint-only repairs the compiler/linter can provide sufficient regression evidence.
 Use `review-cycle.md` and `required-subagents.md` for review and delegation scope.
 Repair regressions caused by this work within authorization. Under `--advice`, consult
-kongming on each failed verification before edits or re-diagnosis as its checkpoint requires.
+oracle on each failed verification before edits or re-diagnosis as its checkpoint requires.
 
 ## Finalize
 

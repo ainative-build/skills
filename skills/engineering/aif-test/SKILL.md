@@ -4,7 +4,7 @@ description: "Run unit, integration, e2e and UI tests with coverage analysis, bu
 when_to_use: "Invoke for running or designing validation suites."
 category: workflow
 keywords: [test, unit, integration, e2e, coverage]
-argument-hint: "[context] OR ui [url] OR create|optimize|audit [scope] [--advice] [--ultra] [--interview]"
+argument-hint: "[context] OR ui [url] OR create|optimize|audit [scope] [--advice] [--pro-max] [--interview]"
 license: MIT
 metadata:
   author: ainative-build
@@ -157,7 +157,7 @@ Reports        → report-format.md
 - **Browser**: `aif-agent-browser` for live browser interaction without real user cookies; `aif-chrome-profile` for the user's actual Chrome login state, opened with `chrome-profile open --json` and bound by the returned selector; `aif-web-testing` or project-native Playwright/Vitest/k6 for repeatable UI tests
 - **Analysis**: `aif-ai-multimodal` skill for screenshot analysis
 - **Debugging**: `aif-debug` skill when tests reveal bugs requiring investigation
-- **Thinking**: `aif-fable-thinking` skill for complex test failure analysis
+- **Thinking**: `aif-deep-thinking` skill for complex test failure analysis
 
 ## Quality Standards
 
@@ -193,9 +193,9 @@ or session-scoped.
 
 ## Flags (create / optimize / audit)
 
-- `--advice` — run under `aif-kongming` advisory supervision (see below).
-- `--ultra` — run the analysis/design step as a best-of-5 verifier pass (see
-  Ultra Verifier Mode).
+- `--advice` — run under `aif-oracle` advisory supervision (see below).
+- `--pro-max` — run the analysis/design step as a best-of-5 verifier pass (see
+  Pro-Max Verifier Mode).
 - `--interview` — before applying any change, list every proposed change
   (tests added/removed/rewritten, CI workflow edits) with a one-line reason and
   interview the user via `ask_user capability` — one decision per change group;
@@ -203,20 +203,20 @@ or session-scoped.
 
 ## Advisory supervision (`--advice`)
 
-When `--advice` is present, run this skill under `aif-kongming` supervision.
-`aif-kongming` is an advisory-only supervisor: it returns counsel, never code, and
+When `--advice` is present, run this skill under `aif-oracle` supervision.
+`aif-oracle` is an advisory-only supervisor: it returns counsel, never code, and
 the main agent stays responsible for every decision, edit, and gate.
 
-Spawn `aif-kongming` at these checkpoints: after the scout/analysis phase (pass the
+Spawn `aif-oracle` at these checkpoints: after the scout/analysis phase (pass the
 coverage matrix or findings and ask for a go/no-go plus the top risk); before
 applying suite or CI workflow changes (pass the proposed change list); and when
 stuck. Invoke with
-`delegate_agent capability(subagent_type="aif-kongming", prompt="<task, evidence, approaches tried, the exact question>", description="advice: <checkpoint>")`.
+`delegate_agent capability(subagent_type="aif-oracle", prompt="<task, evidence, approaches tried, the exact question>", description="advice: <checkpoint>")`.
 `--advice` never bypasses the failing-test rules or CI safety gates.
 
-## Ultra Verifier Mode (`--ultra`)
+## Pro-Max Verifier Mode (`--pro-max`)
 
-When `--ultra` is present with `create`, `optimize`, or `audit`, run the
+When `--pro-max` is present with `create`, `optimize`, or `audit`, run the
 analysis/design step as a best-of-5 verifier pass: one immutable evidence
 packet (scout reports, CI timings, git history summary), exactly five
 independent read-only candidates in one parallel wave, one strongest-model
@@ -230,6 +230,6 @@ verifier.
   candidates — a real deceptive test may be caught by only one candidate;
   repairs run once on the union.
 
-Full mechanics are in `../aif-brainstorm/references/ultra-verifier-mode.md`. It
+Full mechanics are in `../aif-brainstorm/references/pro-max-verifier-mode.md`. It
 is a best-of-5 verifier mode inspired by LLM-as-a-Verifier, not the full
-framework. `--ultra` composes with `--advice` and `--interview`.
+framework. `--pro-max` composes with `--advice` and `--interview`.

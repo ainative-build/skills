@@ -1,6 +1,6 @@
 # Motion Taste — the reasoning protocol applied to animation and motion graphics
 
-Fable Thinking's moves, applied to the domain where a model is doubly blind: it never sees
+Deep Thinking's moves, applied to the domain where a model is doubly blind: it never sees
 the render, and it never sees time. A keyframe list reads fine and plays as jank; a
 transition that "should feel smooth" teleports, stutters, or drags. Motion done well is
 information — where something came from, what just happened, what to look at next. Motion

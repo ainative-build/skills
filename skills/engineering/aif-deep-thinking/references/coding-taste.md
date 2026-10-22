@@ -1,6 +1,6 @@
 # Coding Taste — the reasoning protocol applied to complex code changes
 
-Fable Thinking's moves, applied to code. Fable 5.1's edge in this domain is not typing
+Deep Thinking's moves, applied to code. Fable 5.1's edge in this domain is not typing
 speed: it names the root cause of a broken build before touching it, implements a design
 with the smallest complete change, writes tests that discriminate, and verifies on the
 final tree. Smaller models patch where the error surfaces, rewrite whole files to change

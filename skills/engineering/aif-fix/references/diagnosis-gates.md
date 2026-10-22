@@ -26,7 +26,7 @@ The fix is not done until it is verified side-effect-free, because a change that
 
 If verification reveals a regression caused by this repair, diagnose and fix it within
 scope, then rerun affected checks. Ask when repair requires changing an accepted contract,
-product decision or unauthorized destructive action. Under `--advice`, obtain kongming
+product decision or unauthorized destructive action. Under `--advice`, obtain oracle
 counsel on failed verification before re-diagnosis or edits. Preserve explicit `--review`
 checkpoints. Report remaining gaps; passing a bounded check is not proof of every layer.
 </HARD-GATE-NO-SIDE-EFFECTS>

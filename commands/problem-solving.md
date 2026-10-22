@@ -1,6 +1,6 @@
 ---
 description: "Apply systematic techniques when stuck: complexity spirals, innovation blocks, recurring patterns, assumptions, simplification or scale."
-argument-hint: "[problem description] [--ultra]"
+argument-hint: "[problem description] [--pro-max]"
 ---
 
 # /aif:problem-solving

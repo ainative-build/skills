@@ -4,7 +4,7 @@ description: "Fix bugs, test failures, type and lint errors, log errors, UI defe
 when_to_use: "Invoke when there is a concrete bug, error, or CI failure."
 category: workflow
 keywords: [bugfix, error, test-failure, CI, lint]
-argument-hint: "[issue] --auto|--review|--quick|--parallel [--ultra] [--advice] [--skip-journal]"
+argument-hint: "[issue] --auto|--review|--quick|--parallel [--pro-max] [--advice] [--skip-journal]"
 license: MIT
 metadata:
   author: ainative-build
@@ -26,11 +26,11 @@ path, direct callers and relevant tests; record the failing command or observed 
 - `--quick`: a bounded cause-aligned repair using `references/workflow-quick.md`.
 - `--parallel`: independent issues with disjoint ownership and available delegation.
 - `--advice`: supervisor checkpoints described below.
-- `--ultra`: post-diagnosis best-of-5 selection; conflicts with quick and parallel.
+- `--pro-max`: post-diagnosis best-of-5 selection; conflicts with quick and parallel.
 
 ## Advisory supervision (`--advice`)
 
-When `--advice` is present, run this skill under `aif-kongming` supervision, as
+When `--advice` is present, run this skill under `aif-oracle` supervision, as
 defined by `../aif-brainstorm/references/advisory-supervision.md`. Load
 `references/advisory-supervision-checkpoints.md` for supervisor identity and
 model routing, the spawn checkpoints (after each step, when stuck, on any failed
@@ -73,14 +73,14 @@ When skipped, print one line:
 Explicit `/aif-journal` and `node <aif-journal>/scripts/journal.cjs create` (`<aif-journal>` is the sibling aif-journal skill directory) are unaffected. The opt-out covers the journal step only; the rest of the Finalize block still runs.
 
 
-## Ultra Verifier Mode (`--ultra`)
+## Pro-Max Verifier Mode (`--pro-max`)
 
-`--ultra` is the best-of-5 wave defined by
-`../aif-brainstorm/references/ultra-verifier-mode.md`. It fans ONLY the Step 3
+`--pro-max` is the best-of-5 wave defined by
+`../aif-brainstorm/references/pro-max-verifier-mode.md`. It fans ONLY the Step 3
 solution selection to five independent read-only fix-plan candidates, which never
 re-derive the confirmed root cause; one verifier then selects the single winning
 fix plan. It hard-conflicts with `--quick` and `--parallel`. Load
-`references/ultra-verifier-mode-fix.md` for the evidence packet, candidate task,
+`references/pro-max-verifier-mode-fix.md` for the evidence packet, candidate task,
 rubric, finalizer, and conflict handling.
 
 
@@ -99,7 +99,7 @@ Load as needed:
 - `references/advisory-supervision-checkpoints.md` - `--advice` supervisor routing and spawn checkpoints
 - `references/diagnosis-gates.md` - Exact-root-cause and no-side-effects gates
 - `references/anti-rationalization.md` - Thought-vs-reality table for process shortcuts
-- `references/ultra-verifier-mode-fix.md` - `--ultra` best-of-5 fix-plan selection
+- `references/pro-max-verifier-mode-fix.md` - `--pro-max` best-of-5 fix-plan selection
 
 **Specialized Workflows:**
 - `references/workflow-ci.md` - GitHub Actions/CI failures

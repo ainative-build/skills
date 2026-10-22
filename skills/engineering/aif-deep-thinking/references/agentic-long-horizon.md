@@ -1,6 +1,6 @@
 # Long-Horizon Agentic Work — the reasoning protocol applied to multi-hour, multi-tool tasks
 
-Fable Thinking's moves, applied to work that spans many tool calls, many files, and often
+Deep Thinking's moves, applied to work that spans many tool calls, many files, and often
 more than one context window. Fable 5.1's distinguishing trait here is not speed but
 constancy: it stays anchored to the original ask, verifies each milestone before the next,
 recovers from failures deliberately, and reports what is now true. Smaller models lose the

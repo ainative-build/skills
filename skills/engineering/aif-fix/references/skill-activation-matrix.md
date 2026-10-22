@@ -5,7 +5,7 @@
 | Clear local failure | Direct file reads, cause-aligned repair, relevant checker |
 | Unclear causal path | `aif-debug` and one discriminating test |
 | Repeated refuted hypotheses | `aif-problem-solving` if reframing would help |
-| Difficult evidence comparison | `aif-fable-thinking` (sequential mode) for a decision/evidence log |
+| Difficult evidence comparison | `aif-deep-thinking` (sequential mode) for a decision/evidence log |
 | Multiple viable fixes | `aif-brainstorm` after diagnosis |
 | Complex phases | Existing plan and optional live progress tracking |
 | Independent areas/issues | Delegates with disjoint ownership when authorized and available |
@@ -13,7 +13,7 @@
 | Changed docs contract | Smallest owning docs update |
 
 Quick does not automatically load any helper. Standard/deep add only the capabilities the
-failure needs. `--advice`, `--review` and `--ultra` retain their explicit contracts. Pass current
+failure needs. `--advice`, `--review` and `--pro-max` retain their explicit contracts. Pass current
 scope and existing evidence so helpers do not repeat completed gates. Reuse resolved journal
 preferences during finalization: `/aif-journal` follows SKILL.md's **Journal step — opt-out**.
 Never infer git authorization from completing a fix.

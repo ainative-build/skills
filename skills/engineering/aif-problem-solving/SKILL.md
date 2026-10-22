@@ -4,7 +4,7 @@ description: "Apply systematic techniques when stuck: complexity spirals, innova
 when_to_use: "Invoke for structured reframing of a blocked problem."
 category: reasoning
 keywords: [problem-solving, stuck, patterns, simplify]
-argument-hint: "[problem description] [--ultra]"
+argument-hint: "[problem description] [--pro-max]"
 license: MIT
 metadata:
   author: ainative-build
@@ -102,6 +102,6 @@ Load detailed guides as needed:
 - `references/scale-game.md` - Extreme testing procedures
 - `references/attribution.md` - Source and adaptation notes
 
-## Ultra Verifier Mode (`--ultra`)
+## Pro-Max Verifier Mode (`--pro-max`)
 
-Only explicit `--ultra` loads `references/ultra-mode.md`; preserve its best-of-5 and fail-closed contract.
+Only explicit `--pro-max` loads `references/pro-max-mode.md`; preserve its best-of-5 and fail-closed contract.

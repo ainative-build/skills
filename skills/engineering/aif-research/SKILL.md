@@ -5,7 +5,7 @@ when_to_use: "Invoke before implementation to evaluate technology or best practi
 category: workflow
 keywords: [research, evaluation, analysis, solutions]
 license: MIT
-argument-hint: "[topic] [--ultra] [--yagni]"
+argument-hint: "[topic] [--pro-max] [--yagni]"
 metadata:
   author: ainative-build
   version: "1.1.3"
@@ -105,9 +105,9 @@ Lead with the outcome. Keep reports short by being selective, not by compressing
 In reports, list any unresolved questions at the end, if any.
 
 
-## Ultra Verifier Mode (`--ultra`)
+## Pro-Max Verifier Mode (`--pro-max`)
 
-When `--ultra` is present, produce the research as a best-of-5 verifier pass
+When `--pro-max` is present, produce the research as a best-of-5 verifier pass
 instead of a single report. The controller builds one immutable evidence packet
 (the topic, scope definition from Phase 1, recency requirements, and evaluation
 criteria) plus a rubric, dispatches exactly five independent read-only candidate
@@ -125,6 +125,6 @@ and ranks the five reports.
 
 Full mechanics — evidence packet, anonymization, the five-usable-candidate gate,
 reject-all, and the fail-closed runtime rule — are in
-`../aif-brainstorm/references/ultra-verifier-mode.md`. `--ultra` composes with
+`../aif-brainstorm/references/pro-max-verifier-mode.md`. `--pro-max` composes with
 `--yagni`. It is a best-of-5 verifier mode inspired by LLM-as-a-Verifier, not
 the full framework; never claim its logprob/tournament algorithm.

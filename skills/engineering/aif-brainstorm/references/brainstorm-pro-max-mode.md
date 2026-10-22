@@ -1,6 +1,6 @@
-## Ultra Verifier Mode (`--ultra`)
+## Pro-Max Verifier Mode (`--pro-max`)
 
-When `--ultra` is present, run the brainstorm as a best-of-5 verifier pass
+When `--pro-max` is present, run the brainstorm as a best-of-5 verifier pass
 instead of a single draft. The controller builds one immutable evidence packet
 plus a rubric, dispatches exactly five independent read-only candidate
 brainstorms in one parallel wave, then a single strongest-model verifier scores
@@ -19,7 +19,7 @@ and ranks them and selects the winning candidate (or rejects all).
 
 Full mechanics — evidence packet, anonymization, the five-usable-candidate gate
 with one bounded re-dispatch, the fail-closed runtime rule, and reject-all — are
-in `ultra-verifier-mode.md`. `--ultra` composes with
+in `pro-max-verifier-mode.md`. `--pro-max` composes with
 `--report`, `--advice`, and `--yagni`, and adds no new conflicts. It is a best-of-5 verifier
 mode inspired by LLM-as-a-Verifier, not the full framework; never claim its
 logprob/tournament algorithm.

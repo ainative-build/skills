@@ -1,6 +1,6 @@
 # Security Taste — the reasoning protocol applied to security review and secure code
 
-Fable Thinking's moves, applied to the domain where fluent reasoning does the most damage:
+Deep Thinking's moves, applied to the domain where fluent reasoning does the most damage:
 a confident "looks safe" is an ASSUMED wearing OBSERVED grammar, and an attacker needs only
 the one path you did not trace. The discipline: threat model first, one concrete trace per
 attacker perspective, evidence per finding, calibrated severity, fixes at the right

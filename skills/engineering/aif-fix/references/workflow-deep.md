@@ -47,7 +47,7 @@ Record the diagnose phase as active.
 **Mandatory skill chain:**
 1. **Capture pre-fix state:** Record ALL error messages, failing tests, stack traces, logs.
 2. Activate `aif-debug` skill (systematic-debugging + root-cause-tracing).
-3. Use `aif-fable-thinking` (sequential mode) only when a decision/evidence log would help — structured hypothesis formation.
+3. Use `aif-deep-thinking` (sequential mode) only when a decision/evidence log would help — structured hypothesis formation.
 4. Use delegated `aif-explore` subagents to test hypotheses only when delegation is explicitly requested/permitted.
 5. If 2+ hypotheses fail → auto-activate `aif-problem-solving`.
 6. Trace backward through call chain to ROOT CAUSE origin.
@@ -121,7 +121,7 @@ Record verification as active.
 
 **If verification fails:** Loop back to Step 2 (re-diagnose). Max 3 attempts → question architecture.
 
-Under `--advice`, a failed check is an objective `aif-kongming` trigger: STOP and spawn `aif-kongming` with the command, its output, and what you tried before re-diagnosing; never self-reason past a red check.
+Under `--advice`, a failed check is an objective `aif-oracle` trigger: STOP and spawn `aif-oracle` with the command, its output, and what you tried before re-diagnosing; never self-reason past a red check.
 
 Use the prevention checklist in the parent skill.
 
@@ -153,11 +153,11 @@ Record finalization as completed in the live surface when available and in the a
 | Step | Skills/Subagents |
 |------|------------------|
 | 1 | `aif-scout` OR parallel `aif-explore` subagents when delegation is permitted |
-| 2 | `aif-debug`, `aif-fable-thinking` (sequential mode), optional delegated `aif-explore` when permitted, optional `aif-problem-solving` when stuck |
+| 2 | `aif-debug`, `aif-deep-thinking` (sequential mode), optional delegated `aif-explore` when permitted, optional `aif-problem-solving` when stuck |
 | 3 | `aif-researcher` via `delegate_agent` when permitted |
 | 4 | `aif-brainstorm` |
 | 5 | `aif-planner` |
-| 6 | `aif-problem-solving`, `aif-fable-thinking` (sequential mode) |
+| 6 | `aif-problem-solving`, `aif-deep-thinking` (sequential mode) |
 | 7 | `run_shell` verification; optional delegated tester when permitted |
 | 8 | `aif-code-reviewer` via `delegate_agent` when permitted, otherwise local review |
 | 9 | `plan.cjs` sync-back; docs/git delegation only when permitted |

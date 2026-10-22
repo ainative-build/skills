@@ -1,6 +1,6 @@
-## Ultra Verifier Mode (`--ultra`)
+## Pro-Max Verifier Mode (`--pro-max`)
 
-When `--ultra` is present, produce the reframing as a best-of-5 verifier pass.
+When `--pro-max` is present, produce the reframing as a best-of-5 verifier pass.
 The controller assembles one immutable evidence packet — the stuck problem,
 what was already tried, constraints, and observed symptoms — plus a rubric,
 dispatches exactly five independent read-only candidates in one parallel wave,
@@ -18,5 +18,5 @@ then a single strongest-model verifier scores them.
 
 Full mechanics — evidence packet, anonymization, the five-usable-candidate
 gate, reject-all, and the fail-closed runtime rule — are in
-`../../aif-brainstorm/references/ultra-verifier-mode.md`. It is a best-of-5
+`../../aif-brainstorm/references/pro-max-verifier-mode.md`. It is a best-of-5
 verifier mode inspired by LLM-as-a-Verifier, not the full framework.

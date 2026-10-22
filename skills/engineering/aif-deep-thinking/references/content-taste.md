@@ -1,6 +1,6 @@
 # Content Taste — the reasoning protocol applied to writing (English & Vietnamese)
 
-Fable Thinking's moves, applied to the domain where fluency most effectively masks
+Deep Thinking's moves, applied to the domain where fluency most effectively masks
 emptiness: prose. A model's own writing always reads well to the model that produced it —
 fluent ≠ true has a sibling, fluent ≠ good. This reference teaches how to decide what to
 say, say it like a person, and verify the result is writing rather than word-shaped

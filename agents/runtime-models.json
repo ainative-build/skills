@@ -1,7 +1,7 @@
 {
   "source": "AgentKit 3.0.0-beta.35 installs on 2026-10-22 (~/.claude/agents, ~/.codex/agents, ~/.omp/agent/agents, ~/.cursor/agents)",
   "agents": {
-    "kongming": {
+    "oracle": {
       "claude": "fable",
       "codex": {
         "model": "gpt-5.6-luna",

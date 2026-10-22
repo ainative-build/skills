@@ -1,6 +1,6 @@
-# Ultra Verifier Mode (`--ultra`)
+# Pro-Max Verifier Mode (`--pro-max`)
 
-Shared protocol for the opt-in `--ultra` mode of `aif-brainstorm`, `aif-plan`,
+Shared protocol for the opt-in `--pro-max` mode of `aif-brainstorm`, `aif-plan`,
 `aif-code-review`, `aif-advise`, `aif-scout`, `aif-research`, `aif-debug`,
 `aif-fix`, `aif-problem-solving`, and `aif-test`. Each of those skills adds a short section
 that sets its own candidate task and rubric, then defers to this file for the
@@ -8,14 +8,14 @@ mechanics.
 
 ## What this is (and is not)
 
-`--ultra` is a **best-of-5 verifier mode inspired by LLM-as-a-Verifier**. The
+`--pro-max` is a **best-of-5 verifier mode inspired by LLM-as-a-Verifier**. The
 controller generates several complete candidate outputs in parallel and a
 single strongest-model verifier selects among them.
 
 It is prompt orchestration only. It **does not implement** the external
 LLM-as-a-Verifier framework: no logprob-expectation scoring, no repeated-
 evaluation reward model, and no Probabilistic Pivot Tournament. Never describe
-`--ultra` as running that algorithm, and never claim a numeric benchmark from
+`--pro-max` as running that algorithm, and never claim a numeric benchmark from
 it.
 
 ## When it pays off
@@ -35,7 +35,7 @@ path.
   that support per-subagent model-tier routing they run on the Opus tier;
   otherwise they run on the runtime's single strongest available tier (see the
   model-tier degrade note below).
-- **Verifier** — one verifier subagent (Kongming). Model routing matches
+- **Verifier** — one verifier subagent (Oracle). Model routing matches
   `--advice`: Claude Code subscription → `fable` (Fable 5); Codex →
   `gpt-6-astra` at low reasoning; see
   `advisory-supervision.md`. It runs on the runtime's strongest available
@@ -45,13 +45,13 @@ path.
 
 ## Fail-closed runtime rule
 
-`--ultra` requires parallel read-only multi-candidate subagent dispatch — one
+`--pro-max` requires parallel read-only multi-candidate subagent dispatch — one
 wave of five independent candidates. If that capability is missing — including
 portable / `dispatch: none` and any runtime that can only run sequential or
-single-agent simulation — **hard-stop**, tell the user `--ultra` is unsupported
+single-agent simulation — **hard-stop**, tell the user `--pro-max` is unsupported
 on this runtime, and name the missing capability. Never fall back to sequential
 dispatch, role-played fan-out, or a single default-model run. This dispatch
-requirement is fail-closed: no parallel candidate dispatch, no `--ultra`.
+requirement is fail-closed: no parallel candidate dispatch, no `--pro-max`.
 
 Per-subagent model-tier routing is preferred, not required. When dispatch works
 but tier routing does not, degrade under the model-tier note rather than
@@ -60,7 +60,7 @@ hard-stopping.
 **Model-tier degrade.** Prefer distinct tiers: candidates on the Opus-class
 generator tier and the verifier on the runtime's strongest available model. If
 the runtime cannot assign per-subagent model tiers (e.g. role-typed subagents
-that inherit one session model, as on Grok), keep `--ultra` only while parallel
+that inherit one session model, as on Grok), keep `--pro-max` only while parallel
 read-only multi-candidate dispatch still works: run all five candidates and the
 verifier on the same strongest available tier, and tell the user in one sentence
 that this run is same-tier best-of-5 (independent samples + rubric selection),
@@ -86,7 +86,7 @@ so reject-all and evidence-backed rubric scores stay mandatory, not optional.
    skill-shaped. Require all five usable. If any slot failed, run **one** bounded
    re-dispatch of only the failed slot(s). If fewer than five are usable after
    that, **hard-stop** with an actionable blocker naming which slots failed and
-   why; never proceed on a partial pool or relabel it an ultra success.
+   why; never proceed on a partial pool or relabel it an pro-max success.
 5. **Anonymize before judging.** Strip author/order identity: present the five
    candidates to the verifier as an unordered, relabeled set (Candidate A..E with
    a randomized mapping the controller keeps privately). Never pass a candidate's
@@ -105,7 +105,7 @@ so reject-all and evidence-backed rubric scores stay mandatory, not optional.
    produced, so a later cohort can tell whether the fan-out earned its cost:
 
    ```
-   ultra: picked=<k>/5 margin=high|low unanimous=yes|no rejected_all=yes|no
+   pro-max: picked=<k>/5 margin=high|low unanimous=yes|no rejected_all=yes|no
    ```
 
    `margin` is `high` when the winner leads the runner-up by more than a quarter
@@ -116,7 +116,7 @@ so reject-all and evidence-backed rubric scores stay mandatory, not optional.
    `aif-scout`) report coverage instead:
 
    ```
-   ultra: union=<findings-kept>/<findings-proposed> single_candidate_only=<n>
+   pro-max: union=<findings-kept>/<findings-proposed> single_candidate_only=<n>
    ```
 
    where `single_candidate_only` counts validated findings that appeared in
@@ -162,16 +162,16 @@ The finalizer differs by skill and MUST NOT be collapsed to one behavior:
 
 ## Code-review Stage mapping
 
-For `aif-code-review --ultra`, the controller runs the Stage 1 spec-compliance
+For `aif-code-review --pro-max`, the controller runs the Stage 1 spec-compliance
 pass once, fans **Stage 2** (quality review) out to the five independent
 reviewers, and runs the final verification gate once over the deduplicated union
 of validated findings. Stage 1 and the final gate keep their existing
-single-pass semantics. `--ultra` hard-conflicts with `codebase parallel`
+single-pass semantics. `--pro-max` hard-conflicts with `codebase parallel`
 (both own the multi-reviewer strategy) — a combination is a hard-stop naming
 both, never a silent resolution.
 
 ## Cost note
 
-Five candidates plus one verifier costs several times a single run. Use `--ultra`
+Five candidates plus one verifier costs several times a single run. Use `--pro-max`
 when the decision is load-bearing enough to justify it; the default path stays
 the right choice for routine work.

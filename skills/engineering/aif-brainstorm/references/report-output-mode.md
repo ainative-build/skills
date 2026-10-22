@@ -14,6 +14,6 @@ conventions (path resolution, naming, and markdown body standards):
   options considered with trade-offs, recommendation, and unresolved
   questions last.
 
-`--report` composes with every other flag: with `--ultra` the report records the winning candidate plus the short
+`--report` composes with every other flag: with `--pro-max` the report records the winning candidate plus the short
 ranking appendix. Without `--report`, keep the existing behavior — write a
 durable summary only when the decision must survive the session or feed a plan.

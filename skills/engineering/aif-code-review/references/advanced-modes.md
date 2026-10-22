@@ -1,6 +1,6 @@
-## Ultra Verifier Mode (`--ultra`)
+## Pro-Max Verifier Mode (`--pro-max`)
 
-When `--ultra` is present, run the review as a best-of-5 verifier pass. The
+When `--pro-max` is present, run the review as a best-of-5 verifier pass. The
 controller runs the Stage 1 spec-compliance pass once, then fans **Stage 2**
 (quality review) out to exactly five independent read-only reviewers in one
 parallel wave over a shared evidence packet, and runs the final verification
@@ -14,26 +14,26 @@ gate once at the end.
   findings. The 1-20 ranking only orders severity and confidence; it never
   selects one review wholesale, because a real defect may surface in only one
   (possibly lower-ranked) candidate.
-- **Conflict:** `--ultra` hard-conflicts with `codebase parallel` (both own the
+- **Conflict:** `--pro-max` hard-conflicts with `codebase parallel` (both own the
   multi-reviewer strategy). Passing both is a hard-stop naming both, never a
   silent resolution.
 
 Full mechanics — evidence packet, anonymization, the five-usable-candidate gate
 with one bounded re-dispatch, the fail-closed runtime rule, reject-all, and the
-Stage mapping — are in `../../aif-brainstorm/references/ultra-verifier-mode.md`.
-`--ultra` composes with the `#PR` / `COMMIT` / `--pending` / non-parallel
+Stage mapping — are in `../../aif-brainstorm/references/pro-max-verifier-mode.md`.
+`--pro-max` composes with the `#PR` / `COMMIT` / `--pending` / non-parallel
 `codebase` input modes and with `--yagni`. It is a best-of-5 verifier mode
 inspired by LLM-as-a-Verifier, not the full framework; never claim its
 logprob/tournament algorithm.
 
 ## Advisory supervision (`--advice`)
 
-When `--advice` is present, run this skill under `aif-kongming` supervision.
+When `--advice` is present, run this skill under `aif-oracle` supervision.
 Load `../../aif-brainstorm/references/advisory-supervision.md` for supervisor
 identity, host detection, and model routing (Claude subscription → Fable 5;
 Codex → `gpt-6-astra` + low effort; Cursor → `claude-fable-5-high`).
 
-Spawn `aif-kongming` at these checkpoints:
+Spawn `aif-oracle` at these checkpoints:
 
 - **After Stage 1 (spec compliance) and after Stage 2 (quality review)** —
   pass scope, findings with evidence, and tentative severity; ask for
@@ -43,5 +43,5 @@ Spawn `aif-kongming` at these checkpoints:
 - **Before publishing a high-stakes verdict** (Request changes on a public
   contract, security finding, or large refactor) — get counsel first.
 
-`--advice` composes with `--ultra` and input modes; it never bypasses evidence
-rules or the `codebase parallel` / `--ultra` hard-conflict.
+`--advice` composes with `--pro-max` and input modes; it never bypasses evidence
+rules or the `codebase parallel` / `--pro-max` hard-conflict.

@@ -14,6 +14,6 @@ When `--ask` is present, run a bounded, evidence-first interview before finalizi
    - Do not stall awaiting input.
    - For reversible, non-security-sensitive decisions, apply recommended defaults and record each unasked question as an explicit assumption under unresolved questions.
    - If an unresolved decision touches a security-critical boundary (auth/authorization bypass, credential access, destructive workspace operations, external publication/network access), hard-stop with a blocker rather than auto-approving.
-6. **Forwarding polarity & ultra composition:**
+6. **Forwarding polarity & pro-max composition:**
    - `--ask` is user-invoked only; never introduced during handoff and never forwarded downstream.
-   - With `--ultra`, the controller executes the `--ask` interview once and uses the answers or resolved defaults to freeze the evidence packet before the five-candidate fan; candidates never prompt.
+   - With `--pro-max`, the controller executes the `--ask` interview once and uses the answers or resolved defaults to freeze the evidence packet before the five-candidate fan; candidates never prompt.

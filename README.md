@@ -28,14 +28,14 @@ nothing needs AgentKit or the `ak` CLI.
 | | `aif-ship` | Takes a finished branch through tests, review, PR, merge and release. |
 | Record | `aif-journal` | Keeps a chronological technical journal in `plans/journals/`. |
 | Think | `aif-problem-solving` | Techniques for getting unstuck. |
-| | `aif-fable-thinking` | A disciplined reasoning protocol for hard problems. |
+| | `aif-deep-thinking` | A disciplined reasoning protocol for hard problems. |
 | Media | `aif-ai-multimodal` | Analyzes and generates images, audio, video and documents. |
 
 The usual path is `/aif-plan` → `/aif-cook` → `/aif-test` → `/aif-code-review` → `/aif-ship`.
 
 ## Agents, rules and hooks
 
-- **15 agents** (`agents/aif-*.md`): kongming, advisor, planner, researcher, scout, explore,
+- **15 agents** (`agents/aif-*.md`): oracle, advisor, planner, researcher, scout, explore,
   debugger, tester, code-reviewer, code-simplifier, fullstack-developer, ui-ux-designer,
   docs-manager, git-manager and journal-writer. Per-runtime models are in
   `agents/runtime-models.json`.

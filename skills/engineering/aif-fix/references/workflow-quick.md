@@ -10,7 +10,7 @@ without the fix when useful. Inspect the diff and affected caller contracts. Ind
 review is risk-based; direct execution is sufficient for low-risk one-file repairs.
 
 Repair failures caused by this change within scope. Under `--advice`, a failed verification
-on a change believed complete requires kongming counsel before edits or re-diagnosis; quick
+on a change believed complete requires oracle counsel before edits or re-diagnosis; quick
 does not waive that contract. Explicit `--review` retains human checkpoints.
 
 Reconcile an existing plan only if one exists; assess docs impact, report cause and before/

@@ -1,6 +1,6 @@
 # Subagent Orchestration — the reasoning protocol applied to delegating work
 
-Fable Thinking's moves, applied to the moment a controller hands work to other agents.
+Deep Thinking's moves, applied to the moment a controller hands work to other agents.
 Delegation multiplies throughput and multiplies every failure mode in `reasoning-protocol.md`: a delegate
 starts with none of your context, runs on a bounded window, cannot ask the user, and
 reports in fluent prose whether or not it succeeded. Fable-grade orchestration treats a

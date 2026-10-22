@@ -1,4 +1,4 @@
-# Worked Examples — Default Mode vs. Fable Thinking
+# Worked Examples — Default Mode vs. Deep Thinking
 
 Seven end-to-end traces showing the protocol applied — Examples 0–3 exercise the core
 moves; Examples 4–6 exercise the domain playbooks (root cause and prevention, solution

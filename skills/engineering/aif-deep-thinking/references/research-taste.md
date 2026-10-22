@@ -1,6 +1,6 @@
 # Research Taste — the reasoning protocol applied to technical research and analysis
 
-Fable Thinking's moves, applied to questions whose answer depends on facts outside the
+Deep Thinking's moves, applied to questions whose answer depends on facts outside the
 conversation: technology choices, "what is the best way to X", literature and docs
 research, analysis of systems you do not own, decision memos. Fable 5.1's strength here is
 twofold: it finds answers along an axis the question did not suggest, and it stays exact

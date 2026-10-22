@@ -1,6 +1,6 @@
 ---
 description: "Review code for bugs, regressions, maintainability, reliability and verification gaps with evidence."
-argument-hint: "[#PR | COMMIT | --pending | codebase [parallel]] [--ultra] [--advice] [--yagni]"
+argument-hint: "[#PR | COMMIT | --pending | codebase [parallel]] [--pro-max] [--advice] [--yagni]"
 ---
 
 # /aif:code-review

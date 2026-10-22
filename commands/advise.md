@@ -1,6 +1,6 @@
 ---
 description: "Interview until user and agent share the outcome picture, preview it, then give evidence-backed advice."
-argument-hint: "[prompt-or-url] [--md] [--github] [--agent] [--ultra] [--yagni]"
+argument-hint: "[prompt-or-url] [--md] [--github] [--agent] [--pro-max] [--yagni]"
 ---
 
 # /aif:advise

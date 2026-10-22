@@ -1,6 +1,6 @@
 ---
 description: "Turn unclear intent into an accepted outcome and compare viable approaches before delivery."
-argument-hint: "[topic or problem] [--ask] [--advice] [--report] [--ultra] [--yagni]"
+argument-hint: "[topic or problem] [--ask] [--advice] [--report] [--pro-max] [--yagni]"
 ---
 
 # /aif:brainstorm

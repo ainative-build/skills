@@ -4,7 +4,7 @@ description: "Create, validate or review implementation plans with acceptance cr
 when_to_use: "Invoke when work needs phases, architecture or a roadmap."
 category: workflow
 keywords: [planning, architecture, phases, roadmap, github]
-argument-hint: "[task] [--fast|--hard|--deep|--parallel|--two|--debate|--ultra] [--tdd|--no-tasks] [--github] [--advice] [--yagni] [--skip-journal] OR [archive|red-team|validate]"
+argument-hint: "[task] [--fast|--hard|--deep|--parallel|--two|--debate|--pro-max] [--tdd|--no-tasks] [--github] [--advice] [--yagni] [--skip-journal] OR [archive|red-team|validate]"
 license: MIT
 metadata:
   author: ainative-build
@@ -33,7 +33,7 @@ Create structured, verifiable implementation plans with phased execution roadmap
 | **Parallel** | `--parallel` | Generates parallel-executable phases with strict file ownership | `references/workflow-modes.md` |
 | **Two Approaches** | `--two` | Compares two distinct architectural approaches with trade-offs | `references/workflow-modes.md` |
 | **Debate** | `--debate` | Persona debate before selecting the optimal strategy | `references/workflow-modes.md` |
-| **Ultra** | `--ultra` | Best-of-5 verifier pass; strongest-model selection | `../aif-brainstorm/references/ultra-verifier-mode.md` |
+| **Pro-Max** | `--pro-max` | Best-of-5 verifier pass; strongest-model selection | `../aif-brainstorm/references/pro-max-verifier-mode.md` |
 | **Validate** | `validate <path>` | Runs critical questions validation gate on a plan | `references/validate-workflow.md` |
 | **Red-Team** | `red-team <path>` | 4-persona adversarial review (Assumptions, Failure, Scope, Security) | `references/red-team-workflow.md` |
 | **Archive** | `archive [slug]` | Finalizes and archives closed/completed plans | `references/archive-workflow.md` |
@@ -41,7 +41,7 @@ Create structured, verifiable implementation plans with phased execution roadmap
 ## Flag Modifiers
 
 - **`--github`**: Creates/updates a GitHub issue with plan summary and links. See `references/github-publish.md`.
-- **`--advice`**: Runs under `aif-kongming` advisory supervision and formats the output plan for handover to lower-capability executor models (Sonnet, Gemini Flash). Decomposes every phase into step-by-step tasks with explicit success criteria, marks verification steps with mechanical pass conditions, and embeds a Failure Protocol that stops and escalates to `aif-kongming` on verification failure. See `references/advice-handover-plan.md` for the artifact contract and `../aif-brainstorm/references/advisory-supervision.md` for supervisor identity and model routing.
+- **`--advice`**: Runs under `aif-oracle` advisory supervision and formats the output plan for handover to lower-capability executor models (Sonnet, Gemini Flash). Decomposes every phase into step-by-step tasks with explicit success criteria, marks verification steps with mechanical pass conditions, and embeds a Failure Protocol that stops and escalates to `aif-oracle` on verification failure. See `references/advice-handover-plan.md` for the artifact contract and `../aif-brainstorm/references/advisory-supervision.md` for supervisor identity and model routing.
 - **`--tdd`**: Enforces test-first design, test matrix, and verification commands in every phase.
 - **`--no-tasks`**: Skips hydrating phases into task management.
 - **`--yagni`**: Actively challenges and eliminates any scope not strictly necessary for the stated outcome (see `references/scope-challenge.md`).
@@ -49,7 +49,7 @@ Create structured, verifiable implementation plans with phased execution roadmap
 
 ### Mode Exclusivity
 
-The mode flags — `--fast`, `--hard`, `--deep`, `--parallel`, `--two`, `--debate`, `--ultra`, and this skill's own `--auto` (mode-detection, distinct from `/aif-cook`'s auto-approve `--auto`) — are mutually exclusive; Mode Detection is a single-choice step. Passing two is a hard stop naming both flags and the reason, never a silent override. `--auto` conflicts with every other mode flag since it is itself a mode-selection flag; `--debate` is explicit opt-in only and is never auto-selected.
+The mode flags — `--fast`, `--hard`, `--deep`, `--parallel`, `--two`, `--debate`, `--pro-max`, and this skill's own `--auto` (mode-detection, distinct from `/aif-cook`'s auto-approve `--auto`) — are mutually exclusive; Mode Detection is a single-choice step. Passing two is a hard stop naming both flags and the reason, never a silent override. `--auto` conflicts with every other mode flag since it is itself a mode-selection flag; `--debate` is explicit opt-in only and is never auto-selected.
 
 ## Planning pipeline
 

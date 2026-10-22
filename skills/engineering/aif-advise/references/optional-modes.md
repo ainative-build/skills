@@ -66,9 +66,9 @@ question back to you and is re-spawned with the answer. Loop:
 The advisor never spawns the flag subagents (`--md` / `--github`); you own step 6 after `ADVICE_READY`, using the advisor's report as
 input.
 
-## Ultra Verifier Mode (`--ultra`)
+## Pro-Max Verifier Mode (`--pro-max`)
 
-When `--ultra` is present, produce the advice as a best-of-5 verifier pass
+When `--pro-max` is present, produce the advice as a best-of-5 verifier pass
 instead of a single draft. Crucially, **the interview and reframing run once**
 and **only the advice generation is fanned** — the user is never grilled five
 times.
@@ -98,10 +98,10 @@ times.
   no praise-padding), and actionability of the checklist, success metrics, and
   handoff brief (observable Done-means end states, narrow stop conditions).
 
-`--ultra` **hard-conflicts with `--agent`**: both own how the advice is
+`--pro-max` **hard-conflicts with `--agent`**: both own how the advice is
 produced. Passing both is a hard-stop naming both flags, never a silent
-resolution. `--ultra` composes with `--md`, `--github`, and `--yagni`. Full mechanics — anonymization, the five-usable-candidate gate with
+resolution. `--pro-max` composes with `--md`, `--github`, and `--yagni`. Full mechanics — anonymization, the five-usable-candidate gate with
 one bounded re-dispatch, the fail-closed runtime rule, and reject-all — are in
-`../../aif-brainstorm/references/ultra-verifier-mode.md`. It is a best-of-5 verifier
+`../../aif-brainstorm/references/pro-max-verifier-mode.md`. It is a best-of-5 verifier
 mode inspired by LLM-as-a-Verifier, not the full framework; never claim its
 logprob/tournament algorithm.

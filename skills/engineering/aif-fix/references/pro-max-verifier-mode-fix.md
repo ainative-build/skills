@@ -1,6 +1,6 @@
-# Ultra Verifier Mode (`--ultra`)
+# Pro-Max Verifier Mode (`--pro-max`)
 
-When `--ultra` is present, run Steps 0-2 once — the confirmed diagnosis joins
+When `--pro-max` is present, run Steps 0-2 once — the confirmed diagnosis joins
 one immutable evidence packet — then fan ONLY the Step 3 solution selection and
 fix-plan generation to exactly five independent read-only candidates in one
 parallel wave; a single strongest-model verifier scores them.
@@ -15,8 +15,8 @@ parallel wave; a single strongest-model verifier scores them.
   rejects all); Steps 4-6 execute once from the winner. On reject-all,
   hard-stop and report why.
 
-`--ultra` hard-conflicts with `--quick` and `--parallel` (quick skips the
-deliberation ultra exists for; parallel owns the multi-agent strategy) — on
+`--pro-max` hard-conflicts with `--quick` and `--parallel` (quick skips the
+deliberation pro-max exists for; parallel owns the multi-agent strategy) — on
 either combination, hard-stop and ask. Full mechanics are in
-`../aif-brainstorm/references/ultra-verifier-mode.md`. It is a best-of-5
+`../aif-brainstorm/references/pro-max-verifier-mode.md`. It is a best-of-5
 verifier mode inspired by LLM-as-a-Verifier, not the full framework.

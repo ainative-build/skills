@@ -4,7 +4,7 @@ description: "Scout a codebase fast with native search, optional Explore agents 
 when_to_use: "Invoke for file discovery, task context or scoped searches."
 category: workflow
 keywords: [codebase, scouting, file-discovery, search]
-argument-hint: "[search-target] [ext] [--ultra]"
+argument-hint: "[search-target] [ext] [--pro-max]"
 license: MIT
 metadata:
   author: ainative-build
@@ -18,7 +18,7 @@ Fast, token-efficient codebase scouting using parallel agents to find files need
 ## Arguments
 - Default: Use local search for one owner/path; partition only independent domains when delegation is authorized and useful (`./references/internal-scouting.md`)
 - `ext`: Scout using user-permitted OpenCode probes when native/local search is insufficient (`./references/external-scouting.md`)
-- `--ultra`: Run the scout as a best-of-5 verifier pass (see Ultra Verifier Mode)
+- `--pro-max`: Run the scout as a best-of-5 verifier pass (see Pro-Max Verifier Mode)
 
 ## When to Use
 
@@ -33,7 +33,7 @@ Fast, token-efficient codebase scouting using parallel agents to find files need
 For one pathname/symbol, search locally and return the verified path/role directly. Reuse a
 source map while its revision and relevant files are unchanged. No standalone report is
 required for one lookup. Use the fuller workflow below only for multiple independent domains;
-explicit `--ultra` retains its separate five-candidate contract.
+explicit `--pro-max` retains its separate five-candidate contract.
 
 ## Quick Start
 
@@ -119,9 +119,9 @@ Invoke "the engineer project-organization skill" skill to organize the outputs.
 - Any gaps in findings
 ```
 
-## Ultra Verifier Mode (`--ultra`)
+## Pro-Max Verifier Mode (`--pro-max`)
 
-When `--ultra` is present, run the scout as a best-of-5 verifier pass instead
+When `--pro-max` is present, run the scout as a best-of-5 verifier pass instead
 of a single pass. The controller builds one immutable evidence packet (the
 search targets, scope boundaries, and any prior findings) plus a rubric, then
 dispatches exactly five independent read-only candidate scout passes in one
@@ -137,12 +137,12 @@ parallel wave; a single strongest-model verifier scores them.
   passes — a relevant file may surface in only one candidate. It drops paths it
   cannot validate; the controller emits the merged report.
 
-Scout's no-delegation degrade path does not apply under `--ultra`: if the
+Scout's no-delegation degrade path does not apply under `--pro-max`: if the
 runtime cannot dispatch five parallel read-only candidates,
 hard-stop and name the missing capability — never degrade to main-agent
-scouting for an ultra run. Full mechanics (evidence packet, anonymization, the
+scouting for an pro-max run. Full mechanics (evidence packet, anonymization, the
 five-usable-candidate gate, reject-all, fail-closed dispatch) are in
-`../aif-brainstorm/references/ultra-verifier-mode.md`. It is a best-of-5
+`../aif-brainstorm/references/pro-max-verifier-mode.md`. It is a best-of-5
 verifier mode inspired by LLM-as-a-Verifier, not the full framework.
 
 ## References

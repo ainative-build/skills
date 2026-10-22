@@ -1,6 +1,6 @@
 ---
 description: "Scout a codebase fast with native search, optional Explore agents and user-permitted OpenCode probes."
-argument-hint: "[search-target] [ext] [--ultra]"
+argument-hint: "[search-target] [ext] [--pro-max]"
 ---
 
 # /aif:scout

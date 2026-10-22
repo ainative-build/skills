@@ -1,6 +1,6 @@
 ---
 description: "Research technical solutions, analyze architectures and gather requirements."
-argument-hint: "[topic] [--ultra] [--yagni]"
+argument-hint: "[topic] [--pro-max] [--yagni]"
 ---
 
 # /aif:research

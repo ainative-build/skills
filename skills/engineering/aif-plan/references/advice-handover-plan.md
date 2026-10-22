@@ -82,18 +82,18 @@ implied. Use this shape:
 ## Failure Protocol
 If any Verify step does not meet its stated pass condition, STOP this phase.
 Do not improvise a fix, retry blindly, or reason around the failure.
-Spawn the `aif-kongming` subagent for next-step counsel and pass:
+Spawn the `aif-oracle` subagent for next-step counsel and pass:
 - the phase and task id,
 - what you attempted (the steps you ran),
 - the exact command and its full output,
 - the pass condition it failed to meet.
-Apply kongming's guidance, then re-run the Verify step.
-If `aif-kongming` cannot be spawned in this environment, STOP and report the same
+Apply oracle's guidance, then re-run the Verify step.
+If `aif-oracle` cannot be spawned in this environment, STOP and report the same
 failure evidence to the user. Never continue by self-reasoning.
 ```
 
-The STOP is the load-bearing part. Spawning `aif-kongming` is the enhancement; a plan
-executed by an agent without a `aif-kongming` subagent must still stop and hand the
+The STOP is the load-bearing part. Spawning `aif-oracle` is the enhancement; a plan
+executed by an agent without a `aif-oracle` subagent must still stop and hand the
 failure back rather than degrade into confident guessing. This protocol applies
 whenever a Verify step fails, whether or not the executor itself was invoked with
 `--advice`.
@@ -118,7 +118,7 @@ Now the executor runs `npm test -- auth.middleware` and it prints `500` and exit
 1. The pass condition said exit 0 and `401 unauthorized`. They do not match, so the
 executor does not edit further, does not guess that a different file is at fault,
 and does not lower the assertion. It follows the Failure Protocol: it stops, spawns
-`aif-kongming` with the task id, the change it made, the failing command, and its full
+`aif-oracle` with the task id, the change it made, the failing command, and its full
 output, and waits for counsel before touching the code again.
 
 ## Handoff note

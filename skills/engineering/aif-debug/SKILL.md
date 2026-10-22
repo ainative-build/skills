@@ -5,7 +5,7 @@ when_to_use: "Invoke before editing code for any error, stack trace or failing t
 category: workflow
 keywords: [debug, root-cause, bugs, test-failures]
 languages: all
-argument-hint: "[error or issue description] [--ultra]"
+argument-hint: "[error or issue description] [--pro-max]"
 license: MIT
 metadata:
   author: ainative-build
@@ -135,9 +135,9 @@ Stop and follow process if thinking:
 **Typically precedes:** `/aif-fix` (fix the diagnosed issue), `/aif-brainstorm` (explore solutions for complex problems)
 **Related:** `/aif-scout` (discover before debugging), `/aif-fix` (fix after diagnosing)
 
-## Ultra Verifier Mode (`--ultra`)
+## Pro-Max Verifier Mode (`--pro-max`)
 
-When `--ultra` is present, run the diagnosis as a best-of-5 verifier pass. The
+When `--pro-max` is present, run the diagnosis as a best-of-5 verifier pass. The
 controller gathers the evidence once — symptom, reproduction, logs, stack
 traces, scouted code paths — into one immutable evidence packet plus a rubric,
 dispatches exactly five independent read-only candidate diagnoses in one
@@ -157,5 +157,5 @@ parallel wave, then a single strongest-model verifier scores them.
 
 Full mechanics — evidence packet, anonymization, the five-usable-candidate gate,
 reject-all, and the fail-closed runtime rule — are in
-`../aif-brainstorm/references/ultra-verifier-mode.md`. It is a best-of-5 verifier
+`../aif-brainstorm/references/pro-max-verifier-mode.md`. It is a best-of-5 verifier
 mode inspired by LLM-as-a-Verifier, not the full framework.

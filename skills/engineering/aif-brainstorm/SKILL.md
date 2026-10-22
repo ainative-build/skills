@@ -5,7 +5,7 @@ when_to_use: "Use when opening multi-step delivery or picking between viable fix
 category: workflow
 keywords: [ideation, tradeoffs, decisions, intent, acceptance]
 license: MIT
-argument-hint: "[topic or problem] [--ask] [--advice] [--report] [--ultra] [--yagni]"
+argument-hint: "[topic or problem] [--ask] [--advice] [--report] [--pro-max] [--yagni]"
 metadata:
   author: ainative-build
   version: "2.9.0"
@@ -118,7 +118,7 @@ the stated outcome.
 | `--ask` | `references/interview-mode.md`; interview once, never forward this flag |
 | `--report` | `references/report-output-mode.md`; durable Markdown report |
 | `--advice` | `references/advice-mode.md`; explicit supervisor checkpoints |
-| `--ultra` | `references/brainstorm-ultra-mode.md`; five candidates and verifier |
+| `--pro-max` | `references/brainstorm-pro-max-mode.md`; five candidates and verifier |
 | `--yagni` | Scope-cutting opt-in; forward downstream |
 
 All flags compose as their selected reference specifies. Reuse settled contract fields.

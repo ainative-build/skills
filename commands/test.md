@@ -1,6 +1,6 @@
 ---
 description: "Run unit, integration, e2e and UI tests with coverage analysis, build verification, visual regression and QA reports."
-argument-hint: "[context] OR ui [url] OR create|optimize|audit [scope] [--advice] [--ultra] [--interview]"
+argument-hint: "[context] OR ui [url] OR create|optimize|audit [scope] [--advice] [--pro-max] [--interview]"
 ---
 
 # /aif:test

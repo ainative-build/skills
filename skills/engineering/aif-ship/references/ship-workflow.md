@@ -34,9 +34,9 @@
 4. Run `git status` (never use `-uall`). Record task ownership and intended ship scope; preserve unrelated uncommitted changes.
 5. Run `git diff <target>...HEAD --stat` and `git log <target>..HEAD --oneline` to understand what's being shipped.
 6. If `--dry-run`: output what would happen at each step and stop here. Do not
-   spawn `aif-kongming`, merge, or perform any mutation.
+   spawn `aif-oracle`, merge, or perform any mutation.
 
-7. If `--advice`, run the mandatory post-preflight Kongming checkpoint from
+7. If `--advice`, run the mandatory post-preflight Oracle checkpoint from
    `SKILL.md` before Step 2 or any mutation. Pass the canonical mode, detected
    target, branch/diff summary, constraints, and the exact go/no-go question.
 
@@ -142,7 +142,7 @@ git fetch origin <target> && git merge origin/<target> --no-edit
 8. **If no issues:** Output "No issues found." and continue.
 ## Mandatory advice checkpoint after Steps 4-5
 
-If `--advice`, run the mandatory post-tests/local-review Kongming checkpoint
+If `--advice`, run the mandatory post-tests/local-review Oracle checkpoint
 before Step 6 or any versioning, changelog, commit, push, or PR write. This
 checkpoint remains mandatory when `--skip-review` skips Step 5; pass the skip
 reason together with test evidence. Otherwise pass review findings and fixes as

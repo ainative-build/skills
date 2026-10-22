@@ -1,6 +1,6 @@
 # Design Taste — the reasoning protocol applied to UI/UX and frontend work
 
-Fable Thinking's moves, applied to the one domain where models are most confidently
+Deep Thinking's moves, applied to the one domain where models are most confidently
 wrong about their own output: visual design. Code either passes tests or fails them;
 design "looks fine" to the model that produced it, always, because the model never sees
 it. This reference teaches how to think, decide, and verify design work so the result is

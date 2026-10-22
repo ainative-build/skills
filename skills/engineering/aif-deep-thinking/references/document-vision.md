@@ -1,6 +1,6 @@
 # Document Vision — reading diagrams, charts, tables, and scanned pages as evidence
 
-Fable Thinking's moves, applied to visual inputs: figures, tables, and text nested in PDFs,
+Deep Thinking's moves, applied to visual inputs: figures, tables, and text nested in PDFs,
 images, slides, and screenshots. Fable 5.1 reads these well; the reasoning failure that
 remains for every model is not seeing but claiming — treating a visual read as OBSERVED
 when it is an estimate through a noisy channel, and filling unreadable gaps with plausible

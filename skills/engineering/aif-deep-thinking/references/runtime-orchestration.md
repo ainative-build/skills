@@ -1,6 +1,6 @@
 # Runtime Orchestration — coordinating work across agent runtimes
 
-Fable Thinking's moves, applied when a task spans more than one agent runtime — Claude
+Deep Thinking's moves, applied when a task spans more than one agent runtime — Claude
 Code, Codex, Cursor, Gemini CLI, a hosted managed agent, a local model — or when
 instructions must run unchanged on several. Each runtime is a distinct harness: its own
 instruction file, tool names, permission model, reasoning space, context window, memory,

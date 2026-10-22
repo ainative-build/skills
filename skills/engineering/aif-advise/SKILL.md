@@ -4,7 +4,7 @@ description: "Interview until user and agent share the outcome picture, preview 
 when_to_use: "Invoke for second opinions or plan pressure-tests before planning; implementation goes to a delivery workflow."
 category: workflow
 keywords: [advice, interview, requirements, reframing, alignment, preview, tradeoffs, second-opinion, github, report]
-argument-hint: "[prompt-or-url] [--md] [--github] [--agent] [--ultra] [--yagni]"
+argument-hint: "[prompt-or-url] [--md] [--github] [--agent] [--pro-max] [--yagni]"
 license: MIT
 metadata:
   author: ainative-build
@@ -33,9 +33,9 @@ If coding level guidelines were injected at session start (levels 0-5), follow t
 | `--github` | Spawn the `aif-git-manager` subagent to reply directly to the source GitHub issue, or create a new GitHub issue when no source issue exists |
 | `--yagni` | Opt into YAGNI: challenge and cut scope not needed for the stated outcome (default: advise on the full requested scope) |
 | `--agent` | Delegate the whole workflow to the `aif-advisor` subagent (runs on the `fable` model in isolated context). The main session becomes an orchestrator that relays each interview question back to the user via the `ask_user` capability. Claude Code only. See [Running via the aif-advisor subagent](#running-via-the-aif-advisor-subagent---agent). |
-| `--ultra` | Best-of-5 verifier mode: run the interview + reframing once, then fan **only** the advice generation to five independent read-only candidates and let a strongest-model verifier pick the winning advice. Mutually exclusive with `--agent`. See [Ultra Verifier Mode](#ultra-verifier-mode---ultra). |
+| `--pro-max` | Best-of-5 verifier mode: run the interview + reframing once, then fan **only** the advice generation to five independent read-only candidates and let a strongest-model verifier pick the winning advice. Mutually exclusive with `--agent`. See [Pro-Max Verifier Mode](#pro-max-verifier-mode---pro-max). |
 
-Flags combine freely, except `--ultra` and `--agent` are mutually exclusive (both own how the advice is produced). With no flags, deliver the advice in the conversation only.
+Flags combine freely, except `--pro-max` and `--agent` are mutually exclusive (both own how the advice is produced). With no flags, deliver the advice in the conversation only.
 
 ## Workflow
 
@@ -112,7 +112,7 @@ If the user corrects anything, update and re-confirm. Do not proceed to advice o
 
 ### 5. Deliver honest advice
 
-Open with **Needs from you** only when something is pending: approvals, facts, or decisions that cannot be settled in this session (a third party's sign-off, data only the user can obtain) or that surfaced after confirmation where asking is not possible (for example `--ultra` candidates), each with the option you recommend. Decisions resolvable now belong in the interview, one question at a time; a decision that surfaces after confirmation and the user can answer now is asked with one `ask_user capability` question before advising, and re-confirmed if it changes a confirmed field. Put this first so the reader sees what blocks them; omit it when nothing is pending.
+Open with **Needs from you** only when something is pending: approvals, facts, or decisions that cannot be settled in this session (a third party's sign-off, data only the user can obtain) or that surfaced after confirmation where asking is not possible (for example `--pro-max` candidates), each with the option you recommend. Decisions resolvable now belong in the interview, one question at a time; a decision that surfaces after confirmation and the user can answer now is asked with one `ask_user capability` question before advising, and re-confirmed if it changes a confirmed field. Put this first so the reader sees what blocks them; omit it when nothing is pending.
 
 Then structure the advice as:
 
@@ -151,7 +151,7 @@ For `--md` or `--github`, load [optional-modes.md](references/optional-modes.md)
 
 Load [optional-modes.md](references/optional-modes.md) for the Claude Code relay contract.
 
-## Ultra Verifier Mode (`--ultra`)
+## Pro-Max Verifier Mode (`--pro-max`)
 
 Load [optional-modes.md](references/optional-modes.md); preserve five candidates, one interview, and the conflict with `--agent`.
 

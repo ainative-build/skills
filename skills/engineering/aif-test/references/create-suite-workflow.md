@@ -42,9 +42,9 @@ Use `test-lifecycle.md` for admission and proof of value. Reuse adequate existin
 tests; an empty addition list is valid when no protection gap remains.
 
 With `--interview`: present the matrix and the planned test list; interview the
-user per group before writing. With `--ultra`: fan this design step per the
-skill's Ultra Verifier Mode. With `--advice`: checkpoint the matrix with
-`aif-kongming` before implementation.
+user per group before writing. With `--pro-max`: fan this design step per the
+skill's Pro-Max Verifier Mode. With `--advice`: checkpoint the matrix with
+`aif-oracle` before implementation.
 
 ## 4. Implement
 

@@ -36,7 +36,7 @@ Implement fixes in dependency order and keep changes cause-aligned.
 Use the aif-tester agent. Start with the narrow failing test, then broaden across
 the blast radius. If tests still fail, return to Step 2.
 
-Under `--advice`, a failed check is an objective `aif-kongming` trigger: STOP and spawn `aif-kongming` with the command, its output, and what you tried before re-diagnosing; never self-reason past a red check.
+Under `--advice`, a failed check is an objective `aif-oracle` trigger: STOP and spawn `aif-oracle` with the command, its output, and what you tried before re-diagnosing; never self-reason past a red check.
 
 ### Step 6: Review
 

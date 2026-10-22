@@ -48,7 +48,7 @@ Implement the smallest cause-aligned fix.
 Use the aif-tester agent. If the original symptom remains, return to Step 2 and
 re-diagnose before changing more code.
 
-Under `--advice`, a failed check is an objective `aif-kongming` trigger: STOP and spawn `aif-kongming` with the command, its output, and what you tried before re-diagnosing; never self-reason past a red check.
+Under `--advice`, a failed check is an objective `aif-oracle` trigger: STOP and spawn `aif-oracle` with the command, its output, and what you tried before re-diagnosing; never self-reason past a red check.
 
 ### Step 6: Review
 
