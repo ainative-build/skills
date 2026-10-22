@@ -303,6 +303,25 @@ Plans, reports, language and per-hook switches live in an optional `.aif/config.
 ## Upgrading
 
 <details>
+<summary><b>From v2.1 to v2.2</b></summary>
+
+No breaking changes. Rerun `aif-install` (or update the plugin) to pick up:
+
+- **Test-first stubs:** `/aif-test create` writes signature-only stubs so red tests fail on
+  assertions. `/aif-serve` and `/aif-fix` call it rather than writing tests themselves.
+- **Local ship:** in a repo with no remote, `/aif-ship` skips issues, fetch, push and the PR,
+  never calls `gh`, and stops with the branch ready. It merges locally only with `--merge`.
+- **Branch review:** `/aif-code-review --base [ref]` reviews a local branch against its target.
+  Pending mode includes untracked files, and neither mode asks questions in a headless run.
+- **Plan state** follows `AIF_HOME`: it lives at `$AIF_HOME/plans-state.json`, else
+  `~/.aif/plans-state.json`.
+- **Scout-block** keeps blocking, and its message now tells the agent not to work around it.
+- **Ship commits reports:** the `.aif/reports/` files from the branch's aif steps are committed
+  at ship time.
+
+</details>
+
+<details>
 <summary><b>From v2.0 to v2.1</b> (breaking)</summary>
 
 - **Journal removed:**
