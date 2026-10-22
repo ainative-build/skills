@@ -4,7 +4,7 @@ description: "Review code for bugs, regressions, maintainability, reliability an
 when_to_use: "Invoke for pending changes, a PR number, a commit hash or a codebase scan."
 category: workflow
 keywords: [review, quality, verification, reliability]
-argument-hint: "[#PR | COMMIT | --pending | codebase [parallel]] [--pro-max] [--chef] [--yagni]"
+argument-hint: "[#PR | COMMIT | --base [ref] | --pending | codebase [parallel]] [--pro-max] [--chef] [--yagni]"
 license: MIT
 metadata:
   author: ainative-build
@@ -28,7 +28,8 @@ Auto-detect from arguments. If ambiguous or no arguments, prompt via `ask_user c
 |-------|------|--------------------|
 | `#123` or PR URL | **PR** | Full PR diff fetched via `gh pr diff` |
 | `abc1234` (7+ hex chars) | **Commit** | Single commit diff via `git show` |
-| `--pending` | **Pending** | Staged + unstaged changes via `git diff` |
+| `--base [ref]` | **Branch** | `git diff <ref>...HEAD`, commit log as intent; `ref` defaults to the target branch |
+| `--pending` | **Pending** | Staged, unstaged and untracked changes; intent from the plan or branch |
 | *(no args, recent changes)* | **Default** | Recent changes in context |
 | `codebase` | **Codebase** | Full codebase scan |
 | `codebase parallel` | **Codebase+** | Parallel multi-reviewer audit |
@@ -41,7 +42,8 @@ If invoked WITHOUT arguments and no recent changes in context, use `ask_user cap
 
 | Option | Description |
 |--------|-------------|
-| Pending changes | Review staged/unstaged git diff |
+| Pending changes | Review staged, unstaged and untracked changes |
+| Branch vs base | Review the current branch against its base (`--base`) |
 | Enter PR number | Fetch and review a specific PR |
 | Enter commit hash | Review a specific commit |
 | Full codebase scan | Deep codebase analysis |

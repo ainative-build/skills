@@ -1,11 +1,11 @@
 ---
 name: input-mode-resolution
-description: How to parse code-review arguments and resolve PR number, commit hash, pending changes, or default context into a reviewable diff
+description: How to parse code-review arguments and resolve PR number, commit hash, branch base, pending changes, or default context into a reviewable diff
 ---
 
 # Input Mode Resolution
 
-Resolve `the installed code-review skill` arguments into a diff for the review pipeline.
+Resolve the review arguments into a diff for the review pipeline.
 
 ## Auto-Detection Rules
 
@@ -15,6 +15,7 @@ Parse arguments left-to-right. First match wins.
 |---------|------|---------|
 | `#\d+` | PR | `#123`, `#45` |
 | GitHub PR URL | PR | `https://github.com/org/repo/pull/123` |
+| `--base [ref]` | Branch | `--base main`, `--base` |
 | `[0-9a-f]{7,40}` | Commit | `abc1234`, full SHA |
 | `--pending` | Pending | explicit flag |
 | `codebase` | Codebase | existing mode |
@@ -68,6 +69,29 @@ git show "$COMMIT_HASH" --name-only --format=""
 - Full diff
 - Changed file list for scout
 
+### Branch Mode (`--base [ref]`)
+
+Reviews everything a local branch adds over its base, with or without a PR or remote.
+Without a `ref`, use the target branch: `origin/HEAD` when a remote exists, else local `main`,
+else `master`.
+
+```bash
+BASE=$(git merge-base "$REF" HEAD)
+
+# Intent: the branch's commit messages
+git log "$REF"..HEAD --format='%s%n%b'
+
+# The diff and changed files
+git diff "$REF"...HEAD
+git diff "$REF"...HEAD --name-only
+```
+
+**Context passed to reviewers:**
+- Commit messages (intent), plus the active plan when `plan.cjs resolve` finds one
+- Base ref and merge base
+- Full diff
+- Changed file list for scout
+
 ### Pending Mode
 
 ```bash
@@ -83,13 +107,17 @@ git diff HEAD
 # Changed files
 git diff HEAD --name-only
 
-# Status overview
+# Status overview, including untracked files (lines starting with ??)
 git status --short
+git ls-files --others --exclude-standard
 ```
 
+Read each untracked file in full; it is new code with no diff base. `.gitignore`d files stay out.
+
 **Context passed to reviewers:**
-- No commit message yet — ask user for brief intent description
-- Combined diff (staged + unstaged)
+- Intent, inferred without asking: the active plan (`plan.cjs resolve`), then the branch name,
+  then the diff itself. Ask only when a user is in the loop and none of these gives intent.
+- Combined diff (staged + unstaged) plus untracked files
 - Changed file list for scout
 
 ### Default Mode
@@ -101,7 +129,7 @@ Use recent changes already in conversation context. If no changes apparent, fall
 When no arguments and no recent context, use `ask_user capability`:
 - Header: "Review Target"
 - Question: "What would you like to review?"
-- Options: Pending changes, Enter PR number, Enter commit hash, Full codebase scan, Parallel codebase audit
+- Options: Pending changes, Branch vs base, Enter PR number, Enter commit hash, Full codebase scan, Parallel codebase audit
 
 For PR/commit options, follow up with second `ask_user capability` to get the number/hash.
 
@@ -131,5 +159,5 @@ Resolved diff
 |-------|--------|
 | PR not found | `gh pr view` fails → report "PR #N not found in this repo" |
 | Commit not found | `git cat-file` fails → report "Commit not found — is it pushed?" |
-| No pending changes | `git diff HEAD` empty → report "No pending changes to review" |
+| No pending changes | `git diff HEAD` and the untracked list both empty → report "No pending changes to review" |
 | Ambiguous input | Could be PR or commit → prefer PR (more common), note assumption |

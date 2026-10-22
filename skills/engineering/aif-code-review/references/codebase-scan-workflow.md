@@ -1,6 +1,8 @@
 # Codebase Scan Workflow
 
-Scan and analyze the codebase following the Orchestration Protocol, Core Responsibilities, Subagents Team and Development Rules:
+Review the whole codebase, or the scope named in the request, and report verified findings.
+A scan is review-only: it does not edit code, plan improvements, commit or push unless the
+request names that step.
 <tasks>$ARGUMENTS</tasks>
 
 ## Role Responsibilities
@@ -10,21 +12,25 @@ Scan and analyze the codebase following the Orchestration Protocol, Core Respons
 
 ## Workflow
 
-### Research
-* Use 2 `aif-researcher` subagents in parallel to search up to 5 sources
-* Keep every research report concise (≤150 lines)
-* Use `/aif-recon` skill invocation to search the codebase
+### Scope and spec
+* Resolve the scope from the request; default to the tracked source, tests and configs.
+* Use the accepted plan, issue or spec named in the request (or found by `plan.cjs resolve`) as the spec for compliance review.
+* Use the `aif-recon` skill to map a large codebase; read a small one directly.
 
-### Code Review
-* Use multiple `aif-code-reviewer` subagents in parallel to review code
-* If issues found, ask main agent to improve and repeat until tests pass
-* When complete, run verification for accepted findings before reporting completion
-* Report combined quality findings and verification evidence to user
+### Review
+* Review with `aif-code-reviewer` subagents in parallel, split by disjoint areas, when the
+  runtime supports delegation and the codebase is large enough to justify it; otherwise review inline.
+* Verify every finding with evidence (file and line, a reproduction, a command, or a test) before reporting it. Record checked-and-ruled-out concerns briefly.
+* Run the repository's existing checks (tests, build, lint) once to ground the findings; do not change them.
 
-### Plan
-* Use `aif-planner` subagent to analyze reports and create improvement plan
-* Save overview at `plan.md`, phase files as `phase-XX-phase-name.md`
+### Report
+* Write the report to the configured reports directory using the injected naming pattern:
+  findings ranked by severity with file:line and evidence, spec deviations, checks run, and what was not covered.
+* Unresolved questions go last.
 
-### Final Report
-* Summary of changes, guide user to get started, suggest next steps
-* Ask user if they want to commit and push
+## Opt-in steps
+
+Run these only when the request names them:
+* **Research:** up to two `aif-researcher` subagents for external best practice.
+* **Improvement plan:** an `aif-planner` subagent turns accepted findings into `plan.md` and phase files under the configured plans directory.
+* **Fixes:** repair accepted findings, then rerun the affected checks. Commit or push only with explicit authorization.
